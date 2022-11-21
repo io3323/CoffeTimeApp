@@ -14,6 +14,7 @@ const App = () => {
     <SafeAreaView>
       <View>
         <Text>Hello world</Text>
+        <Text>Test work rep</Text>
       </View>
     </SafeAreaView>
   );
