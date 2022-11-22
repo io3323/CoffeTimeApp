@@ -8,15 +8,14 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import {Navigator} from './src/navigation/navigator/Navigator';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
   return (
-    <SafeAreaView>
-      <View>
-        <Text>Hello world</Text>
-        <Text>Test work rep</Text>
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Navigator />
+    </NavigationContainer>
   );
 };
 
