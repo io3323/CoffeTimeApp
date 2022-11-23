@@ -8,7 +8,10 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {RegistScreenName} from '../navigation/screens/RegistScreen';
 import {SecondScreenName} from '../navigation/screens/SecondScreen';
+import {useState} from 'react';
 const LoginForm = () => {
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
   const navigation = useNavigation();
   const handleLoginScreen = () => {
     // @ts-ignore
@@ -20,11 +23,23 @@ const LoginForm = () => {
   };
   return (
     <View style={styles.container}>
-      <TextInput placeholder={'Login'} style={styles.input} />
-      <TextInput placeholder={'Password'} style={styles.input} />
+      <TextInput
+        placeholder={'Login'}
+        style={styles.input}
+        onChangeText={text => setLogin(text)}
+      />
+      <TextInput
+        placeholder={'Password'}
+        style={styles.input}
+        onChangeText={text => setPassword(text)}
+      />
       <TouchableOpacity
         style={styles.buttonLogin}
-        onPress={() => handleLoginScreen()}>
+        onPress={() => {
+          handleLoginScreen();
+          console.log(login);
+          console.log(password);
+        }}>
         <Text style={styles.buttonTextLogin}>Войти</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => handleRegistScreen()}>

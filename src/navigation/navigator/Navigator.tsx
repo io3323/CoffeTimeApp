@@ -6,6 +6,7 @@ import {RegistScreen, RegistScreenName} from '../screens/RegistScreen';
 
 export const Navigator = () => {
   const Stack = createNativeStackNavigator();
+  // @ts-ignore
   return (
     <Stack.Navigator initialRouteName="App">
       <Stack.Screen
@@ -14,7 +15,13 @@ export const Navigator = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen name={SecondScreenName} component={SecondScreen} />
-      <Stack.Screen name={RegistScreenName} component={RegistScreen} />
+      <Stack.Screen
+        name={RegistScreenName}
+        component={RegistScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };

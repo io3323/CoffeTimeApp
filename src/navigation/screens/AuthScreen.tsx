@@ -11,14 +11,10 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import LoginForm from '../../components/LoginForm';
+import { useState } from "react";
 
 export const AuthScreenName = 'Auth Screen';
 export const AuthScreen = () => {
-  //const navigation = useNavigation();
-  // const handleNavigateOnSecondScree = () => {
-  //   // @ts-ignore
-  //   navigation.navigate('Second screen');
-  // };
   return (
     <ImageBackground style={styles.viewContainer} source={imaga}>
       <LinearGradient colors={['rgba(0,0,0,0.00)', 'rgba(243,233,216,0.79)']}>
