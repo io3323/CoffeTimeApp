@@ -6,16 +6,17 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {RegistScreenName} from '../navigation/screens/RegistScreen';
-import {SecondScreenName} from '../navigation/screens/SecondScreen';
+import {RegistScreenName} from '../../navigation/screens/RegistScreen';
 import {useState} from 'react';
+import {MapScreen, MapScreenName} from '../../navigation/screens/MapScreen';
+import {MainScreenName} from '../../navigation/screens/MainScreen';
 const LoginForm = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
   const handleLoginScreen = () => {
     // @ts-ignore
-    navigation.navigate(SecondScreenName);
+    navigation.navigate(MainScreenName);
   };
   const handleRegistScreen = () => {
     // @ts-ignore
@@ -26,22 +27,34 @@ const LoginForm = () => {
       <TextInput
         placeholder={'Login'}
         style={styles.input}
-        onChangeText={text => setLogin(text)}
+        onChangeText={text => {
+          setLogin(text);
+          console.log(login);
+        }}
       />
       <TextInput
         placeholder={'Password'}
         style={styles.input}
         onChangeText={text => setPassword(text)}
       />
-      <TouchableOpacity
-        style={styles.buttonLogin}
-        onPress={() => {
-          handleLoginScreen();
-          console.log(login);
-          console.log(password);
-        }}>
-        <Text style={styles.buttonTextLogin}>Войти</Text>
-      </TouchableOpacity>
+      {login !== '' && password !== '' && (
+        <TouchableOpacity
+          style={styles.buttonLogin}
+          onPress={() => {
+            handleLoginScreen();
+            console.log(login);
+            console.log(password);
+          }}>
+          <Text style={styles.buttonTextLogin}>Войти</Text>
+        </TouchableOpacity>
+      )}
+      {((login === '' && password === '') ||
+        (login !== '' && password === '') ||
+        (login === '' && password !== '')) && (
+        <View style={styles.buttonLoginNotEctive}>
+          <Text style={styles.buttonTextLogin}>Войти</Text>
+        </View>
+      )}
       <TouchableOpacity onPress={() => handleRegistScreen()}>
         <Text style={styles.buttonRegistText}>
           Dont have an account? Sign Up
@@ -67,6 +80,17 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     backgroundColor: '#C8D9AF',
     borderColor: '#C8D9AF',
+    borderWidth: 1,
+    width: 300,
+    height: 52,
+    marginLeft: 38,
+  },
+  buttonLoginNotEctive: {
+    marginTop: 10,
+    borderStyle: 'solid',
+    borderRadius: 40,
+    backgroundColor: '#bdbbbb',
+    borderColor: '#BDBBBBFF',
     borderWidth: 1,
     width: 300,
     height: 52,

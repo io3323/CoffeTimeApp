@@ -8,13 +8,13 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import {Navigator} from './src/navigation/navigator/Navigator';
+import {AuthNavigator} from './src/navigation/navigator/AuthNavigator';
 import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Navigator />
+      <AuthNavigator />
     </NavigationContainer>
   );
 };

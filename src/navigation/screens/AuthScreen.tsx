@@ -10,7 +10,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import LoginForm from '../../components/LoginForm';
+import LoginForm from '../../components/authScreen/LoginForm';
 import { useState } from "react";
 
 export const AuthScreenName = 'Auth Screen';

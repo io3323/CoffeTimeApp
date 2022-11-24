@@ -10,7 +10,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 // @ts-ignore
 import imaga from '../../assets/image/authscreen/fon.png';
-import RegisterForm from '../../components/RegisterForm';
+import RegisterForm from '../../components/authScreen/RegisterForm';
 // @ts-ignore
 import backIcon from '../../assets/image/regImageScreen/backIcon.png';
 import {useNavigation} from '@react-navigation/native';

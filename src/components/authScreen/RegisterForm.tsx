@@ -9,13 +9,20 @@ import {
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useState} from 'react';
 // @ts-ignore
-import newUserIcon from '../assets/image/stateImageReg/newUser.png';
+import newUserIcon from '../../assets/image/stateImageReg/newUser.png';
 // @ts-ignore
-import pencilIcon from '../assets/image/regImageScreen/pencilIcon.png';
+import pencilIcon from '../../assets/image/regImageScreen/pencilIcon.png';
+import {useNavigation} from '@react-navigation/native';
+import {MainScreenName} from '../../navigation/screens/MainScreen';
 const RegisterForm = () => {
+  const navigation = useNavigation();
   const [name, setName] = useState('');
   const [controller, setController] = useState(true);
   const [photo, setPhoto] = useState('');
+  const handleTransitionMainScreen = () => {
+    // @ts-ignore
+    navigation.navigate(MainScreenName);
+  };
   const openCamera = () => {
     const options = {
       noData: true,
@@ -63,9 +70,18 @@ const RegisterForm = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.line} />
-      <TouchableOpacity style={styles.buttonLogin}>
-        <Text style={styles.buttonTextLogin}>Зарегистрироваться</Text>
-      </TouchableOpacity>
+      {name !== '' && (
+        <TouchableOpacity
+          style={styles.buttonLogin}
+          onPress={() => handleTransitionMainScreen()}>
+          <Text style={styles.buttonTextLogin}>Зарегистрироваться</Text>
+        </TouchableOpacity>
+      )}
+      {name === '' && (
+        <View style={styles.buttonLoginNoActive}>
+          <Text style={styles.buttonTextLogin}>Зарегистрироваться</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -152,6 +168,17 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     backgroundColor: '#C8D9AF',
     borderColor: '#C8D9AF',
+    borderWidth: 1,
+    width: 300,
+    height: 52,
+    marginLeft: 38,
+  },
+  buttonLoginNoActive: {
+    marginTop: 23.5,
+    borderStyle: 'solid',
+    borderRadius: 40,
+    backgroundColor: '#bdbbbb',
+    borderColor: '#bdbbbb',
     borderWidth: 1,
     width: 300,
     height: 52,
