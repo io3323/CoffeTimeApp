@@ -11,17 +11,13 @@ import {
 import {RootState, useGetCoffeMutation} from '../../redux/reduToolKitQuery';
 import {useDispatch, useSelector} from 'react-redux';
 import {useState, useEffect} from 'react';
-import dataSlice, {
-  addDataCoffe,
-  coffeDataSlice,
-  initialStateCoffeData,
-} from '../../redux/reduxStateSlice/dataSlice';
-import {Item} from '../../components/test/test';
+import {addDataCoffe} from '../../redux/reduxStateSlice/dataSlice';
 export const ListCoffeScreenName = 'ListCoffeScreen';
 export const ListCoffeScreen = () => {
   const dispatch = useDispatch();
   const [token, setToken] = useState('');
   const [controller, setControlller] = useState(false);
+  const [parseController, setParsController] = useState(false);
   const initialState = {
     id: '',
     name: '',
@@ -45,14 +41,12 @@ export const ListCoffeScreen = () => {
   );
   const [getCoffe] = useGetCoffeMutation();
   const getToken = () => {
-    tokenUser.data.forEach(date => {
-      setToken(JSON.stringify(date));
-      console.log(token, '<======= token');
+    tokenUser.data.map(tokenMas => {
+      setToken(JSON.stringify(tokenMas));
     });
   };
   const getDataOnPress = async () => {
     const result = await getCoffe(token);
-    console.log(result, '<======== result');
 
     // @ts-ignore
     dispatch(addDataCoffe(result));
@@ -61,18 +55,26 @@ export const ListCoffeScreen = () => {
     getToken();
   });
   useEffect(() => {
-    getDataOnPress();
+    if (token != '') {
+      getDataOnPress();
+      setParsController(true);
+    }
   }, [token]);
   useEffect(() => {
-    coffeDataState.forEach(data => {
-      const first = Object.values(data);
-      first.forEach(dataFirst => {
-        const second = Object.values(dataFirst);
-        // @ts-ignore
-        setMasTest(dataFirst);
-        //setControlller(true);
+    if (parseController) {
+      coffeDataState.forEach(data => {
+        const first = Object.values(data);
+        first.forEach(dataFirst => {
+          // @ts-ignore
+          setMasTest(dataFirst);
+          masTest.map(mas => {
+            if (mas != initialState) {
+              setControlller(true);
+            }
+          });
+        });
       });
-    });
+    }
   }, [coffeDataState]);
   return (
     <SafeAreaView>

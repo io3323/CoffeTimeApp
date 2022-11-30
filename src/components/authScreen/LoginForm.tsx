@@ -25,16 +25,15 @@ const LoginForm = () => {
   const tokenUser = useSelector((state: RootState) => state.tokenState);
   const dispatch = useDispatch();
   const handleLoginScreen = async () => {
-    // @ts-ignore
     const result = await addLogin({
       email: loginUser,
       password: passwordUser,
     } as ILogin);
-    console.log(result);
+    //console.log(result);
     const keysResult = Object.keys(result);
     keysResult.map(key => {
       if (key === 'data') {
-        console.log('data');
+        //console.log('data');
         const resultMas = Object.values(result);
         resultMas.forEach(userToken => {
           dispatch(addToken(userToken));
@@ -42,7 +41,7 @@ const LoginForm = () => {
         // @ts-ignore
         navigation.navigate(MainScreenName);
       } else {
-        console.log('error');
+        //console.log('error');
         const valuesResult = Object.values(result);
         valuesResult.map(values => {
           const keyValues = Object.keys(values);
@@ -65,6 +64,7 @@ const LoginForm = () => {
       <TextInput
         placeholder={'Login'}
         style={styles.input}
+        autoCapitalize={'none'}
         onChangeText={text => {
           setLogin(text);
           //console.log(loginUser);
@@ -73,6 +73,7 @@ const LoginForm = () => {
       <TextInput
         placeholder={'Password'}
         style={styles.input}
+        autoCapitalize={'none'}
         onChangeText={text => setPassword(text)}
       />
       {loginUser !== '' && passwordUser !== '' && (
