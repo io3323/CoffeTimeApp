@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 // @ts-ignore
-import imaga from '../../assets/image/authscreen/fon.png';
+import imaga from '../../assets/image/authScreen/fon.png';
 import RegisterForm from '../../components/authScreen/RegisterForm';
 // @ts-ignore
 import backIcon from '../../assets/image/regImageScreen/backIcon.png';

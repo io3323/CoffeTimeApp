@@ -1,7 +1,7 @@
 //import {useNavigation} from '@react-navigation/native';
 
 // @ts-ignore
-import imaga from '../../assets/image/authscreen/fon.png';
+import imaga from '../../assets/image/authScreen/fon.png';
 import {
   ImageBackground,
   SafeAreaView,

@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-export type InlineModel1 = {
+export type CoffeModel = {
   id: string;
   name: string;
   address: string;
@@ -7,23 +7,7 @@ export type InlineModel1 = {
   description: string;
   images: string;
 };
-// export type InlineModel = {
-//   data: [InlineModel1];
-// };
-
-// export const initialStateCoffeData: InlineModel = {
-//   data: [
-//     {
-//       id: '',
-//       name: '',
-//       address: '',
-//       coordinates: '',
-//       description: '',
-//       images: '',
-//     },
-//   ],
-// };
-export const initialStateCoffeData: Array<InlineModel1> = [
+export const initialStateCoffeData: Array<CoffeModel> = [
   {
     id: '',
     name: '',
@@ -37,9 +21,7 @@ export const coffeDataSlice = createSlice({
   name: 'coffeDataState',
   initialState: initialStateCoffeData,
   reducers: {
-    addDataCoffe(state, action: PayloadAction<InlineModel1>) {
-      // state.data.pop();
-      // state.data.push(action.payload);
+    addDataCoffe(state, action: PayloadAction<CoffeModel>) {
       state.pop();
       state.push(action.payload);
     },
