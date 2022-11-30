@@ -43,7 +43,7 @@ export const ListCoffeScreen = () => {
   const coffeDataState = useSelector(
     (state: RootState) => state.coffeDataState,
   );
-  const [getCoffe, {isSuccess}] = useGetCoffeMutation();
+  const [getCoffe] = useGetCoffeMutation();
   const getToken = () => {
     tokenUser.data.forEach(date => {
       setToken(JSON.stringify(date));

@@ -18,7 +18,7 @@ export const MapScreen = () => {
   const getLocationUser = () => {
     if (controllerPosition) {
       Geolocation.getCurrentPosition(info => {
-        console.log(info.coords);
+        //console.log(info.coords);
         const payloadAmmount: Coordinate = info.coords;
         dispatch(addElement(payloadAmmount));
         setController(false);

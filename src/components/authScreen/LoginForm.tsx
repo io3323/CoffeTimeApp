@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {RegistScreenName} from '../../navigation/screens/RegistScreen';
@@ -25,16 +26,34 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const handleLoginScreen = async () => {
     // @ts-ignore
-    await navigation.navigate(MainScreenName);
-    // @ts-ignore
     const result = await addLogin({
       email: loginUser,
       password: passwordUser,
     } as ILogin);
     console.log(result);
-    const resultMas = Object.values(result);
-    resultMas.forEach(userToken => {
-      dispatch(addToken(userToken));
+    const keysResult = Object.keys(result);
+    keysResult.map(key => {
+      if (key === 'data') {
+        console.log('data');
+        const resultMas = Object.values(result);
+        resultMas.forEach(userToken => {
+          dispatch(addToken(userToken));
+        });
+        // @ts-ignore
+        navigation.navigate(MainScreenName);
+      } else {
+        console.log('error');
+        const valuesResult = Object.values(result);
+        valuesResult.map(values => {
+          const keyValues = Object.keys(values);
+          const includes = keyValues.includes('error');
+          if (includes) {
+            Alert.alert('Проверьте соединение с интернетом');
+          } else {
+            Alert.alert('Неправильный логин или пароль');
+          }
+        });
+      }
     });
   };
   const handleRegistScreen = () => {
@@ -48,7 +67,7 @@ const LoginForm = () => {
         style={styles.input}
         onChangeText={text => {
           setLogin(text);
-          console.log(loginUser);
+          //console.log(loginUser);
         }}
       />
       <TextInput
@@ -61,8 +80,8 @@ const LoginForm = () => {
           style={styles.buttonLogin}
           onPress={() => {
             handleLoginScreen();
-            console.log(loginUser);
-            console.log(passwordUser);
+            //console.log(loginUser);
+            //console.log(passwordUser);
           }}>
           <Text style={styles.buttonTextLogin}>Войти</Text>
         </TouchableOpacity>
