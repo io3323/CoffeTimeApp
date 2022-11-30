@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import LoginForm from '../../components/authScreen/LoginForm';
-import { useState } from "react";
-
+import { Provider } from "react-redux";
+import store from "../../redux/reduxStore/store";
 export const AuthScreenName = 'Auth Screen';
 export const AuthScreen = () => {
   return (
@@ -22,7 +22,9 @@ export const AuthScreen = () => {
           <SafeAreaView>
             <Text style={styles.mainText}>CoffeTime</Text>
             <Text style={styles.additinalText}>территория кофе</Text>
-            <LoginForm />
+            <Provider store={store}>
+              <LoginForm />
+            </Provider>
           </SafeAreaView>
         </View>
       </LinearGradient>

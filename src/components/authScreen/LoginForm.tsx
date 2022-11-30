@@ -8,15 +8,34 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {RegistScreenName} from '../../navigation/screens/RegistScreen';
 import {useState} from 'react';
-import {MapScreen, MapScreenName} from '../../navigation/screens/MapScreen';
 import {MainScreenName} from '../../navigation/screens/MainScreen';
+import {
+  ILogin,
+  RootState,
+  useAddLoginMutation,
+} from '../../redux/reduToolKitQuery';
+import {useDispatch, useSelector} from 'react-redux';
+import {addToken, ITokenUser} from '../../redux/reduxStateSlice/tokenSlice';
 const LoginForm = () => {
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
+  const [addLogin] = useAddLoginMutation();
+  const [loginUser, setLogin] = useState('');
+  const [passwordUser, setPassword] = useState('');
   const navigation = useNavigation();
-  const handleLoginScreen = () => {
+  const tokenUser = useSelector((state: RootState) => state.tokenState);
+  const dispatch = useDispatch();
+  const handleLoginScreen = async () => {
     // @ts-ignore
-    navigation.navigate(MainScreenName);
+    await navigation.navigate(MainScreenName);
+    // @ts-ignore
+    const result = await addLogin({
+      email: loginUser,
+      password: passwordUser,
+    } as ILogin);
+    console.log(result);
+    const resultMas = Object.values(result);
+    resultMas.forEach(userToken => {
+      dispatch(addToken(userToken));
+    });
   };
   const handleRegistScreen = () => {
     // @ts-ignore
@@ -29,7 +48,7 @@ const LoginForm = () => {
         style={styles.input}
         onChangeText={text => {
           setLogin(text);
-          console.log(login);
+          console.log(loginUser);
         }}
       />
       <TextInput
@@ -37,20 +56,20 @@ const LoginForm = () => {
         style={styles.input}
         onChangeText={text => setPassword(text)}
       />
-      {login !== '' && password !== '' && (
+      {loginUser !== '' && passwordUser !== '' && (
         <TouchableOpacity
           style={styles.buttonLogin}
           onPress={() => {
             handleLoginScreen();
-            console.log(login);
-            console.log(password);
+            console.log(loginUser);
+            console.log(passwordUser);
           }}>
           <Text style={styles.buttonTextLogin}>Войти</Text>
         </TouchableOpacity>
       )}
-      {((login === '' && password === '') ||
-        (login !== '' && password === '') ||
-        (login === '' && password !== '')) && (
+      {((loginUser === '' && passwordUser === '') ||
+        (loginUser !== '' && passwordUser === '') ||
+        (loginUser === '' && passwordUser !== '')) && (
         <View style={styles.buttonLoginNotEctive}>
           <Text style={styles.buttonTextLogin}>Войти</Text>
         </View>
