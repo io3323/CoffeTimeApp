@@ -9,14 +9,13 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {RegistScreenName} from '../../navigation/screens/RegistScreen';
 import {useState} from 'react';
-import {MainScreenName} from '../../navigation/screens/MainScreen';
 import {
   ILogin,
   RootState,
   useAddLoginMutation,
 } from '../../redux/reduToolKitQuery';
 import {useDispatch, useSelector} from 'react-redux';
-import {addToken, ITokenUser} from '../../redux/reduxStateSlice/tokenSlice';
+import {addToken} from '../../redux/reduxStateSlice/tokenSlice';
 const LoginForm = () => {
   const [addLogin] = useAddLoginMutation();
   const [loginUser, setLogin] = useState('');
@@ -39,9 +38,8 @@ const LoginForm = () => {
           dispatch(addToken(userToken));
         });
         // @ts-ignore
-        navigation.navigate(MainScreenName);
+        navigation.navigate('TabStack');
       } else {
-        //console.log('error');
         const valuesResult = Object.values(result);
         valuesResult.map(values => {
           const keyValues = Object.keys(values);
@@ -67,7 +65,6 @@ const LoginForm = () => {
         autoCapitalize={'none'}
         onChangeText={text => {
           setLogin(text);
-          //console.log(loginUser);
         }}
       />
       <TextInput
@@ -81,8 +78,6 @@ const LoginForm = () => {
           style={styles.buttonLogin}
           onPress={() => {
             handleLoginScreen();
-            //console.log(loginUser);
-            //console.log(passwordUser);
           }}>
           <Text style={styles.buttonTextLogin}>Войти</Text>
         </TouchableOpacity>

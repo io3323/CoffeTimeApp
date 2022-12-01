@@ -12,7 +12,18 @@ export interface ICoffeData {
   description: string;
   images: string;
 }
-
+export interface ICafeRequest {
+  sessionId: string;
+  cafeId: string;
+}
+export interface ICafeInfo {
+  id: string;
+  name: string;
+  address: string;
+  coordinates: string;
+  description: string;
+  images: string;
+}
 export const coffeData = createApi({
   reducerPath: 'coffeData',
   tagTypes: ['Coffe'],
@@ -41,7 +52,15 @@ export const coffeData = createApi({
         },
       }),
     }),
+    getCafe: build.mutation<Array<ICafeInfo>, ICafeRequest>({
+      query: (body: ICafeRequest) => ({
+        url: 'Cafe/GetCafe',
+        method: 'POST',
+        body: body,
+      }),
+    }),
   }),
 });
 
-export const {useAddLoginMutation, useGetCoffeMutation} = coffeData;
+export const {useAddLoginMutation, useGetCoffeMutation, useGetCafeMutation} =
+  coffeData;

@@ -1,5 +1,7 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+// @ts-ignore
 import goIcon from '../../../assets/image/listScreen/goIcon.png';
+import {useNavigation} from '@react-navigation/native';
 export const initialState = {
   id: '',
   name: '',
@@ -17,9 +19,9 @@ export type InState = {
   images: string;
 };
 // @ts-ignore
-export const renderItem = ({item}) => {
+export const RenderItem = ({item, onPress}) => {
   return (
-    <TouchableOpacity style={styles.conteiner}>
+    <TouchableOpacity style={styles.conteiner} onPress={() => onPress}>
       <Image source={{uri: item.images}} style={styles.image} />
       <View style={styles.view}>
         <Text style={styles.nameText}>{item.name}</Text>
@@ -33,7 +35,6 @@ export const renderItem = ({item}) => {
     </TouchableOpacity>
   );
 };
-
 const styles = StyleSheet.create({
   conteiner: {
     display: 'flex',

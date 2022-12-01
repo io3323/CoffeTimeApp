@@ -12,7 +12,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import LoginForm from '../../components/authScreen/LoginForm';
 import { Provider } from "react-redux";
-import store from "../../redux/reduxStore/store";
+import store from '../../redux/reduxStore/store';
 export const AuthScreenName = 'Auth Screen';
 export const AuthScreen = () => {
   return (

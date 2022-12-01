@@ -1,24 +1,38 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
 import {RootState} from '../../redux/reduxStore/store';
-import {useGetCoffeMutation} from '../../redux/reduToolKitQuery';
+import {
+  ICafeRequest,
+  useGetCafeMutation,
+  useGetCoffeMutation,
+} from '../../redux/reduToolKitQuery';
 import {addDataCoffe} from '../../redux/reduxStateSlice/dataSlice';
 import {
   FlatList,
-  SafeAreaView,
-  StatusBar,
+  Image,
+  ListRenderItem,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {initialState, InState, renderItem} from './CardFlatList/CardFlatList';
+import {initialState, InState} from './CardFlatList/CardFlatList';
 import {Separator} from './CardFlatList/Separator';
+import {useNavigation} from '@react-navigation/native';
+// @ts-ignore
+import goIcon from '../../assets/image/listScreen/goIcon.png';
+type ItemModel = {
+  id: string;
+  name: string;
+  address: string;
+  coordinates: string;
+  description: string;
+  images: string;
+};
 
 export const ListComponent = () => {
   const dispatch = useDispatch();
   const [token, setToken] = useState('');
-  const [controller, setControlller] = useState(false);
   const [parseController, setParsController] = useState(false);
   const [masTest, setMasTest] = useState<Array<InState>>([initialState]);
   const tokenUser = useSelector((state: RootState) => state.tokenState);
@@ -26,6 +40,7 @@ export const ListComponent = () => {
     (state: RootState) => state.coffeDataState,
   );
   const [getCoffe] = useGetCoffeMutation();
+  const [getCafe] = useGetCafeMutation();
   const getToken = () => {
     tokenUser.data.map(tokenMas => {
       setToken(JSON.stringify(tokenMas));
@@ -33,7 +48,6 @@ export const ListComponent = () => {
   };
   const getDataOnPress = async () => {
     const result = await getCoffe(token);
-
     // @ts-ignore
     dispatch(addDataCoffe(result));
   };
@@ -57,6 +71,39 @@ export const ListComponent = () => {
       });
     }
   }, [coffeDataState]);
+  const navigation = useNavigation();
+  const handleNavigation = async (id: string) => {
+    // @ts-ignore
+    console.log(token);
+    console.log(typeof token);
+    console.log(id);
+    console.log(typeof id);
+    const cafeInfo = await getCafe({
+      sessionId: String(token),
+      cafeId: String(id),
+    } as ICafeRequest);
+    console.log(cafeInfo);
+    // @ts-ignore
+    navigation.navigate('DetailedInfo');
+  };
+  const renderItem: ListRenderItem<ItemModel> = ({item}) => {
+    return (
+      <TouchableOpacity
+        style={styles.conteiner}
+        onPress={() => handleNavigation(item.id)}>
+        <Image source={{uri: item.images}} style={styles.image} />
+        <View style={styles.view}>
+          <Text style={styles.nameText}>{item.name}</Text>
+          <Text style={styles.adressDesription}>Мы находимся:</Text>
+          <Text style={styles.adress}>{item.address}</Text>
+          <View style={styles.conteinerGoIcon}>
+            <Text style={styles.text}>Подробнее</Text>
+            <Image style={styles.icon} source={goIcon} />
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
   return (
     <View>
       <FlatList
@@ -69,3 +116,50 @@ export const ListComponent = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  conteiner: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  image: {
+    width: 146,
+    height: 146,
+  },
+  view: {
+    height: 146,
+    width: 259,
+  },
+  nameText: {
+    color: '#c2d5a9',
+    fontSize: 20,
+    marginTop: 14,
+    marginLeft: 14,
+  },
+  adressDesription: {
+    fontSize: 14,
+    marginTop: 15,
+    marginLeft: 14,
+    color: '#717171',
+  },
+  adress: {
+    fontSize: 18,
+    marginTop: 5,
+    marginLeft: 14,
+    color: '#717171',
+  },
+  text: {
+    marginLeft: 140,
+    color: '#BBBBBB',
+  },
+  conteinerGoIcon: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  icon: {
+    width: 32,
+    height: 32,
+    marginTop: -7,
+    marginLeft: -5,
+  },
+});
