@@ -5,6 +5,9 @@ import {coffeData} from '../reduToolKitQuery';
 import tokenSlice from '../reduxStateSlice/tokenSlice';
 import dataSlice from '../reduxStateSlice/dataSlice';
 import navigateController from '../reduxStateSlice/navigateController';
+import cafeInfoSlice from '../reduxStateSlice/cafeInfoSlice';
+import productsCafeSlice from '../reduxStateSlice/productsCafeSlice';
+import productsSlice from '../reduxStateSlice/productsSlice';
 
 const rootReducer = combineReducers({
   coordinateState: coordinateSlice,
@@ -12,6 +15,9 @@ const rootReducer = combineReducers({
   tokenState: tokenSlice,
   coffeDataState: dataSlice,
   navigateState: navigateController,
+  cafeInfoState: cafeInfoSlice,
+  productsCafeState: productsCafeSlice,
+  productsState: productsSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

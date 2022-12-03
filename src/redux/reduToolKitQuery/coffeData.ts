@@ -24,6 +24,18 @@ export interface ICafeInfo {
   description: string;
   images: string;
 }
+export interface IProductCafeModel {
+  id: string;
+  cofeId: string;
+  name: string;
+  price: number;
+  favorite: boolean;
+  imagesPath: string;
+}
+export interface IProductCafeRequest {
+  sessionId: string;
+  cafeId: string;
+}
 export const coffeData = createApi({
   reducerPath: 'coffeData',
   baseQuery: fetchBaseQuery({
@@ -61,8 +73,25 @@ export const coffeData = createApi({
         },
       }),
     }),
+    getProductsCafe: build.mutation<
+      Array<IProductCafeModel>,
+      IProductCafeRequest
+    >({
+      query: body => ({
+        url: 'Product/GetProductsCafe',
+        method: 'POST',
+        body: body,
+        headers: {
+          'content-type': 'application/json',
+        },
+      }),
+    }),
   }),
 });
 
-export const {useAddLoginMutation, useGetCoffeMutation, useGetCafeMutation} =
-  coffeData;
+export const {
+  useAddLoginMutation,
+  useGetCoffeMutation,
+  useGetCafeMutation,
+  useGetProductsCafeMutation,
+} = coffeData;
