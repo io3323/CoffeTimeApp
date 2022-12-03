@@ -90,7 +90,7 @@ export const ListComponent = () => {
       cafeId: '5f4f633f-f02e-43fd-9ac4-a32fc2572ece',
     });
 
-  test().then(r => console.log(r));
+  test().then(r => console.log(r))
   const renderItem: ListRenderItem<ItemModel> = ({item}) => {
     return (
       <TouchableOpacity style={styles.conteiner} onPress={() => test()}>
