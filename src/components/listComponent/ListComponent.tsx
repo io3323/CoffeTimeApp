@@ -57,7 +57,7 @@ export const ListComponent = () => {
   useEffect(() => {
     if (token != '') {
       getDataOnPress();
-      setParsController(true);
+      setParsController(true)
     }
   }, [token]);
   useEffect(() => {
