@@ -8,7 +8,6 @@ import {
 } from '../../redux/reduToolKitQuery';
 import {addDataCoffe} from '../../redux/reduxStateSlice/dataSlice';
 import {
-  Button,
   FlatList,
   Image,
   ListRenderItem,
@@ -34,6 +33,7 @@ type ItemModel = {
 export const ListComponent = () => {
   const dispatch = useDispatch();
   const [token, setToken] = useState('');
+  const [testToken, setTestToken] = useState('');
   const [parseController, setParsController] = useState(false);
   const [masTest, setMasTest] = useState<Array<InState>>([initialState]);
   const tokenUser = useSelector((state: RootState) => state.tokenState);
@@ -45,6 +45,7 @@ export const ListComponent = () => {
   const getToken = () => {
     tokenUser.data.map(tokenMas => {
       setToken(JSON.stringify(tokenMas));
+      setTestToken(tokenMas);
     });
   };
   const getDataOnPress = async () => {
@@ -56,7 +57,7 @@ export const ListComponent = () => {
   useEffect(() => {
     getToken();
     console.log('render getToken');
-  },[]);
+  }, []);
   useEffect(() => {
     if (token != '') {
       getDataOnPress();
@@ -77,21 +78,28 @@ export const ListComponent = () => {
     console.log('render parseController');
   }, [coffeDataState]);
   const navigation = useNavigation();
-  const handleNavigation = async (id: string) => {
-    console.log(token);
-    console.log(id);
-    const cafeInfo = await getCafe({
-      sessionId: token,
-      cafeId: JSON.stringify(id),
-    } as ICafeRequest).unwrap();
-    await navigation.navigate('DetailedInfo');
-    console.log(cafeInfo);
+  const handleNavigation = async (idCafe: string) => {
+    console.log(testToken);
+    console.log(idCafe);
+    if (idCafe != '') {
+      const cafeInfo = await getCafe({
+        sessionId: testToken,
+        cafeId: idCafe,
+      } as ICafeRequest).unwrap();
+      console.log(cafeInfo);
+    } else {
+      console.log('no idCafe');
+    }
+    // @ts-ignore
+    navigation.navigate('DetailedInfo');
   };
   const renderItem: ListRenderItem<ItemModel> = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.conteiner}
-        onPress={() => handleNavigation(item.id)}>
+        onPress={() => {
+          handleNavigation(item.id);
+        }}>
         {/*<Image source={{uri: item.images}} style={styles.image} />*/}
         <View style={styles.view}>
           <Text style={styles.nameText}>{item.name}</Text>
@@ -113,16 +121,6 @@ export const ListComponent = () => {
         ItemSeparatorComponent={Separator}
         renderItem={renderItem}
         keyExtractor={item => item.id}
-      />
-      <Button
-        title={'press'}
-        onPress={async () => {
-          const resultCafe = await getCafe({
-            sessionId: token,
-            cafeId: '9a904ea8-2512-42aa-aed3-933c67253a38',
-          } as ICafeRequest).unwrap();
-          console.log(resultCafe);
-        }}
       />
     </View>
   );
