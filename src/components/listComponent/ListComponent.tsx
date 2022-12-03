@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
-import store, {RootState} from '../../redux/reduxStore/store';
+import {RootState} from '../../redux/reduxStore/store';
 import {
   ICafeRequest,
   IProductCafeRequest,
@@ -48,7 +48,6 @@ export const ListComponent = () => {
     (state: RootState) => state.coffeDataState,
   );
   const cafeInfoState = useSelector((state: RootState) => state.cafeInfoState);
-  const productsState = useSelector((state: RootState) => state.productsState);
   const productsCafeState = useSelector(
     (state: RootState) => state.productsCafeState,
   );
@@ -92,14 +91,11 @@ export const ListComponent = () => {
   }, [coffeDataState]);
   const navigation = useNavigation();
   const handleNavigation = async (idCafe: string) => {
-    console.log(secondToken);
-    console.log(idCafe);
     if (idCafe != '') {
       const cafeInfo = await getCafe({
         sessionId: secondToken,
         cafeId: idCafe,
       } as ICafeRequest).unwrap();
-      console.log(cafeInfo);
       // @ts-ignore
       dispatch(addCafeInfo(cafeInfo));
 
