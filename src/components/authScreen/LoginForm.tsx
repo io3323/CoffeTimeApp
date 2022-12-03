@@ -28,7 +28,7 @@ const LoginForm = () => {
       email: loginUser,
       password: passwordUser,
     } as ILogin);
-    //console.log(result);
+    console.log(result);
     const keysResult = Object.keys(result);
     keysResult.map(key => {
       if (key === 'data') {

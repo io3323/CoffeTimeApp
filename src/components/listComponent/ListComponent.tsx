@@ -8,6 +8,7 @@ import {
 } from '../../redux/reduToolKitQuery';
 import {addDataCoffe} from '../../redux/reduxStateSlice/dataSlice';
 import {
+  Button,
   FlatList,
   Image,
   ListRenderItem,
@@ -48,6 +49,7 @@ export const ListComponent = () => {
   };
   const getDataOnPress = async () => {
     const result = await getCoffe(token);
+    console.log(result);
     // @ts-ignore
     dispatch(addDataCoffe(result));
   };
@@ -72,25 +74,26 @@ export const ListComponent = () => {
     }
   }, [coffeDataState]);
   const navigation = useNavigation();
-  const handleNavigation = async (id: string) => {
-    // @ts-ignore
-    console.log(token);
-    console.log(typeof token);
-    console.log(id);
-    console.log(typeof id);
-    const cafeInfo = await getCafe({
-      sessionId: String(token),
-      cafeId: String(id),
-    } as ICafeRequest);
-    console.log(cafeInfo);
-    // @ts-ignore
-    navigation.navigate('DetailedInfo');
-  };
+  // const handleNavigation = async (id: string) => {
+  //   console.log(token);
+  //   console.log(id);
+  //   const cafeInfo = await getCafe({
+  //     sessionId: token,
+  //     cafeId: id,
+  //   } as ICafeRequest);
+  //   //await navigation.navigate('DetailedInfo');
+  //   console.log(cafeInfo);
+  // };
+  const test = async () =>
+    await getCafe({
+      sessionId: token,
+      cafeId: '5f4f633f-f02e-43fd-9ac4-a32fc2572ece',
+    });
+
+  test().then(r => console.log(r));
   const renderItem: ListRenderItem<ItemModel> = ({item}) => {
     return (
-      <TouchableOpacity
-        style={styles.conteiner}
-        onPress={() => handleNavigation(item.id)}>
+      <TouchableOpacity style={styles.conteiner} onPress={() => test()}>
         <Image source={{uri: item.images}} style={styles.image} />
         <View style={styles.view}>
           <Text style={styles.nameText}>{item.name}</Text>
@@ -112,6 +115,16 @@ export const ListComponent = () => {
         ItemSeparatorComponent={Separator}
         renderItem={renderItem}
         keyExtractor={item => item.id}
+      />
+      <Button
+        title={'press'}
+        onPress={async () => {
+          const resultCafe = await getCafe({
+            sessionId: token,
+            cafeId: '9a904ea8-2512-42aa-aed3-933c67253a38',
+          } as ICafeRequest);
+          console.log(resultCafe);
+        }}
       />
     </View>
   );

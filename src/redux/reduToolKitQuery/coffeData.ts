@@ -26,7 +26,6 @@ export interface ICafeInfo {
 }
 export const coffeData = createApi({
   reducerPath: 'coffeData',
-  tagTypes: ['Coffe'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://ci2.dextechnology.com:8000/api/',
     //baseUrl: 'http://localhost:3001/',
@@ -53,10 +52,13 @@ export const coffeData = createApi({
       }),
     }),
     getCafe: build.mutation<Array<ICafeInfo>, ICafeRequest>({
-      query: (body: ICafeRequest) => ({
+      query: body => ({
         url: 'Cafe/GetCafe',
         method: 'POST',
         body: body,
+        headers: {
+          'content-type': 'application/json',
+        },
       }),
     }),
   }),

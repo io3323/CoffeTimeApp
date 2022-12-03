@@ -21,7 +21,7 @@ const RegisterForm = () => {
   const [photo, setPhoto] = useState('');
   const handleTransitionMainScreen = () => {
     // @ts-ignore
-    navigation.navigate(MainScreenName);
+    navigation.navigate('TabStack');
   };
   const openCamera = () => {
     const options = {
