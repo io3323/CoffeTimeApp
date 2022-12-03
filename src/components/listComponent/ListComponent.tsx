@@ -100,7 +100,7 @@ export const ListComponent = () => {
         onPress={() => {
           handleNavigation(item.id);
         }}>
-        {/*<Image source={{uri: item.images}} style={styles.image} />*/}
+        <Image source={{uri: item.images}} style={styles.image} />
         <View style={styles.view}>
           <Text style={styles.nameText}>{item.name}</Text>
           <Text style={styles.adressDesription}>Мы находимся:</Text>
