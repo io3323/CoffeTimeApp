@@ -33,7 +33,7 @@ type ItemModel = {
 export const ListComponent = () => {
   const dispatch = useDispatch();
   const [token, setToken] = useState('');
-  const [testToken, setTestToken] = useState('');
+  const [secondToken, setSecondToken] = useState('');
   const [parseController, setParsController] = useState(false);
   const [masTest, setMasTest] = useState<Array<InState>>([initialState]);
   const tokenUser = useSelector((state: RootState) => state.tokenState);
@@ -45,7 +45,7 @@ export const ListComponent = () => {
   const getToken = () => {
     tokenUser.data.map(tokenMas => {
       setToken(JSON.stringify(tokenMas));
-      setTestToken(tokenMas);
+      setSecondToken(tokenMas);
     });
   };
   const getDataOnPress = async () => {
@@ -79,11 +79,11 @@ export const ListComponent = () => {
   }, [coffeDataState]);
   const navigation = useNavigation();
   const handleNavigation = async (idCafe: string) => {
-    console.log(testToken);
+    console.log(secondToken);
     console.log(idCafe);
     if (idCafe != '') {
       const cafeInfo = await getCafe({
-        sessionId: testToken,
+        sessionId: secondToken,
         cafeId: idCafe,
       } as ICafeRequest).unwrap();
       console.log(cafeInfo);
