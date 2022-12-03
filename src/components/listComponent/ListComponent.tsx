@@ -49,17 +49,19 @@ export const ListComponent = () => {
   };
   const getDataOnPress = async () => {
     const result = await getCoffe(token);
-    console.log(result);
+    //console.log(result);
     // @ts-ignore
     dispatch(addDataCoffe(result));
   };
   useEffect(() => {
     getToken();
-  });
+    console.log('render getToken');
+  },[]);
   useEffect(() => {
     if (token != '') {
       getDataOnPress();
       setParsController(true);
+      console.log('render getData');
     }
   }, [token]);
   useEffect(() => {
@@ -72,29 +74,25 @@ export const ListComponent = () => {
         });
       });
     }
+    console.log('render parseController');
   }, [coffeDataState]);
   const navigation = useNavigation();
-  // const handleNavigation = async (id: string) => {
-  //   console.log(token);
-  //   console.log(id);
-  //   const cafeInfo = await getCafe({
-  //     sessionId: token,
-  //     cafeId: id,
-  //   } as ICafeRequest);
-  //   //await navigation.navigate('DetailedInfo');
-  //   console.log(cafeInfo);
-  // };
-  const test = async () =>
-    await getCafe({
+  const handleNavigation = async (id: string) => {
+    console.log(token);
+    console.log(id);
+    const cafeInfo = await getCafe({
       sessionId: token,
-      cafeId: '5f4f633f-f02e-43fd-9ac4-a32fc2572ece',
-    });
-
-  test().then(r => console.log(r))
+      cafeId: JSON.stringify(id),
+    } as ICafeRequest).unwrap();
+    await navigation.navigate('DetailedInfo');
+    console.log(cafeInfo);
+  };
   const renderItem: ListRenderItem<ItemModel> = ({item}) => {
     return (
-      <TouchableOpacity style={styles.conteiner} onPress={() => test()}>
-        <Image source={{uri: item.images}} style={styles.image} />
+      <TouchableOpacity
+        style={styles.conteiner}
+        onPress={() => handleNavigation(item.id)}>
+        {/*<Image source={{uri: item.images}} style={styles.image} />*/}
         <View style={styles.view}>
           <Text style={styles.nameText}>{item.name}</Text>
           <Text style={styles.adressDesription}>Мы находимся:</Text>
@@ -122,7 +120,7 @@ export const ListComponent = () => {
           const resultCafe = await getCafe({
             sessionId: token,
             cafeId: '9a904ea8-2512-42aa-aed3-933c67253a38',
-          } as ICafeRequest);
+          } as ICafeRequest).unwrap();
           console.log(resultCafe);
         }}
       />

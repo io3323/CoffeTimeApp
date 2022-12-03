@@ -94,7 +94,6 @@ const LoginForm = () => {
           Dont have an account? Sign Up
         </Text>
       </TouchableOpacity>
-      <Text>Test two</Text>
     </View>
   );
 };
