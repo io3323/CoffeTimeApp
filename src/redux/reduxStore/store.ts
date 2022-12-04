@@ -17,7 +17,6 @@ const rootReducer = combineReducers({
   navigateState: navigateController,
   cafeInfoState: cafeInfoSlice,
   productsCafeState: productsCafeSlice,
-  productsState: productsSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
