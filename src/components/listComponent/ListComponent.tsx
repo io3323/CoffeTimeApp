@@ -1,10 +1,12 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
-import {RootState} from '../../redux/reduxStore/store';
+import store, {RootState} from '../../redux/reduxStore/store';
 import {
   ICafeRequest,
+  IProductCafeRequest,
   useGetCafeMutation,
   useGetCoffeMutation,
+  useGetProductsCafeMutation,
 } from '../../redux/reduToolKitQuery';
 import {addDataCoffe} from '../../redux/reduxStateSlice/dataSlice';
 import {
@@ -21,6 +23,10 @@ import {Separator} from './CardFlatList/Separator';
 import {useNavigation} from '@react-navigation/native';
 // @ts-ignore
 import goIcon from '../../assets/image/listScreen/goIcon.png';
+import {addCafeInfo} from '../../redux/reduxStateSlice/cafeInfoSlice';
+import {addProducts} from '../../redux/reduxStateSlice/productsCafeSlice';
+// @ts-ignore
+import cafeIcon from '../../assets/image/listScreen/cafeIcon.png';
 type ItemModel = {
   id: string;
   name: string;
@@ -35,13 +41,20 @@ export const ListComponent = () => {
   const [token, setToken] = useState('');
   const [secondToken, setSecondToken] = useState('');
   const [parseController, setParsController] = useState(false);
+  const [imageController, setImageController] = useState(true);
   const [masTest, setMasTest] = useState<Array<InState>>([initialState]);
   const tokenUser = useSelector((state: RootState) => state.tokenState);
   const coffeDataState = useSelector(
     (state: RootState) => state.coffeDataState,
   );
+  const cafeInfoState = useSelector((state: RootState) => state.cafeInfoState);
+  const productsState = useSelector((state: RootState) => state.productsState);
+  const productsCafeState = useSelector(
+    (state: RootState) => state.productsCafeState,
+  );
   const [getCoffe] = useGetCoffeMutation();
   const [getCafe] = useGetCafeMutation();
+  const [getProductsCafe] = useGetProductsCafeMutation();
   const getToken = () => {
     tokenUser.data.map(tokenMas => {
       setToken(JSON.stringify(tokenMas));
@@ -56,13 +69,13 @@ export const ListComponent = () => {
   };
   useEffect(() => {
     getToken();
-    console.log('render getToken');
+    //console.log('render getToken');
   }, []);
   useEffect(() => {
     if (token != '') {
       getDataOnPress();
       setParsController(true);
-      console.log('render getData');
+      //console.log('render getData');
     }
   }, [token]);
   useEffect(() => {
@@ -75,7 +88,7 @@ export const ListComponent = () => {
         });
       });
     }
-    console.log('render parseController');
+    //console.log('render parseController');
   }, [coffeDataState]);
   const navigation = useNavigation();
   const handleNavigation = async (idCafe: string) => {
@@ -87,6 +100,15 @@ export const ListComponent = () => {
         cafeId: idCafe,
       } as ICafeRequest).unwrap();
       console.log(cafeInfo);
+      // @ts-ignore
+      dispatch(addCafeInfo(cafeInfo));
+
+      const cafeProducts = await getProductsCafe({
+        sessionId: secondToken,
+        cafeId: idCafe,
+      } as IProductCafeRequest);
+      // @ts-ignore
+      dispatch(addProducts(cafeProducts));
     } else {
       console.log('no idCafe');
     }
@@ -100,7 +122,16 @@ export const ListComponent = () => {
         onPress={() => {
           handleNavigation(item.id);
         }}>
-        {/*<Image source={{uri: item.images}} style={styles.image} />*/}
+        {imageController && (
+          <Image
+            source={{uri: item.images}}
+            style={styles.image}
+            onError={() => setImageController(false)}
+          />
+        )}
+        {imageController == false && (
+          <Image source={cafeIcon} style={styles.image} />
+        )}
         <View style={styles.view}>
           <Text style={styles.nameText}>{item.name}</Text>
           <Text style={styles.adressDesription}>Мы находимся:</Text>
