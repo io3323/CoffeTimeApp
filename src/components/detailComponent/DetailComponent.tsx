@@ -7,17 +7,29 @@ import {
   View,
 } from 'react-native';
 import {ImageDetailComponent} from './nestedComponent/ImageDetailComponent';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
 import {useEffect, useState} from 'react';
-import {IProductCafeModel} from '../../redux/reduToolKitQuery';
+import {
+  IProductCafeModel,
+  IProductInfoRequest,
+  useGetProductInfoMutation,
+} from '../../redux/reduToolKitQuery';
 import {Separator} from '../listComponent/CardFlatList/Separator';
 import {CardProductsComponent} from './nestedComponent/CardProductsComponent';
+import {addInfoCeffeProduct} from '../../redux/reduxStateSlice/infoProductCoffeSlice';
+import {useNavigation} from '@react-navigation/native';
 export const DetailComponent = () => {
   const cafeInfoState = useSelector((state: RootState) => state.cafeInfoState);
   const productsCafeState = useSelector(
     (state: RootState) => state.productsCafeState,
   );
+  const infoProductCoffeState = useSelector(
+    (state: RootState) => state.infoProductCoffeState,
+  );
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const tokenUser = useSelector((state: RootState) => state.tokenState);
   const initialProductState: Array<IProductCafeModel> = [
     {
       id: '',
@@ -28,6 +40,7 @@ export const DetailComponent = () => {
       imagesPath: '',
     },
   ];
+  const [token, setToken] = useState('');
   const [products, setProducts] = useState(initialProductState);
   useEffect(() => {
     productsCafeState.map(dataFirstObject => {
@@ -38,14 +51,28 @@ export const DetailComponent = () => {
         setProducts(secondObject);
       });
     });
+    tokenUser.data.map(data => {
+      setToken(data);
+    });
   }, []);
+  const [getProductInfo] = useGetProductInfoMutation();
+  const getInfoProductsTab = async (id: string) => {
+    const result = await getProductInfo({
+      sessionId: token,
+      productId: id,
+    } as IProductInfoRequest);
+
+    // @ts-ignore
+    dispatch(addInfoCeffeProduct(result.data));
+  };
   const renderItem: ListRenderItem<IProductCafeModel> = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.conteiner}
         onPress={() => {
-          //handleNavigation(item.id);
-          console.log(item.id);
+          getInfoProductsTab(item.id);
+          // @ts-ignore
+          navigation.navigate('DetailProductInfo');
         }}>
         <CardProductsComponent
           name={item.name}

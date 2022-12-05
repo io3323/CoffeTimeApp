@@ -12,6 +12,7 @@ import {CustomMapIcon} from '../../components/customComponents/customSegmentedCo
 import {ListCoffeScreen} from '../screens/ListCoffeScreen';
 import {CustomListIcon} from '../../components/customComponents/customSegmentedControlIcon/CustomListIcon';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {DetailProductInfo} from '../screens/DetailProductInfo';
 
 export const AuthNavigator = () => {
   const Tab = createMaterialTopTabNavigator();
@@ -100,6 +101,18 @@ export const AuthNavigator = () => {
           <Stack.Screen
             name={'DetailedInfo'}
             component={DetailedInfo}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: '#EAEAEA',
+              },
+              headerLeft: () => <CustomBackButton />,
+              headerCenter: () => <CustomHeaderTitle />,
+            }}
+          />
+          <Stack.Screen
+            name={'DetailProductInfo'}
+            component={DetailProductInfo}
             options={{
               headerShown: true,
               headerStyle: {

@@ -36,12 +36,29 @@ export interface IProductCafeRequest {
   sessionId: string;
   cafeId: string;
 }
+export interface IProductInfoRequest {
+  sessionId: string;
+  productId: string;
+}
+export interface IProductFullInfo {
+  id: string;
+  productName: string;
+  price: number;
+  cofeId: string;
+  cofeName: string;
+  favarite: boolean;
+  attribute: Array<IAttributeInfo>;
+  imagesPath: string;
+}
+export interface IAttributeInfo {
+  id: string;
+  description: string;
+  iconType: string;
+}
 export const coffeData = createApi({
   reducerPath: 'coffeData',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://ci2.dextechnology.com:8000/api/',
-    //baseUrl: 'http://localhost:3001/',
-    //baseUrl: 'https://httpbin.org/post',
   }),
   endpoints: build => ({
     addLogin: build.mutation<string, ILogin>({
@@ -54,8 +71,6 @@ export const coffeData = createApi({
     getCoffe: build.mutation<Array<ICoffeData>, string>({
       query: (body: string) => ({
         url: 'Cafe/GetAll',
-        //url: 'goods',
-        //url: '',
         method: 'POST',
         body: body,
         headers: {
@@ -86,6 +101,16 @@ export const coffeData = createApi({
         },
       }),
     }),
+    getProductInfo: build.mutation<IProductFullInfo, IProductInfoRequest>({
+      query: body => ({
+        url: 'Product/GetProduct',
+        method: 'POST',
+        body: body,
+        headers: {
+          'content-type': 'application/json',
+        },
+      }),
+    }),
   }),
 });
 
@@ -94,4 +119,5 @@ export const {
   useGetCoffeMutation,
   useGetCafeMutation,
   useGetProductsCafeMutation,
+  useGetProductInfoMutation,
 } = coffeData;

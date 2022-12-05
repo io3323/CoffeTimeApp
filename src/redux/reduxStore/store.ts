@@ -7,7 +7,7 @@ import dataSlice from '../reduxStateSlice/dataSlice';
 import navigateController from '../reduxStateSlice/navigateController';
 import cafeInfoSlice from '../reduxStateSlice/cafeInfoSlice';
 import productsCafeSlice from '../reduxStateSlice/productsCafeSlice';
-import productsSlice from '../reduxStateSlice/productsSlice';
+import infoProductCoffeSlice from '../reduxStateSlice/infoProductCoffeSlice';
 
 const rootReducer = combineReducers({
   coordinateState: coordinateSlice,
@@ -17,6 +17,7 @@ const rootReducer = combineReducers({
   navigateState: navigateController,
   cafeInfoState: cafeInfoSlice,
   productsCafeState: productsCafeSlice,
+  infoProductCoffeState: infoProductCoffeSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
