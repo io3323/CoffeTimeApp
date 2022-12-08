@@ -15,6 +15,9 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {DetailProductInfo} from '../screens/DetailProductInfo';
 import {OrderScreen} from '../screens/OrderScreen';
 import {CustomBagShopButton} from '../../components/customComponents/customHeader/CustomBagShopButton';
+import {ShopListButton} from '../../components/customComponents/customHeader/ShopListButton';
+import {Provider} from 'react-redux';
+import store from '../../redux/reduxStore/store';
 
 export const AuthNavigator = () => {
   const Tab = createMaterialTopTabNavigator();
@@ -111,7 +114,7 @@ export const AuthNavigator = () => {
               },
               headerLeft: () => <CustomBackButton />,
               headerCenter: () => <CustomHeaderTitle />,
-              headerRight: () => <CustomBagShopButton />,
+              headerRight: () => <ShopListButton />,
             }}
           />
           <Stack.Screen
@@ -124,7 +127,7 @@ export const AuthNavigator = () => {
               },
               headerLeft: () => <CustomBackButton />,
               headerCenter: () => <CustomHeaderTitle />,
-              headerRight: () => <CustomBagShopButton />,
+              headerRight: () => <ShopListButton />,
             }}
           />
           <Stack.Screen
@@ -147,12 +150,14 @@ export const AuthNavigator = () => {
   const MainStack = createNativeStackNavigator();
   // @ts-ignore
   return (
-    <MainStack.Navigator initialRouteName="App">
-      <MainStack.Screen
-        name={'Stack'}
-        component={AuthStack}
-        options={{headerShown: false}}
-      />
-    </MainStack.Navigator>
+    <Provider store={store}>
+      <MainStack.Navigator initialRouteName="App">
+        <MainStack.Screen
+          name={'Stack'}
+          component={AuthStack}
+          options={{headerShown: false}}
+        />
+      </MainStack.Navigator>
+    </Provider>
   );
 };
