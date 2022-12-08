@@ -13,6 +13,8 @@ import {ListCoffeScreen} from '../screens/ListCoffeScreen';
 import {CustomListIcon} from '../../components/customComponents/customSegmentedControlIcon/CustomListIcon';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {DetailProductInfo} from '../screens/DetailProductInfo';
+import {OrderScreen} from '../screens/OrderScreen';
+import {CustomBagShopButton} from '../../components/customComponents/customHeader/CustomBagShopButton';
 
 export const AuthNavigator = () => {
   const Tab = createMaterialTopTabNavigator();
@@ -96,6 +98,7 @@ export const AuthNavigator = () => {
               },
               headerLeft: () => <CustomBackButton />,
               headerCenter: () => <CustomHeaderTitle />,
+              headerRight: () => <CustomBagShopButton />,
             }}
           />
           <Stack.Screen
@@ -108,11 +111,25 @@ export const AuthNavigator = () => {
               },
               headerLeft: () => <CustomBackButton />,
               headerCenter: () => <CustomHeaderTitle />,
+              headerRight: () => <CustomBagShopButton />,
             }}
           />
           <Stack.Screen
             name={'DetailProductInfo'}
             component={DetailProductInfo}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: '#EAEAEA',
+              },
+              headerLeft: () => <CustomBackButton />,
+              headerCenter: () => <CustomHeaderTitle />,
+              headerRight: () => <CustomBagShopButton />,
+            }}
+          />
+          <Stack.Screen
+            name={'OrderScreen'}
+            component={OrderScreen}
             options={{
               headerShown: true,
               headerStyle: {
