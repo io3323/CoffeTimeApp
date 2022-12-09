@@ -11,6 +11,7 @@ import infoProductCoffeSlice from '../reduxStateSlice/infoProductCoffeSlice';
 import basketUserSlice from '../reduxStateSlice/basketUserSlice';
 import counterSlice from '../reduxStateSlice/counterSlice';
 import basketObjectSlice from '../reduxStateSlice/basketObjectSlice';
+import coordinateMasSplice from '../reduxStateSlice/coordinateMasSplice';
 
 const rootReducer = combineReducers({
   coordinateState: coordinateSlice,
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   basketUserState: basketUserSlice,
   counterState: counterSlice,
   basketObjectState: basketObjectSlice,
+  coordinateMasState: coordinateMasSplice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
