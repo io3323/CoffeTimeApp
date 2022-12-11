@@ -81,59 +81,61 @@ export const CardShop: FunctionComponent<ICardShop> = ({
     );
   };
   return (
-    <View style={{backgroundColor: '#e3e3e3'}}>
-      <View style={styles.conteinerMain}>
-        <View style={styles.conteiner}>
-          <View>
-            {controler && (
-              <Image
-                source={{uri: imagesPath}}
-                style={styles.productImage}
-                onError={() => setControler(false)}
-              />
-            )}
-            {controler == false && (
-              <Image source={imageNoCoffe} style={styles.productImage} />
-            )}
-          </View>
-          <View style={{marginLeft: 10}}>
-            <View style={styles.conteinerVertical}>
-              <View style={styles.textPodunctConteinerDelete}>
-                <View style={styles.textProductConteiner}>
-                  <Text
-                    style={styles.textNameProduct}
-                    adjustsFontSizeToFit={true}>
-                    {productName}
-                  </Text>
-                </View>
-                <TouchableOpacity
-                  style={styles.deleteIconConteiner}
-                  onPress={() => dispatch(deleteProduct(id))}>
-                  <Image source={deleteIcon} style={styles.deleteIcon} />
-                </TouchableOpacity>
-              </View>
-              <Text style={styles.textShop}>Магазин заказа:</Text>
-              <Text style={styles.textShop}>{cofeName}</Text>
-              <View style={styles.conteinerPrice}>
-                <Text style={styles.priceDesription}>Цена:</Text>
-                <View style={styles.priceConteiner}>
-                  <Text style={styles.price} adjustsFontSizeToFit={true}>
-                    {price}
-                  </Text>
-                </View>
-                <Image source={rubleIcon} style={styles.rubleIcon} />
-                <View style={styles.conteinerButton}>
-                  <Decrement />
-                  <View style={styles.countConteiner}>
-                    <Text style={styles.counter}>{count}</Text>
+    <View>
+      {id != '' && (
+        <View style={styles.conteinerMain}>
+          <View style={styles.conteiner}>
+            <View>
+              {controler && (
+                <Image
+                  source={{uri: imagesPath}}
+                  style={styles.productImage}
+                  onError={() => setControler(false)}
+                />
+              )}
+              {controler == false && (
+                <Image source={imageNoCoffe} style={styles.productImage} />
+              )}
+            </View>
+            <View style={{marginLeft: 10}}>
+              <View style={styles.conteinerVertical}>
+                <View style={styles.textPodunctConteinerDelete}>
+                  <View style={styles.textProductConteiner}>
+                    <Text
+                      style={styles.textNameProduct}
+                      adjustsFontSizeToFit={true}>
+                      {productName}
+                    </Text>
                   </View>
-                  <Increment />
+                  <TouchableOpacity
+                    style={styles.deleteIconConteiner}
+                    onPress={() => dispatch(deleteProduct(id))}>
+                    <Image source={deleteIcon} style={styles.deleteIcon} />
+                  </TouchableOpacity>
+                </View>
+                <Text style={styles.textShop}>Магазин заказа:</Text>
+                <Text style={styles.textShop}>{cofeName}</Text>
+                <View style={styles.conteinerPrice}>
+                  <Text style={styles.priceDesription}>Цена:</Text>
+                  <View style={styles.priceConteiner}>
+                    <Text style={styles.price} adjustsFontSizeToFit={true}>
+                      {price}
+                    </Text>
+                  </View>
+                  <Image source={rubleIcon} style={styles.rubleIcon} />
+                  <View style={styles.conteinerButton}>
+                    <Decrement />
+                    <View style={styles.countConteiner}>
+                      <Text style={styles.counter}>{count}</Text>
+                    </View>
+                    <Increment />
+                  </View>
                 </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
+      )}
     </View>
   );
 };
@@ -236,5 +238,13 @@ const styles = StyleSheet.create({
   deleteIconConteiner: {
     marginTop: 6,
     marginLeft: 30,
+  },
+  rowFront: {
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1,
   },
 });

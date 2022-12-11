@@ -1,23 +1,25 @@
 import {
   Image,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  Animated,
+  ListRenderItem,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
-import {CardShop} from './customElement/CardShop';
 import {useEffect, useState} from 'react';
 // @ts-ignore
 import imageNoCoffe from '../../assets/image/detailScreen/imageNoCoffe.png';
 // @ts-ignore
 import rubleGray from '../../assets/image/detailProductScreen/rubleGray.png';
-
+import {SwipeListView} from 'react-native-swipe-list-view';
+import {IBasketUser} from '../../redux/reduxStateSlice/basketUserSlice';
+import {CardShopTransitionComponent} from './customElement/CardShopTransitionComponent';
+import {HiddenEllement, ItemModel} from './customElement/HiddenEllement';
 export const OrderComponent = () => {
-  const dispatch = useDispatch();
   const basketUserState = useSelector(
     (state: RootState) => state.basketUserState,
   );
@@ -40,13 +42,9 @@ export const OrderComponent = () => {
       totalPriceVariable = data.price + totalPriceVariable;
       totalCountVariable = data.count + totalCountVariable;
     });
-    console.log(totalPriceVariable);
     setTotalPrice(totalPriceVariable);
     setTotalCount(totalCountVariable);
   }, [basketUserState]);
-  const Separator = () => {
-    return <View />;
-  };
   const InitialPage = () => {
     return (
       <View
@@ -68,30 +66,50 @@ export const OrderComponent = () => {
       </View>
     );
   };
+  const rowAnimatedValues: any = {};
+  basketUserState.forEach(data => {
+    rowAnimatedValues[`${data.id}`] = {
+      rowHeight: new Animated.Value(160),
+      rowFrontTranslate: new Animated.Value(1),
+      rowBackWidth: new Animated.Value(100),
+    };
+  });
+  const renderItem: ListRenderItem<IBasketUser> = data => {
+    return (
+      <View>
+        <CardShopTransitionComponent
+          id={data.item.id}
+          productName={data.item.productName}
+          price={data.item.price}
+          cofeId={data.item.cofeId}
+          cofeName={data.item.cofeName}
+          imagesPath={data.item.imagesPath}
+          count={data.item.count}
+          prevState={data.item.prevState}
+        />
+      </View>
+    );
+  };
+  const renderHiddenItem = (data: ItemModel, rowMap: any) => {
+    return <HiddenEllement data={data} rowMap={rowMap} />;
+  };
   return (
     <SafeAreaView>
       {controller && (
         <View>
           <View style={{height: 650, borderRadius: 10}}>
-            <ScrollView>
-              {basketUserState.map((data, index) => (
-                <View>
-                  {index != 0 && (
-                    <CardShop
-                      id={data.id}
-                      productName={data.productName}
-                      price={data.price}
-                      cofeId={data.cofeId}
-                      cofeName={data.cofeName}
-                      imagesPath={data.imagesPath}
-                      count={data.count}
-                      prevPrice={data.prevState}
-                    />
-                  )}
-                  <Separator />
-                </View>
-              ))}
-            </ScrollView>
+            <SwipeListView
+              data={basketUserState}
+              keyExtractor={item => item.id}
+              renderItem={renderItem}
+              renderHiddenItem={renderHiddenItem}
+              disableRightSwipe={true}
+              rightOpenValue={-170}
+              stopRightSwipe={-201}
+              swipeToOpenPercent={10}
+              swipeToClosePercent={10}
+              useNativeDriver={false}
+            />
           </View>
           <View
             style={{

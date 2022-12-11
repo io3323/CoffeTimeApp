@@ -29,9 +29,6 @@ export const basketUserSlice = createSlice({
       let controler = true;
       state.map((data, index) => {
         if (data.id == action.payload.id) {
-          console.log(data.price, 'state');
-          console.log(action.payload.price, 'action');
-          console.log(data.count, 'count');
           const object: IBasketUser = {
             id: action.payload.id,
             productName: action.payload.productName,
@@ -51,7 +48,6 @@ export const basketUserSlice = createSlice({
           }
         }
       });
-      console.log(state);
     },
     deleteBasket(state, action: PayloadAction<IBasketUser>) {
       let controler = true;
@@ -79,7 +75,6 @@ export const basketUserSlice = createSlice({
           state.splice(index, 1);
         }
       });
-      console.log(state);
     },
     deleteProduct(state, action: PayloadAction<string>) {
       state.map((deleteElement, index) => {

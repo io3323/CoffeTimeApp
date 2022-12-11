@@ -22,7 +22,6 @@ export const CustomBagShopButton = () => {
     basketUserState.map(data => {
       totalPriceVariable = data.price + totalPriceVariable;
     });
-    console.log(totalPriceVariable);
     setTotalPrice(totalPriceVariable);
   }, [basketUserState]);
   return (
