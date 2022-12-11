@@ -32,7 +32,6 @@ const LoginForm = () => {
     const keysResult = Object.keys(result);
     keysResult.map(key => {
       if (key === 'data') {
-        //console.log('data');
         const resultMas = Object.values(result);
         resultMas.forEach(userToken => {
           dispatch(addToken(userToken));
@@ -132,7 +131,7 @@ const styles = StyleSheet.create({
   },
   buttonTextLogin: {
     fontSize: 18,
-    fontFamily: 'Helvetica',
+    fontFamily: 'SFUIText-Regular',
     color: 'white',
     textAlign: 'center',
     marginTop: 15,
@@ -145,5 +144,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 85,
     color: '#ffffff',
+    fontFamily: 'SFUIText-Regular',
   },
 });

@@ -51,22 +51,26 @@ const styles = StyleSheet.create({
     width: 259,
   },
   nameText: {
-    color: '#c2d5a9',
+    color: '#C8D9AF',
     fontSize: 20,
     marginTop: 14,
     marginLeft: 14,
+    fontFamily: 'SFUIText-Bold',
+    fontWeight: 'bold',
   },
   adressDesription: {
     fontSize: 14,
     marginTop: 15,
     marginLeft: 14,
     color: '#717171',
+    fontFamily: 'SFUIText-Light',
   },
   adress: {
     fontSize: 18,
     marginTop: 5,
     marginLeft: 14,
     color: '#717171',
+    fontFamily: 'SFUIText-Regular',
   },
   text: {
     marginLeft: 140,

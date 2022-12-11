@@ -74,12 +74,12 @@ const RegisterForm = () => {
         <TouchableOpacity
           style={styles.buttonLogin}
           onPress={() => handleTransitionMainScreen()}>
-          <Text style={styles.buttonTextLogin}>Зарегистрироваться</Text>
+          <Text style={styles.buttonTextLogin}>далее</Text>
         </TouchableOpacity>
       )}
       {name === '' && (
         <View style={styles.buttonLoginNoActive}>
-          <Text style={styles.buttonTextLogin}>Зарегистрироваться</Text>
+          <Text style={styles.buttonTextLogin}>далее</Text>
         </View>
       )}
     </View>

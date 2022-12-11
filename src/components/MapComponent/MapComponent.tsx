@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     color: '#4747474',
     fontSize: 30,
     marginTop: 5,
+    fontFamily: 'Lobster-Regular',
   },
   subText: {
     color: '#bbbbbb',

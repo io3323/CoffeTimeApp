@@ -114,7 +114,7 @@ export const CardShop: FunctionComponent<ICardShop> = ({
                   </TouchableOpacity>
                 </View>
                 <Text style={styles.textShop}>Магазин заказа:</Text>
-                <Text style={styles.textShop}>{cofeName}</Text>
+                <Text style={styles.textShopName}>{cofeName}</Text>
                 <View style={styles.conteinerPrice}>
                   <Text style={styles.priceDesription}>Цена:</Text>
                   <View style={styles.priceConteiner}>
@@ -166,12 +166,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-end',
-    marginLeft: 12,
+    marginLeft: 9,
   },
   textNameProduct: {
     fontSize: 20,
     marginTop: 5,
-    fontFamily: 'Helvetica',
+    fontFamily: 'Lobster-Regular',
     color: '#474747',
   },
   conteinerVertical: {
@@ -180,7 +180,12 @@ const styles = StyleSheet.create({
   },
   textShop: {
     fontSize: 16,
-    fontFamily: 'Helvetica',
+    fontFamily: 'SFUIText-Light',
+    color: '#474747',
+  },
+  textShopName: {
+    fontSize: 16,
+    fontFamily: 'SFUIText-Bold',
     color: '#474747',
   },
   conteinerPrice: {
@@ -191,12 +196,12 @@ const styles = StyleSheet.create({
   priceDesription: {
     fontSize: 23,
     marginTop: 3,
-    fontFamily: 'Helvetica',
+    fontFamily: 'SFUIText-Bold',
     color: '#474747',
   },
   price: {
     fontSize: 25,
-    fontFamily: 'Helvetica',
+    fontFamily: 'Lobster-Regular',
     color: '#C8D9AF',
     marginTop: 3,
     textAlign: 'center',
@@ -214,7 +219,7 @@ const styles = StyleSheet.create({
   rubleIcon: {
     width: 25,
     height: 25,
-    marginLeft: -5,
+    marginLeft: -10,
     marginTop: 4,
   },
   priceConteiner: {
@@ -238,13 +243,5 @@ const styles = StyleSheet.create({
   deleteIconConteiner: {
     marginTop: 6,
     marginLeft: 30,
-  },
-  rowFront: {
-    height: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'white',
-    borderBottomColor: 'grey',
-    borderBottomWidth: 1,
   },
 });

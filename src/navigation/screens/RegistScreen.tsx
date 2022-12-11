@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   mainText: {
     fontSize: 64,
     color: '#FFFFFF',
-    fontFamily: 'Helvetica',
+    fontFamily: 'Lobster-Regular',
     marginTop: 50,
     marginLeft: 70,
     marginRight: 13,

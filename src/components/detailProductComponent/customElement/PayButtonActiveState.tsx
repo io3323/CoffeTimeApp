@@ -112,5 +112,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     marginRight: 5,
+    fontFamily: 'SFUIText-Regular',
   },
 });

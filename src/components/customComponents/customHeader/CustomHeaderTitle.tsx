@@ -12,5 +12,6 @@ const styles = StyleSheet.create({
   textHeader: {
     fontSize: 28,
     color: '#474747',
+    fontFamily: 'Lobster-Regular',
   },
 });

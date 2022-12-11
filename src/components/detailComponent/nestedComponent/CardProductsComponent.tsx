@@ -57,14 +57,14 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 18,
-    fontFamily: 'Helvetica',
+    fontFamily: 'SFUIText-Bold',
     color: '#717171',
     marginTop: 10,
     marginLeft: 10,
   },
   frase: {
     fontSize: 14,
-    fontFamily: 'Helvetica',
+    fontFamily: 'SFUIText-Regular',
     color: '#717171',
     marginTop: 5,
     marginLeft: 10,
@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 25,
     color: '#C8D9AF',
+    fontFamily: 'Lobster-Regular',
   },
   rubleIcon: {
     marginTop: 4,

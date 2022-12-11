@@ -120,9 +120,24 @@ export const OrderComponent = () => {
               marginVertical: 30,
             }}>
             <View style={styles.totalView}>
-              <Text style={styles.totalCountsProduct}>
-                {totalCount} напитка
-              </Text>
+              {totalCount == 1 && (
+                <Text style={styles.totalCountsProduct}>
+                  {totalCount} напиток
+                </Text>
+              )}
+              {(totalCount == 2 || totalCount == 3 || totalCount == 4) && (
+                <Text style={styles.totalCountsProduct}>
+                  {totalCount} напитка
+                </Text>
+              )}
+              {totalCount != 1 &&
+                totalCount != 2 &&
+                totalCount != 3 &&
+                totalCount != 4 && (
+                  <Text style={styles.totalCountsProduct}>
+                    {totalCount} напитков
+                  </Text>
+                )}
               <View style={{display: 'flex', flexDirection: 'row'}}>
                 <Text style={styles.totalPrice}>{totalPrice}</Text>
                 <Image source={rubleGray} style={styles.rubleGray} />
@@ -157,7 +172,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     fontSize: 20,
-    fontFamily: 'Helvetica',
+    fontFamily: 'SFUIText-Light',
     color: '#FFFFFF',
   },
   imageNoCoffe: {
@@ -166,7 +181,7 @@ const styles = StyleSheet.create({
   },
   textInitialPage: {
     marginTop: 20,
-    fontFamily: 'Helvetica',
+    fontFamily: 'SFUIText-Light',
     fontSize: 18,
     color: '#474747',
   },
@@ -181,11 +196,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
     fontSize: 15,
+    fontFamily: 'SFUIText-Light',
   },
   totalPrice: {
     marginLeft: 10,
     fontSize: 30,
-    fontFamily: 'Helvetica',
+    fontFamily: 'Lobster-Regular',
     color: '#474747',
   },
   rubleGray: {

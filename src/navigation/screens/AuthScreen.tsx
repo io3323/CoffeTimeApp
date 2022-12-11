@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   mainText: {
     fontSize: 64,
     color: '#FFFFFF',
-    fontFamily: 'Helvetica',
+    fontFamily: 'Lobster-Regular',
     marginTop: 101,
     marginLeft: 70,
     marginRight: 13,
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   additinalText: {
     fontSize: 16,
     color: '#FFFFFF',
-    fontFamily: 'Helvetica',
+    fontFamily: 'SFUIText-Bold',
     marginLeft: 159,
     marginRight: 83,
   },

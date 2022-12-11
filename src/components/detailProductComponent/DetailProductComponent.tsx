@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   },
   productName: {
     fontSize: 24,
-    fontFamily: 'Helvetica',
+    fontFamily: 'Lobster-Regular',
     color: '#474747',
     marginLeft: 24,
   },
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
   textDescription: {
     color: '#474747',
     fontSize: 20,
-    fontFamily: 'Helvetica',
+    fontFamily: 'SFUIText-Light',
     marginTop: 30,
     marginLeft: 25,
     marginRight: 25,

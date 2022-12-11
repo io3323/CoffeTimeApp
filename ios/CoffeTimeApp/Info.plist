@@ -2,6 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SFUIText-Bold.ttf</string>
+		<string>Lobster-Regular.ttf</string>
+		<string>SFUIText-BoldItalic.ttf</string>
+		<string>SFUIText-Heavy.ttf</string>
+		<string>SFUIText-HeavyItalic.ttf</string>
+		<string>SFUIText-Light.ttf</string>
+		<string>SFUIText-LightItalic.ttf</string>
+		<string>SFUIText-Medium.ttf</string>
+		<string>SFUIText-MediumItalic.ttf</string>
+		<string>SFUIText-Regular.ttf</string>
+		<string>SFUIText-RegularItalic.ttf</string>
+		<string>SFUIText-Semibold.ttf</string>
+		<string>SFUIText-SemiboldItalic.ttf</string>
+	</array>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -28,21 +46,20 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-		    <key>192.168.8.192</key>
-            <dict>
-               <key>NSExceptionAllowsInsecureHTTPLoads</key>
-               <true />
-               <key>NSIncludesSubdomains</key>
-               <true />
-            </dict>
-            <key>dextechnology.com</key>
-            <dict>
-                <key>NSExceptionAllowsInsecureHTTPLoads</key>
-                <true />
-                <key>NSIncludesSubdomains</key>
-                <true />
-            </dict>
-
+			<key>192.168.8.192</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>dextechnology.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>

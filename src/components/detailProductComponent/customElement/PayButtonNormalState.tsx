@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
   },
   textButton: {
     fontSize: 20,
-    fontFamily: 'Helvetica',
+    fontFamily: 'SFUIText-Regular',
     color: '#FFFFFF',
   },
 });

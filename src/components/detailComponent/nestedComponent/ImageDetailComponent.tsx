@@ -94,14 +94,14 @@ const styles = StyleSheet.create({
     borderRadius: 0,
   },
   textName: {
-    fontFamily: 'Helvetica',
+    fontFamily: 'Lobster-Regular',
     fontSize: 28,
     color: '#474747',
     marginTop: 249,
     marginLeft: 6,
   },
   textAdress: {
-    fontFamily: 'Helvetica',
+    fontFamily: 'SFUIText-Regular',
     fontSize: 18,
     color: '#717171',
     marginLeft: 6,
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   },
   switchController: {
     marginTop: 285,
-    marginLeft: 15,
+    marginLeft: 10,
     borderWidth: 2,
     borderStyle: 'solid',
     borderColor: '#d5d4d4',
