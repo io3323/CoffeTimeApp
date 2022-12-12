@@ -218,6 +218,7 @@ android {
             keyPassword 'android'
         }
     }
+    namespace 'com.coffetimeapp'
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
