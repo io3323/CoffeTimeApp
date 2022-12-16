@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "@react-native-community/cli": "^8.0.2"
+    "@react-native-community/cli": "^8.0.2",
+    "dev": "concurrently \"npm run ios\" \"npm run android\""
   },
   "dependencies": {
     "@react-native-community/geolocation": "^3.0.4",
@@ -20,6 +21,7 @@
     "@svgr/plugin-jsx": "^6.5.1",
     "@svgr/plugin-prettier": "^6.5.1",
     "@types/react-redux": "^7.1.24",
+    "concurrently": "^7.6.0",
     "file-loader": "^6.2.0",
     "install": "^0.13.0",
     "l": "^0.6.0",

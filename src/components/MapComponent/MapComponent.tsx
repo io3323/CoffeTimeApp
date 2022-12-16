@@ -6,7 +6,14 @@ import {
   addElement,
   Coordinate,
 } from '../../redux/reduxStateSlice/coordinateSlice';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 // @ts-ignore
 import mesto from '../../assets/image/mapScreen/mesto.png';
@@ -29,13 +36,22 @@ export const MapComponent = () => {
   const dispatch = useDispatch();
   const [controllerPosition, setController] = useState(true);
   const getLocationUser = () => {
+    const config = {
+      enableHighAccuracy: true,
+      timeout: 2000,
+      maximumAge: 3600000,
+    };
     if (controllerPosition) {
-      Geolocation.getCurrentPosition(info => {
-        const payloadAmmount: Coordinate = info.coords;
-        dispatch(addElement(payloadAmmount));
-
-        setController(false);
-      });
+      Geolocation.getCurrentPosition(
+        info => {
+          const payloadAmmount: Coordinate = info.coords;
+          dispatch(addElement(payloadAmmount));
+          console.log('INFO', info);
+          setController(false);
+        },
+        error => console.log('ERROR', error),
+        config,
+      );
     }
   };
   useEffect(() => {
@@ -64,6 +80,11 @@ export const MapComponent = () => {
   const Separator = () => {
     return <View style={styles.separator} />;
   };
+  if (Platform.OS == 'android') {
+    console.log('android');
+  } else if (Platform.OS == 'ios') {
+    console.log('ios top');
+  }
   return (
     // @ts-ignore
     <View>
@@ -77,8 +98,8 @@ export const MapComponent = () => {
           latitude: 46.834159,
           //longitude: coordinateState.longitude,
           longitude: 29.624785,
-          latitudeDelta: 0.005,
-          longitudeDelta: 0.0421,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.0121,
         }}
         style={{width: '100%', height: '100%'}}>
         {coordinateMasState.map(marker => (

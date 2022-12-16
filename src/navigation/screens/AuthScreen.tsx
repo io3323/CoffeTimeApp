@@ -1,5 +1,3 @@
-//import {useNavigation} from '@react-navigation/native';
-
 // @ts-ignore
 import imaga from '../../assets/image/authScreen/fon.png';
 import {
@@ -11,7 +9,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import LoginForm from '../../components/authScreen/LoginForm';
-import { Provider } from "react-redux";
+import {Provider} from 'react-redux';
 import store from '../../redux/reduxStore/store';
 export const AuthScreenName = 'Auth Screen';
 export const AuthScreen = () => {
