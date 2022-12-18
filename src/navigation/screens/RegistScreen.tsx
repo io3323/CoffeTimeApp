@@ -1,36 +1,19 @@
 import {
-  Image,
   ImageBackground,
   SafeAreaView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-// @ts-ignore
 import imaga from '../../assets/image/authScreen/fon.png';
 import RegisterForm from '../../components/authScreen/RegisterForm';
-// @ts-ignore
-import backIcon from '../../assets/image/regImageScreen/backIcon.png';
-import {useNavigation} from '@react-navigation/native';
-import {AuthScreenName} from './AuthScreen';
-
-export const RegistScreenName = 'Regist Screen';
 export const RegistScreen = () => {
-  const navigation = useNavigation();
-  const backScreen = () => {
-    // @ts-ignore
-    navigation.navigate(AuthScreenName);
-  };
   return (
     <ImageBackground style={styles.viewContainer} source={imaga}>
       <LinearGradient colors={['rgba(0,0,0,0.00)', 'rgba(243,233,216,0.79)']}>
         <View style={styles.viewStyle}>
           <SafeAreaView>
-            <TouchableOpacity onPress={() => backScreen()}>
-              <Image source={backIcon} style={styles.backIconStyle} />
-            </TouchableOpacity>
             <Text style={styles.mainText}>CoffeTime</Text>
             <Text style={styles.additinalText}>территория кофе</Text>
             <RegisterForm />
@@ -70,10 +53,5 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     borderRadius: 5,
-  },
-  backIconStyle: {
-    width: 50,
-    height: 50,
-    marginLeft: 10,
   },
 });

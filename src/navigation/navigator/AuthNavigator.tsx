@@ -1,8 +1,8 @@
-import {createNativeStackNavigator} from 'react-native-screens/native-stack';
-import {AuthScreen, AuthScreenName} from '../screens/AuthScreen';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {AuthScreen} from '../screens/AuthScreen';
 import React from 'react';
 import {SecondScreen, SecondScreenName} from '../screens/SecondScreen';
-import {RegistScreen, RegistScreenName} from '../screens/RegistScreen';
+import {RegistScreen} from '../screens/RegistScreen';
 import {CustomBackButton} from '../../components/customComponents/customHeader/CustomBackButton';
 import {CustomHeaderTitle} from '../../components/customComponents/customHeader/CustomHeaderTitle';
 import {DetailedInfo} from '../screens/DetailedInfo';
@@ -18,7 +18,7 @@ import {CustomBagShopButton} from '../../components/customComponents/customHeade
 import {ShopListButton} from '../../components/customComponents/customHeader/ShopListButton';
 import {Provider} from 'react-redux';
 import store from '../../redux/reduxStore/store';
-
+import {AuthScreenName, NameTabStack, RegistScreenName} from './nameScreen';
 export const AuthNavigator = () => {
   const Tab = createMaterialTopTabNavigator();
   const TabStack = () => {
@@ -92,7 +92,7 @@ export const AuthNavigator = () => {
         </Stack.Group>
         <Stack.Group>
           <Stack.Screen
-            name={'TabStack'}
+            name={NameTabStack}
             component={TabStack}
             options={{
               headerShown: true,
@@ -100,7 +100,7 @@ export const AuthNavigator = () => {
                 backgroundColor: '#EAEAEA',
               },
               headerLeft: () => <CustomBackButton />,
-              headerCenter: () => <CustomHeaderTitle />,
+              headerTitle: () => <CustomHeaderTitle />,
               headerRight: () => <CustomBagShopButton />,
             }}
           />
@@ -113,7 +113,7 @@ export const AuthNavigator = () => {
                 backgroundColor: '#EAEAEA',
               },
               headerLeft: () => <CustomBackButton />,
-              headerCenter: () => <CustomHeaderTitle />,
+              headerTitle: () => <CustomHeaderTitle />,
               headerRight: () => <ShopListButton />,
             }}
           />
@@ -126,7 +126,7 @@ export const AuthNavigator = () => {
                 backgroundColor: '#EAEAEA',
               },
               headerLeft: () => <CustomBackButton />,
-              headerCenter: () => <CustomHeaderTitle />,
+              headerTitle: () => <CustomHeaderTitle />,
               headerRight: () => <ShopListButton />,
             }}
           />
@@ -139,7 +139,7 @@ export const AuthNavigator = () => {
                 backgroundColor: '#EAEAEA',
               },
               headerLeft: () => <CustomBackButton />,
-              headerCenter: () => <CustomHeaderTitle />,
+              headerTitle: () => <CustomHeaderTitle />,
             }}
           />
           <Stack.Screen name={'SecondTest'} component={SecondTestScreen} />

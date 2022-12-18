@@ -1,29 +1,55 @@
-// @ts-ignore
-import imaga from '../../assets/image/authScreen/fon.png';
+import image from '../../assets/image/authScreen/fon.png';
 import {
   ImageBackground,
   SafeAreaView,
   Text,
   View,
   StyleSheet,
+  Keyboard,
+  LogBox,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import LoginForm from '../../components/authScreen/LoginForm';
 import {Provider} from 'react-redux';
 import store from '../../redux/reduxStore/store';
-export const AuthScreenName = 'Auth Screen';
+import {useEffect, useState} from 'react';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+LogBox.ignoreLogs(['Require cycle:']);
 export const AuthScreen = () => {
+  const [keyboardStatus, setKeyboardStatus] = useState(false);
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardStatus(true);
+    });
+    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardStatus(false);
+    });
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  });
   return (
-    <ImageBackground style={styles.viewContainer} source={imaga}>
+    <ImageBackground style={styles.viewContainer} source={image}>
       <LinearGradient colors={['rgba(0,0,0,0.00)', 'rgba(243,233,216,0.79)']}>
         <View style={styles.viewStyle}>
-          <SafeAreaView>
-            <Text style={styles.mainText}>CoffeTime</Text>
-            <Text style={styles.additinalText}>территория кофе</Text>
-            <Provider store={store}>
-              <LoginForm />
-            </Provider>
-          </SafeAreaView>
+          <KeyboardAwareScrollView
+            extraHeight={150}
+            extraScrollHeight={30}
+            enableOnAndroid={true}
+            scrollEnabled={keyboardStatus}>
+            <SafeAreaView>
+              <Text style={styles.mainText} adjustsFontSizeToFit={true}>
+                CoffeTime
+              </Text>
+              <Text style={styles.additinalText}>территория кофе</Text>
+              <Provider store={store}>
+                <View style={styles.loginConteiner}>
+                  <LoginForm />
+                </View>
+              </Provider>
+            </SafeAreaView>
+          </KeyboardAwareScrollView>
         </View>
       </LinearGradient>
     </ImageBackground>
@@ -39,16 +65,16 @@ const styles = StyleSheet.create({
     fontSize: 64,
     color: '#FFFFFF',
     fontFamily: 'Lobster-Regular',
-    marginTop: 101,
-    marginLeft: 70,
-    marginRight: 13,
+    marginTop: '15.1%',
+    marginLeft: '18.7%',
+    marginRight: '18.4%',
   },
   additinalText: {
     fontSize: 16,
     color: '#FFFFFF',
     fontFamily: 'SFUIText-Bold',
-    marginLeft: 159,
-    marginRight: 83,
+    marginLeft: '42.4%',
+    marginRight: '20%',
   },
   viewStyle: {
     width: '100%',
@@ -59,5 +85,11 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     borderRadius: 5,
+  },
+  loginConteiner: {
+    marginTop: '25%',
+  },
+  keyboardConteiner: {
+    flex: 1,
   },
 });

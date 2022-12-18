@@ -8,12 +8,9 @@ import {
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {useState} from 'react';
-// @ts-ignore
 import newUserIcon from '../../assets/image/stateImageReg/newUser.png';
-// @ts-ignore
 import pencilIcon from '../../assets/image/regImageScreen/pencilIcon.png';
 import {useNavigation} from '@react-navigation/native';
-import {MainScreenName} from '../../navigation/screens/MainScreen';
 const RegisterForm = () => {
   const navigation = useNavigation();
   const [name, setName] = useState('');
