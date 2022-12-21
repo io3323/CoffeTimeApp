@@ -14,9 +14,11 @@ import {Provider} from 'react-redux';
 import store from '../../redux/reduxStore/store';
 import {useEffect, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {SplachComponent} from '../../components/splashScreenComponent/SplashComponent';
 LogBox.ignoreLogs(['Require cycle:']);
 export const AuthScreen = () => {
   const [keyboardStatus, setKeyboardStatus] = useState(false);
+  const [isAppReady, setIsAppReady] = useState(false);
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardStatus(true);
@@ -29,30 +31,36 @@ export const AuthScreen = () => {
       hideSubscription.remove();
     };
   });
+  useEffect(() => {
+    setIsAppReady(true);
+  }, []);
+
   return (
-    <ImageBackground style={styles.viewContainer} source={image}>
-      <LinearGradient colors={['rgba(0,0,0,0.00)', 'rgba(243,233,216,0.79)']}>
-        <View style={styles.viewStyle}>
-          <KeyboardAwareScrollView
-            extraHeight={150}
-            extraScrollHeight={30}
-            enableOnAndroid={true}
-            scrollEnabled={keyboardStatus}>
-            <SafeAreaView>
-              <Text style={styles.mainText} adjustsFontSizeToFit={true}>
-                CoffeTime
-              </Text>
-              <Text style={styles.additinalText}>территория кофе</Text>
-              <Provider store={store}>
-                <View style={styles.loginConteiner}>
-                  <LoginForm />
-                </View>
-              </Provider>
-            </SafeAreaView>
-          </KeyboardAwareScrollView>
-        </View>
-      </LinearGradient>
-    </ImageBackground>
+    <SplachComponent isAppReady={isAppReady}>
+      <ImageBackground style={styles.viewContainer} source={image}>
+        <LinearGradient colors={['rgba(0,0,0,0.00)', 'rgba(243,233,216,0.79)']}>
+          <View style={styles.viewStyle}>
+            <KeyboardAwareScrollView
+              extraHeight={150}
+              extraScrollHeight={30}
+              enableOnAndroid={true}
+              scrollEnabled={keyboardStatus}>
+              <SafeAreaView>
+                <Text style={styles.mainText} adjustsFontSizeToFit={true}>
+                  CoffeTime
+                </Text>
+                <Text style={styles.additinalText}>территория кофе</Text>
+                <Provider store={store}>
+                  <View style={styles.loginConteiner}>
+                    <LoginForm />
+                  </View>
+                </Provider>
+              </SafeAreaView>
+            </KeyboardAwareScrollView>
+          </View>
+        </LinearGradient>
+      </ImageBackground>
+    </SplachComponent>
   );
 };
 

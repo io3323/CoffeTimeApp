@@ -45,7 +45,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"CoffeTimeApp", initProps);
 
   if (@available(iOS 13.0, *)) {
-    rootView.backgroundColor = [UIColor systemBackgroundColor];
+    rootView.backgroundColor = [UIColor colorWithRed:0.77255 green:0.70588 blue:0.62745 alpha:1.0];
   } else {
     rootView.backgroundColor = [UIColor whiteColor];
   }
