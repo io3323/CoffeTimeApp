@@ -7,37 +7,105 @@ import {
   View,
 } from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import newUserIcon from '../../assets/image/stateImageReg/newUser.png';
 import pencilIcon from '../../assets/image/regImageScreen/pencilIcon.png';
-import {useNavigation} from '@react-navigation/native';
+import {ParamListBase, useNavigation} from '@react-navigation/native';
+import {NameTabStack} from '../../navigation/navigator/nameScreen';
+import {StackNavigationProp} from '@react-navigation/stack';
+import removeIcon from '../../assets/image/authScreen/removeIcon.png';
+type writeIconModel = {
+  name: boolean;
+  email: boolean;
+  password: boolean;
+};
+type userInfoModel = {
+  name: string;
+  email: string;
+  password: string;
+};
 const RegisterForm = () => {
-  const navigation = useNavigation();
-  const [name, setName] = useState('');
+  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+  const [userInfo, setUserInfo] = useState<userInfoModel>({
+    name: '',
+    email: '',
+    password: '',
+  });
   const [controller, setController] = useState(true);
+  const [controllerButton, setControllerButton] = useState(true);
   const [photo, setPhoto] = useState('');
+  const [writeIconController, setWriteIconController] =
+    useState<writeIconModel>({
+      name: false,
+      email: false,
+      password: false,
+    });
   const handleTransitionMainScreen = () => {
-    // @ts-ignore
-    navigation.navigate('TabStack');
+    navigation.navigate(NameTabStack);
   };
   const openCamera = () => {
     const options = {
       noData: true,
     };
+
     // @ts-ignore
     launchImageLibrary(options, response => {
-      console.log('response First', response);
-      console.log('response assets', response.assets);
       response.assets?.map(photoLib => {
-        console.log(photoLib.uri);
         // @ts-ignore
         setPhoto(photoLib.uri);
+        console.log(typeof photoLib.uri);
         setController(false);
       });
     });
   };
+  useEffect(() => {
+    if (
+      (userInfo.name === '' &&
+        userInfo.email === '' &&
+        userInfo.password === '') ||
+      (userInfo.name !== '' &&
+        userInfo.email === '' &&
+        userInfo.password === '') ||
+      (userInfo.name === '' &&
+        userInfo.email !== '' &&
+        userInfo.password === '') ||
+      (userInfo.name === '' &&
+        userInfo.email === '' &&
+        userInfo.password !== '') ||
+      (userInfo.name !== '' &&
+        userInfo.email !== '' &&
+        userInfo.password === '') ||
+      (userInfo.name !== '' &&
+        userInfo.email === '' &&
+        userInfo.password !== '') ||
+      (userInfo.name === '' &&
+        userInfo.email !== '' &&
+        userInfo.password !== '')
+    ) {
+      setControllerButton(false);
+    } else {
+      setControllerButton(true);
+    }
+  }, [userInfo.name, userInfo.email, userInfo.password]);
+  useEffect(() => {
+    if (userInfo.name !== '') {
+      setWriteIconController(prevState => ({...prevState, name: false}));
+    } else {
+      setWriteIconController(prevState => ({...prevState, name: true}));
+    }
+    if (userInfo.email !== '') {
+      setWriteIconController(prevState => ({...prevState, email: false}));
+    } else {
+      setWriteIconController(prevState => ({...prevState, email: true}));
+    }
+    if (userInfo.password !== '') {
+      setWriteIconController(prevState => ({...prevState, password: false}));
+    } else {
+      setWriteIconController(prevState => ({...prevState, password: true}));
+    }
+  }, [userInfo.email, userInfo.name, userInfo.password]);
   return (
-    <View>
+    <View style={styles.mainConteiner}>
       <TouchableOpacity style={styles.container} onPress={() => openCamera()}>
         <View style={styles.secondContainer}>
           <View style={styles.roundFirst}>
@@ -52,29 +120,98 @@ const RegisterForm = () => {
           </View>
         </View>
       </TouchableOpacity>
-      <View style={styles.formContainer}>
+      <View style={styles.mainInputConteiner}>
         <View style={styles.inputConteiner}>
           <TextInput
             placeholder={'Name and surname'}
             placeholderTextColor={'#FFFFFFB5'}
             cursorColor={'#FFFFFFB5'}
             style={styles.input}
-            onChangeText={text => setName(text)}
+            onChangeText={text =>
+              setUserInfo(prevState => ({...prevState, name: text}))
+            }
+            value={userInfo.name}
           />
         </View>
-        <TouchableOpacity onPress={() => console.log(name)}>
-          <Image style={styles.pencilIcon} source={pencilIcon} />
-        </TouchableOpacity>
+        {writeIconController.name && (
+          <View>
+            <Image style={styles.pencilIcon} source={pencilIcon} />
+          </View>
+        )}
+        {writeIconController.name == false && (
+          <TouchableOpacity
+            onPress={() =>
+              setUserInfo(prevState => ({...prevState, name: ''}))
+            }>
+            <Image style={styles.removeIcon} source={removeIcon} />
+          </TouchableOpacity>
+        )}
       </View>
       <View style={styles.line} />
-      {name !== '' && (
+      <View style={styles.mainInputConteiner}>
+        <View style={styles.inputConteiner}>
+          <TextInput
+            placeholder={'email'}
+            placeholderTextColor={'#FFFFFFB5'}
+            cursorColor={'#FFFFFFB5'}
+            style={styles.input}
+            onChangeText={text =>
+              setUserInfo(prevState => ({...prevState, email: text}))
+            }
+            value={userInfo.email}
+          />
+        </View>
+        {writeIconController.email && (
+          <View>
+            <Image style={styles.pencilIcon} source={pencilIcon} />
+          </View>
+        )}
+        {writeIconController.email == false && (
+          <TouchableOpacity
+            onPress={() =>
+              setUserInfo(prevState => ({...prevState, email: ''}))
+            }>
+            <Image style={styles.removeIcon} source={removeIcon} />
+          </TouchableOpacity>
+        )}
+      </View>
+      <View style={styles.line} />
+      <View style={styles.mainInputConteiner}>
+        <View style={styles.inputConteiner}>
+          <TextInput
+            placeholder={'password'}
+            placeholderTextColor={'#FFFFFFB5'}
+            cursorColor={'#FFFFFFB5'}
+            style={styles.input}
+            onChangeText={text =>
+              setUserInfo(prevState => ({...prevState, password: text}))
+            }
+            value={userInfo.password}
+          />
+        </View>
+        {writeIconController.password && (
+          <View>
+            <Image style={styles.pencilIcon} source={pencilIcon} />
+          </View>
+        )}
+        {writeIconController.password == false && (
+          <TouchableOpacity
+            onPress={() =>
+              setUserInfo(prevState => ({...prevState, password: ''}))
+            }>
+            <Image style={styles.removeIcon} source={removeIcon} />
+          </TouchableOpacity>
+        )}
+      </View>
+      <View style={styles.line} />
+      {controllerButton && (
         <TouchableOpacity
           style={styles.buttonLogin}
           onPress={() => handleTransitionMainScreen()}>
           <Text style={styles.buttonTextLogin}>далее</Text>
         </TouchableOpacity>
       )}
-      {name === '' && (
+      {controllerButton == false && (
         <View style={styles.buttonLoginNoActive}>
           <Text style={styles.buttonTextLogin}>далее</Text>
         </View>
@@ -83,6 +220,9 @@ const RegisterForm = () => {
   );
 };
 const styles = StyleSheet.create({
+  mainConteiner: {
+    alignItems: 'center',
+  },
   container: {
     borderStyle: 'dashed',
     borderWidth: 1,
@@ -90,7 +230,6 @@ const styles = StyleSheet.create({
     width: 134,
     height: 134,
     marginTop: 48,
-    marginLeft: 121,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -134,30 +273,39 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 20,
-    marginTop: 80,
-    marginLeft: 85,
     color: '#FFFFFFB5',
+    marginLeft: '-10%',
+  },
+  inputConteiner: {
+    width: '50%',
+    height: '100%',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  mainInputConteiner: {
+    height: '10%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: '5%',
   },
   line: {
-    width: 250,
+    width: '65%',
     height: 1,
-    marginLeft: 65.5,
-    marginTop: 10,
+    marginTop: 0,
     backgroundColor: '#D8D8D8',
   },
-  formContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    height: 100,
-  },
   pencilIcon: {
-    width: 41,
+    width: 42,
     height: 39,
-    marginTop: 63,
-    marginLeft: 20,
-    borderStyle: 'dashed',
-    borderWidth: 1,
-    borderColor: '#D8D8D8',
+    marginLeft: '50%',
+    position: 'absolute',
+  },
+  removeIcon: {
+    position: 'absolute',
+    width: 50,
+    height: 25,
+    top: '15%',
+    marginLeft: '50%',
   },
   buttonLogin: {
     marginTop: 23.5,
@@ -168,7 +316,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 300,
     height: 52,
-    marginLeft: 38,
   },
   buttonLoginNoActive: {
     marginTop: 23.5,
@@ -179,7 +326,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: 300,
     height: 52,
-    marginLeft: 38,
   },
   buttonTextLogin: {
     fontSize: 18,
@@ -187,9 +333,6 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     marginTop: 15,
-  },
-  inputConteiner: {
-    width: 260,
   },
 });
 export default RegisterForm;
