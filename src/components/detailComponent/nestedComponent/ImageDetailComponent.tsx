@@ -1,6 +1,7 @@
 import {
   Image,
   ImageBackground,
+  Platform,
   StyleSheet,
   Switch,
   Text,
@@ -8,9 +9,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {FunctionComponent, useState} from 'react';
-// @ts-ignore
 import heartIcon from '../../../assets/image/detailScreen/heartIcon.png';
-// @ts-ignore
 import cafeIcon from '../../../assets/image/listScreen/cafeIcon.png';
 type ImageComponentType = {
   images: string;
@@ -26,7 +25,7 @@ export const ImageDetailComponent: FunctionComponent<ImageComponentType> = ({
   const [controller, setController] = useState(true);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (
-    <View>
+    <View style={styles.mainConteiner}>
       {controller && (
         <ImageBackground
           style={styles.image}
@@ -36,7 +35,7 @@ export const ImageDetailComponent: FunctionComponent<ImageComponentType> = ({
             colors={['rgba(0,0,0,0.00)', 'rgba(243,233,216,0.79)']}
             style={styles.linearGradient}>
             <View style={styles.conteiner}>
-              <View>
+              <View style={styles.mainBlockConteiner}>
                 <Text style={styles.textName}>{name}</Text>
                 <Text style={styles.textAdress}>{address}</Text>
               </View>
@@ -60,9 +59,11 @@ export const ImageDetailComponent: FunctionComponent<ImageComponentType> = ({
             colors={['rgba(0,0,0,0.00)', 'rgba(243,233,216,0.79)']}
             style={styles.linearGradient}>
             <View style={styles.conteiner}>
-              <View>
+              <View style={styles.mainBlockConteiner}>
                 <Text style={styles.textName}>{name}</Text>
-                <Text style={styles.textAdress}>{address}</Text>
+                <Text style={styles.textAdress} numberOfLines={0}>
+                  {address}
+                </Text>
               </View>
               <Switch
                 trackColor={{false: '#767577', true: '#f3f1f1'}}
@@ -83,9 +84,16 @@ export const ImageDetailComponent: FunctionComponent<ImageComponentType> = ({
 };
 
 const styles = StyleSheet.create({
-  image: {
+  mainConteiner: {
     width: '100%',
     height: 320,
+  },
+  mainBlockConteiner: {
+    width: '85%',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
   linearGradient: {
     flex: 1,
@@ -97,7 +105,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lobster-Regular',
     fontSize: 28,
     color: '#474747',
-    marginTop: 249,
+    marginTop: 220,
     marginLeft: 6,
   },
   textAdress: {
@@ -106,19 +114,21 @@ const styles = StyleSheet.create({
     color: '#717171',
     marginLeft: 6,
     marginTop: 10,
+    height: 100,
   },
   conteiner: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'flex-end',
   },
   switchController: {
-    marginTop: 285,
     marginLeft: 10,
     borderWidth: 2,
+    marginBottom: 50,
     borderStyle: 'solid',
     borderColor: '#d5d4d4',
     borderRadius: 14,
-    backgroundColor: '#cccccc',
+    backgroundColor: Platform.OS == 'ios' ? '#cccccc' : '',
   },
   headrIcon: {
     width: 20,

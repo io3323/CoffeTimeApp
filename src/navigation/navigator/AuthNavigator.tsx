@@ -7,9 +7,9 @@ import {CustomBackButton} from '../../components/customComponents/customHeader/C
 import {CustomHeaderTitle} from '../../components/customComponents/customHeader/CustomHeaderTitle';
 import {DetailedInfo} from '../screens/DetailedInfo';
 import {SecondTestScreen} from '../screens/SecondTestScreen';
-import {MapScreen} from '../screens/MapScreen';
+import {MapScreen, MapScreenName} from '../screens/MapScreen';
 import {CustomMapIcon} from '../../components/customComponents/customSegmentedControlIcon/CustomMapIcon';
-import {ListCoffeScreen} from '../screens/ListCoffeScreen';
+import {ListCoffeScreen, ListCoffeScreenName} from '../screens/ListCoffeScreen';
 import {CustomListIcon} from '../../components/customComponents/customSegmentedControlIcon/CustomListIcon';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {DetailProductInfo} from '../screens/DetailProductInfo';
@@ -18,7 +18,14 @@ import {CustomBagShopButton} from '../../components/customComponents/customHeade
 import {ShopListButton} from '../../components/customComponents/customHeader/ShopListButton';
 import {Provider} from 'react-redux';
 import store from '../../redux/reduxStore/store';
-import {AuthScreenName, NameTabStack, RegistScreenName} from './nameScreen';
+import {
+  AuthScreenName,
+  DetailedInfoName,
+  DetailProductInfoName,
+  NameTabStack,
+  OrderScreenName,
+  RegistScreenName,
+} from './nameScreen';
 export const AuthNavigator = () => {
   const Tab = createMaterialTopTabNavigator();
   const TabStack = () => {
@@ -32,9 +39,10 @@ export const AuthNavigator = () => {
             borderStyle: 'solid',
             borderWidth: 1,
             borderRadius: 40,
-            marginLeft: 120,
+            justifyContent: 'center',
             marginTop: 10,
             marginBottom: 10,
+            alignSelf: 'center',
           },
           tabBarIndicatorStyle: {
             backgroundColor: 'red',
@@ -53,7 +61,7 @@ export const AuthNavigator = () => {
           },
         }}>
         <Tab.Screen
-          name="Map"
+          name={MapScreenName}
           component={MapScreen}
           options={{
             tabBarShowLabel: false,
@@ -61,7 +69,7 @@ export const AuthNavigator = () => {
           }}
         />
         <Tab.Screen
-          name="List"
+          name={ListCoffeScreenName}
           component={ListCoffeScreen}
           options={{
             tabBarShowLabel: false,
@@ -100,44 +108,52 @@ export const AuthNavigator = () => {
                 backgroundColor: '#EAEAEA',
               },
               headerLeft: () => <CustomBackButton />,
+              headerBackVisible: false,
+              headerTitleAlign: 'center',
               headerTitle: () => <CustomHeaderTitle />,
               headerRight: () => <CustomBagShopButton />,
             }}
           />
           <Stack.Screen
-            name={'DetailedInfo'}
+            name={DetailedInfoName}
             component={DetailedInfo}
             options={{
               headerShown: true,
               headerStyle: {
                 backgroundColor: '#EAEAEA',
               },
+              headerTitleAlign: 'center',
+              headerBackVisible: false,
               headerLeft: () => <CustomBackButton />,
               headerTitle: () => <CustomHeaderTitle />,
               headerRight: () => <ShopListButton />,
             }}
           />
           <Stack.Screen
-            name={'DetailProductInfo'}
+            name={DetailProductInfoName}
             component={DetailProductInfo}
             options={{
               headerShown: true,
               headerStyle: {
                 backgroundColor: '#EAEAEA',
               },
+              headerTitleAlign: 'center',
+              headerBackVisible: false,
               headerLeft: () => <CustomBackButton />,
               headerTitle: () => <CustomHeaderTitle />,
               headerRight: () => <ShopListButton />,
             }}
           />
           <Stack.Screen
-            name={'OrderScreen'}
+            name={OrderScreenName}
             component={OrderScreen}
             options={{
               headerShown: true,
               headerStyle: {
                 backgroundColor: '#EAEAEA',
               },
+              headerTitleAlign: 'center',
+              headerBackVisible: false,
               headerLeft: () => <CustomBackButton />,
               headerTitle: () => <CustomHeaderTitle />,
             }}
@@ -148,7 +164,6 @@ export const AuthNavigator = () => {
     );
   };
   const MainStack = createNativeStackNavigator();
-  // @ts-ignore
   return (
     <Provider store={store}>
       <MainStack.Navigator initialRouteName="App">

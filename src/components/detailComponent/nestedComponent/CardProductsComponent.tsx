@@ -1,13 +1,15 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {FunctionComponent, useState} from 'react';
-// @ts-ignore
 import rubleIcon from '../../../assets/image/detailScreen/rubleIcon.png';
-// @ts-ignore
 import heartGrayIcon from '../../../assets/image/detailScreen/heartGrayIcon.png';
-// @ts-ignore
 import heartIcon from '../../../assets/image/detailScreen/heartIcon.png';
-// @ts-ignore
 import imageNoCoffe from '../../../assets/image/detailScreen/imageNoCoffe.png';
+import {CURENT_WIDTH} from '../../../definitionSize';
 type CartProductsType = {
   name: string;
   images: string;
@@ -51,7 +53,7 @@ export const CardProductsComponent: FunctionComponent<CartProductsType> = ({
 
 const styles = StyleSheet.create({
   conteiner: {
-    width: 180,
+    width: CURENT_WIDTH,
     height: 270,
     backgroundColor: 'white',
   },
@@ -70,10 +72,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   image: {
-    width: 155,
-    height: 140,
-    marginTop: 10,
-    marginLeft: 10,
+    width: 150,
+    height: 135,
+    marginTop: 20,
+    marginLeft: 15,
   },
   secondConteiner: {
     display: 'flex',

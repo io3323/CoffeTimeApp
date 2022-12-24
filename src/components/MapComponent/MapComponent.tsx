@@ -1,25 +1,15 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Geolocation from '@react-native-community/geolocation';
 import {
   addElement,
   Coordinate,
 } from '../../redux/reduxStateSlice/coordinateSlice';
-import {
-  Image,
-  Platform,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-// @ts-ignore
 import mesto from '../../assets/image/mapScreen/mesto.png';
-// @ts-ignore
 import located from '../../assets/image/mapScreen/located.png';
-// @ts-ignore
 import search from '../../assets/image/mapScreen/search.png';
 import {addMarkers} from '../../redux/reduxStateSlice/coordinateMasSplice';
 export const MapComponent = () => {
@@ -76,63 +66,58 @@ export const MapComponent = () => {
         });
       });
     });
-  }, [coffeDataState]);
+  }, [coffeDataState, dispatch]);
+  useEffect(() => {
+    getLocationUser();
+    console.log('effect')
+  }, []);
   const Separator = () => {
     return <View style={styles.separator} />;
   };
-  if (Platform.OS == 'android') {
-    console.log('android');
-  } else if (Platform.OS == 'ios') {
-    console.log('ios top');
-  }
   return (
-    // @ts-ignore
     <View>
-      {getLocationUser()}
-      <MapView
-        onPress={e => console.log(e.target)}
-        // @ts-ignore
-        initialRegion={{
-          //MARK: - для работы автоопределения координат заменить статичные значени lat и lon на динамические
-          //latitude: coordinateState.latitude,
-          latitude: 46.834159,
-          //longitude: coordinateState.longitude,
-          longitude: 29.624785,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
-        }}
-        style={{width: '100%', height: '100%'}}>
-        {coordinateMasState.map(marker => (
-          <Marker coordinate={marker} image={mesto} />
-        ))}
-      </MapView>
-      <View
-        style={{
-          width: '100%',
-          height: 220,
-          marginTop: -190,
-          display: 'flex',
-          flexDirection: 'row',
-        }}>
-        <TouchableOpacity onPress={() => getLocationUser()}>
-          <Image source={located} style={styles.locatedIcon} />
-        </TouchableOpacity>
-        <View
-          style={{
-            backgroundColor: 'white',
-            width: 287,
-            height: 130,
-            marginTop: 55,
-            marginLeft: -25,
-            alignItems: 'center',
-          }}>
-          <Text style={styles.textCafe}>CoffeTime</Text>
-          <Separator />
-          <Text style={styles.subText}>900 м =15 минут</Text>
+      <View>
+        <MapView
+          onPress={e => console.log(e.target)}
+          initialRegion={{
+            //MARK: - для работы автоопределения координат заменить статичные значени lat и lon на динамические
+            //latitude: coordinateState.latitude,
+            latitude: 46.834159,
+            //longitude: coordinateState.longitude,
+            longitude: 29.624785,
+            latitudeDelta: 0.015,
+            longitudeDelta: 0.0121,
+          }}
+          style={styles.mapView}>
+          {coordinateMasState.map(marker => (
+            <Marker
+              coordinate={marker}
+              image={mesto}
+              style={styles.markerStyle}
+            />
+          ))}
+        </MapView>
+      </View>
+      <View style={styles.mapInfo}>
+        <View style={styles.rowConteiner}>
+          <View style={styles.locatedConteiner}>
+            <TouchableOpacity onPress={() => getLocationUser()}>
+              <Image source={located} style={styles.locatedIcon} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.locatedSearch}>
+            <TouchableOpacity>
+              <Image source={search} style={styles.searchIcon} />
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity>
-          <Image source={search} style={styles.searchIcon} />
-        </TouchableOpacity>
+        <View style={styles.cardStyle}>
+          <View style={styles.blockConteiner}>
+            <Text style={styles.textCafe}>CoffeTime</Text>
+            <Separator />
+            <Text style={styles.subText}>900 м =15 минут</Text>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -140,6 +125,10 @@ export const MapComponent = () => {
 
 const styles = StyleSheet.create({
   conteiner: {
+    width: '100%',
+    height: '100%',
+  },
+  mapView: {
     width: '100%',
     height: '100%',
   },
@@ -156,26 +145,60 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: '#D8D8D8',
     marginTop: 5,
+    marginLeft: '8.2%',
   },
   textCafe: {
-    color: '#4747474',
+    color: '#474747',
     fontSize: 30,
     marginTop: 5,
     fontFamily: 'Lobster-Regular',
+    marginLeft: '10.1%',
   },
   subText: {
     color: '#bbbbbb',
     fontSize: 20,
     marginTop: 5,
+    marginLeft: '10.1%',
   },
   searchIcon: {
     width: 45,
     height: 45,
-    marginLeft: -35,
   },
   locatedIcon: {
     width: 45,
     height: 45,
-    marginLeft: 30,
+  },
+  blockConteiner: {
+    backgroundColor: 'white',
+    width: 287,
+    height: 130,
+    alignItems: 'flex-start',
+  },
+  mapInfo: {
+    width: '100%',
+    height: 220,
+    marginTop: -200,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  rowConteiner: {
+    flexDirection: 'row',
+    width: 287,
+  },
+  cardStyle: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  locatedConteiner: {
+    width: '50%',
+  },
+  locatedSearch: {
+    width: '50%',
+    alignItems: 'flex-end',
+  },
+  markerStyle: {
+    width: 105,
+    height: 105,
   },
 });

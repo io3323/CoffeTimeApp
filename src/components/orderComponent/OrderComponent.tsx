@@ -11,9 +11,7 @@ import {
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
 import {useEffect, useState} from 'react';
-// @ts-ignore
 import imageNoCoffe from '../../assets/image/detailScreen/imageNoCoffe.png';
-// @ts-ignore
 import rubleGray from '../../assets/image/detailProductScreen/rubleGray.png';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {IBasketUser} from '../../redux/reduxStateSlice/basketUserSlice';

@@ -13,6 +13,7 @@ import {
   FlatList,
   Image,
   ListRenderItem,
+  LogBox,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -20,13 +21,13 @@ import {
 } from 'react-native';
 import {initialState, InState} from './CardFlatList/CardFlatList';
 import {Separator} from './CardFlatList/Separator';
-import {useNavigation} from '@react-navigation/native';
-// @ts-ignore
+import {ParamListBase, useNavigation} from '@react-navigation/native';
 import goIcon from '../../assets/image/listScreen/goIcon.png';
 import {addCafeInfo} from '../../redux/reduxStateSlice/cafeInfoSlice';
 import {addProducts} from '../../redux/reduxStateSlice/productsCafeSlice';
-// @ts-ignore
 import cafeIcon from '../../assets/image/listScreen/cafeIcon.png';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {DetailedInfoName} from '../../navigation/navigator/nameScreen';
 type ItemModel = {
   id: string;
   name: string;
@@ -35,7 +36,7 @@ type ItemModel = {
   description: string;
   images: string;
 };
-
+LogBox.ignoreLogs(['source.uri']);
 export const ListComponent = () => {
   const dispatch = useDispatch();
   const [token, setToken] = useState('');
@@ -46,10 +47,6 @@ export const ListComponent = () => {
   const tokenUser = useSelector((state: RootState) => state.tokenState);
   const coffeDataState = useSelector(
     (state: RootState) => state.coffeDataState,
-  );
-  const cafeInfoState = useSelector((state: RootState) => state.cafeInfoState);
-  const productsCafeState = useSelector(
-    (state: RootState) => state.productsCafeState,
   );
   const [getCoffe] = useGetCoffeMutation();
   const [getCafe] = useGetCafeMutation();
@@ -62,19 +59,16 @@ export const ListComponent = () => {
   };
   const getDataOnPress = async () => {
     const result = await getCoffe(token);
-    //console.log(result);
     // @ts-ignore
     dispatch(addDataCoffe(result));
   };
   useEffect(() => {
     getToken();
-    //console.log('render getToken');
   }, []);
   useEffect(() => {
     if (token != '') {
       getDataOnPress();
       setParsController(true);
-      //console.log('render getData');
     }
   }, [token]);
   useEffect(() => {
@@ -87,9 +81,8 @@ export const ListComponent = () => {
         });
       });
     }
-    //console.log('render parseController');
   }, [coffeDataState]);
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const handleNavigation = async (idCafe: string) => {
     if (idCafe != '') {
       const cafeInfo = await getCafe({
@@ -98,7 +91,6 @@ export const ListComponent = () => {
       } as ICafeRequest).unwrap();
       // @ts-ignore
       dispatch(addCafeInfo(cafeInfo));
-
       const cafeProducts = await getProductsCafe({
         sessionId: secondToken,
         cafeId: idCafe,
@@ -108,8 +100,7 @@ export const ListComponent = () => {
     } else {
       console.log('no idCafe');
     }
-    // @ts-ignore
-    navigation.navigate('DetailedInfo');
+    navigation.navigate(DetailedInfoName);
   };
   const renderItem: ListRenderItem<ItemModel> = ({item}) => {
     return (
@@ -157,6 +148,7 @@ const styles = StyleSheet.create({
   conteiner: {
     display: 'flex',
     flexDirection: 'row',
+    width: '100%',
   },
   image: {
     width: 146,
@@ -165,6 +157,7 @@ const styles = StyleSheet.create({
   view: {
     height: 146,
     width: 259,
+    alignItems: 'flex-start',
   },
   nameText: {
     color: '#c2d5a9',
@@ -185,12 +178,14 @@ const styles = StyleSheet.create({
     color: '#717171',
   },
   text: {
-    marginLeft: 140,
     color: '#BBBBBB',
   },
   conteinerGoIcon: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginLeft: '-10%',
+    width: '100%',
   },
   icon: {
     width: 32,

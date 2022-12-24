@@ -1,7 +1,5 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-// @ts-ignore
 import goIcon from '../../../assets/image/listScreen/goIcon.png';
-import {useNavigation} from '@react-navigation/native';
 export const initialState = {
   id: '',
   name: '',

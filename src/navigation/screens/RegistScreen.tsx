@@ -1,16 +1,21 @@
 import {
+  Image,
   ImageBackground,
   Keyboard,
   SafeAreaView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import imaga from '../../assets/image/authScreen/fon.png';
 import RegisterForm from '../../components/authScreen/RegisterForm';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import backIcon from '../../assets/image/regImageScreen/backIcon.png';
 import {useEffect, useState} from 'react';
+import {CustomBackButton} from '../../components/customComponents/customHeader/CustomBackButton';
+import {useNavigation} from '@react-navigation/native';
 export const RegistScreen = () => {
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   useEffect(() => {
@@ -25,11 +30,17 @@ export const RegistScreen = () => {
       hideSubscription.remove();
     };
   });
+  const navigation = useNavigation();
   return (
     <ImageBackground style={styles.viewContainer} source={imaga}>
       <LinearGradient colors={['rgba(0,0,0,0.00)', 'rgba(243,233,216,0.79)']}>
         <View style={styles.viewStyle}>
           <SafeAreaView>
+            <TouchableOpacity
+              style={styles.backIconConteiner}
+              onPress={() => navigation.goBack()}>
+              <Image source={backIcon} style={styles.backIcon} />
+            </TouchableOpacity>
             <Text style={styles.mainText}>CoffeTime</Text>
             <Text style={styles.additinalText}>территория кофе</Text>
             <KeyboardAwareScrollView
@@ -79,5 +90,13 @@ const styles = StyleSheet.create({
   },
   keyboardConteiner: {
     height: '70%',
+  },
+  backIcon: {
+    width: 30,
+    height: 30,
+  },
+  backIconConteiner: {
+    marginTop: 5,
+    marginLeft: 10,
   },
 });

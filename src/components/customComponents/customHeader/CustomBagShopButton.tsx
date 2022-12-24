@@ -1,17 +1,16 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-// @ts-ignore
 import shoppingBag from '../../../assets/image/rigtNavigateIcon/shoppingBag.png';
 import React, {useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {Provider, useSelector} from 'react-redux';
-import store, {RootState} from '../../../redux/reduxStore/store';
-// @ts-ignore
+import {ParamListBase, useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../../redux/reduxStore/store';
 import rubleGray from '../../../assets/image/detailProductScreen/rubleGray.png';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {OrderScreenName} from '../../../navigation/navigator/nameScreen';
 export const CustomBagShopButton = () => {
-  const navigate = useNavigation();
+  const navigate = useNavigation<StackNavigationProp<ParamListBase>>();
   const backButtonActive = () => {
-    // @ts-ignore
-    navigate.navigate('OrderScreen');
+    navigate.navigate(OrderScreenName);
   };
   const basketUserState = useSelector(
     (state: RootState) => state.basketUserState,

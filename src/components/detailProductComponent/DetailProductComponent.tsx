@@ -1,42 +1,22 @@
 import {
-  Button,
   Image,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
-// @ts-ignore
 import heartIcon from '../../assets/image/detailScreen/heartIcon.png';
-// @ts-ignore
 import heartGrayIcon from '../../assets/image/detailScreen/heartGrayIcon.png';
-// @ts-ignore
 import milk from '../../assets/image/detailProductScreen/milk.png';
-// @ts-ignore
 import coffe from '../../assets/image/detailProductScreen/coffe.png';
-// @ts-ignore
 import pressure from '../../assets/image/detailProductScreen/pressure.png';
-// @ts-ignore
 import temperature from '../../assets/image/detailProductScreen/temperature.png';
-// @ts-ignore
 import water from '../../assets/image/detailProductScreen/water.png';
-// @ts-ignore
 import rubleGray from '../../assets/image/detailProductScreen/rubleGray.png';
-// @ts-ignore
 import imageNoCoffe from '../../assets/image/detailScreen/imageNoCoffe.png';
 import {useEffect, useState} from 'react';
-import {
-  addBasket,
-  IBasketUser,
-} from '../../redux/reduxStateSlice/basketUserSlice';
-import {
-  addCountDecrement,
-  addCountIncrement,
-} from '../../redux/reduxStateSlice/counterSlice';
 import {PayButtonNormalState} from './customElement/PayButtonNormalState';
 import {PayButtonActiveState} from './customElement/PayButtonActiveState';
 import {addBacketObject} from '../../redux/reduxStateSlice/basketObjectSlice';
@@ -48,13 +28,11 @@ export const DetailProductComponent = () => {
   const basketUserState = useSelector(
     (state: RootState) => state.basketUserState,
   );
-  const counterState = useSelector((state: RootState) => state.counterState);
   const dispatch = useDispatch();
   const basketObjectState = useSelector(
     (state: RootState) => state.basketObjectState,
   );
   useEffect(() => {
-    //console.log(basketUserState,'basketUserState')
     basketUserState.map(data => {
       if (data.id == infoProductCoffeState.id && data.id != '') {
         dispatch(

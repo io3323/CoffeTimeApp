@@ -1,22 +1,24 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {ICafeInfo} from '../reduToolKitQuery';
-const initialStateCafeInfo: Array<ICafeInfo> = [
-  {
-    id: '',
-    name: '',
-    address: '',
-    coordinates: '',
-    description: '',
-    images: '',
-  },
-];
+const initialStateCafeInfo: ICafeInfo = {
+  id: '',
+  name: '',
+  address: '',
+  coordinates: '',
+  description: '',
+  images: '',
+};
 export const cafeInfoSlice = createSlice({
   name: 'cafeInfoState',
   initialState: initialStateCafeInfo,
   reducers: {
     addCafeInfo(state, action: PayloadAction<ICafeInfo>) {
-      state.pop();
-      state.push(action.payload);
+      state.id = action.payload.id;
+      state.name = action.payload.name;
+      state.coordinates = action.payload.coordinates;
+      state.images = action.payload.images;
+      state.address = action.payload.address;
+      state.description = action.payload.description;
     },
   },
 });

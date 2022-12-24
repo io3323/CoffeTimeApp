@@ -1,5 +1,4 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-// @ts-ignore
 export interface ILogin {
   email: string;
   password: string;
