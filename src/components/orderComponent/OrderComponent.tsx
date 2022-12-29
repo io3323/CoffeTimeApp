@@ -7,18 +7,16 @@ import {
   View,
   Animated,
   ListRenderItem,
-  Platform,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
-import {cloneElement, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import imageNoCoffe from '../../assets/image/detailScreen/imageNoCoffe.png';
 import rubleGray from '../../assets/image/detailProductScreen/rubleGray.png';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {IBasketUser} from '../../redux/reduxStateSlice/basketUserSlice';
 import {CardShopTransitionComponent} from './customElement/CardShopTransitionComponent';
 import {HiddenEllement, ItemModel} from './customElement/HiddenEllement';
-import {HEIGHT_APP} from '../../definitionSize';
 export const OrderComponent = () => {
   const basketUserState = useSelector(
     (state: RootState) => state.basketUserState,
@@ -47,15 +45,9 @@ export const OrderComponent = () => {
   }, [basketUserState]);
   const InitialPage = () => {
     return (
-      <View
-        style={{
-          width: '100%',
-          height: '100%',
-          alignItems: 'center',
-          marginVertical: 160,
-        }}>
+      <View style={styles.mainInitialConteiner}>
         <Image source={imageNoCoffe} style={styles.imageNoCoffe} />
-        <View style={{marginTop: 80}}>
+        <View style={styles.initialView}>
           <Text style={styles.textInitialPage}>
             Здесь нет ни одной чашки кофе
           </Text>
@@ -96,42 +88,28 @@ export const OrderComponent = () => {
   return (
     <SafeAreaView>
       {controller && (
-        <View style={{height: '100%'}}>
-          <View style={{flex: 3}}>
+        <View style={styles.mainConteiner}>
+          <View style={styles.collectingContainer}>
             <SwipeListView
               data={basketUserState}
               keyExtractor={item => item.id}
               renderItem={renderItem}
               renderHiddenItem={renderHiddenItem}
               disableRightSwipe={true}
-              rightOpenValue={-170}
+              rightOpenValue={-180}
               stopRightSwipe={-201}
               swipeToOpenPercent={10}
               swipeToClosePercent={10}
               useNativeDriver={false}
               contentContainerStyle={{alignItems: 'center'}}
+              showsVerticalScrollIndicator={false}
             />
           </View>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: 'flex-end',
-            }}>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
+          <View style={styles.mainConteinerBottom}>
+            <View style={styles.collectingBottomConteiner}>
               <View style={styles.totalView}>
-                <View style={{flexDirection: 'row'}}>
-                  <View
-                    style={{
-                      flex: 2,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
+                <View style={styles.generalConteiner}>
+                  <View style={styles.priceAndCountConteiner}>
                     <View>
                       {totalCount == 1 && (
                         <Text style={styles.totalCountsProduct}>
@@ -154,17 +132,12 @@ export const OrderComponent = () => {
                           </Text>
                         )}
                     </View>
-                    <View style={{display: 'flex', flexDirection: 'row'}}>
+                    <View style={styles.priceConteiner}>
                       <Text style={styles.totalPrice}>{totalPrice}</Text>
                       <Image source={rubleGray} style={styles.rubleGray} />
                     </View>
                   </View>
-                  <View
-                    style={{
-                      flex: 4,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
+                  <View style={styles.buttonConteiner}>
                     <TouchableOpacity style={styles.button}>
                       <Text style={styles.textButton}>Оформление заказа</Text>
                     </TouchableOpacity>
@@ -181,10 +154,43 @@ export const OrderComponent = () => {
 };
 
 const styles = StyleSheet.create({
+  mainInitialConteiner: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    marginVertical: 160,
+  },
+  initialView: {marginTop: 80},
+  mainConteiner: {
+    height: '100%',
+  },
+  collectingContainer: {flex: 4},
   separator: {
     backgroundColor: 'black',
     width: 300,
     height: 2,
+  },
+  mainConteinerBottom: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  collectingBottomConteiner: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  generalConteiner: {flexDirection: 'row'},
+  priceAndCountConteiner: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  priceConteiner: {display: 'flex', flexDirection: 'row'},
+  buttonConteiner: {
+    flex: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
     width: 207,

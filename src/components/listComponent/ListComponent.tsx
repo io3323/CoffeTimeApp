@@ -19,7 +19,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {initialState, InState} from './CardFlatList/CardFlatList';
 import {Separator} from './CardFlatList/Separator';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import goIcon from '../../assets/image/listScreen/goIcon.png';
@@ -30,6 +29,22 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {DetailedInfoName} from '../../navigation/navigator/nameScreen';
 import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
 type ItemModel = {
+  id: string;
+  name: string;
+  address: string;
+  coordinates: string;
+  description: string;
+  images: string;
+};
+const initialState = {
+  id: '',
+  name: '',
+  address: '',
+  coordinates: '',
+  description: '',
+  images: '',
+};
+type InState = {
   id: string;
   name: string;
   address: string;

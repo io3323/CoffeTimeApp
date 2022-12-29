@@ -6,7 +6,6 @@ import {RegistScreen} from '../screens/RegistScreen';
 import {CustomBackButton} from '../../components/customComponents/customHeader/CustomBackButton';
 import {CustomHeaderTitle} from '../../components/customComponents/customHeader/CustomHeaderTitle';
 import {DetailedInfo} from '../screens/DetailedInfo';
-import {SecondTestScreen} from '../screens/SecondTestScreen';
 import {MapScreen, MapScreenName} from '../screens/MapScreen';
 import {CustomMapIcon} from '../../components/customComponents/customSegmentedControlIcon/CustomMapIcon';
 import {ListCoffeScreen, ListCoffeScreenName} from '../screens/ListCoffeScreen';
@@ -26,6 +25,7 @@ import {
   OrderScreenName,
   RegistScreenName,
 } from './nameScreen';
+import {StyleSheet} from 'react-native';
 export const AuthNavigator = () => {
   const Tab = createMaterialTopTabNavigator();
   const TabStack = () => {
@@ -33,32 +33,9 @@ export const AuthNavigator = () => {
       <Tab.Navigator
         initialRouteName={'Map'}
         screenOptions={{
-          tabBarStyle: {
-            width: 130,
-            height: 35,
-            borderStyle: 'solid',
-            borderWidth: 1,
-            borderRadius: 40,
-            justifyContent: 'center',
-            marginTop: 10,
-            marginBottom: 10,
-            alignSelf: 'center',
-          },
-          tabBarIndicatorStyle: {
-            backgroundColor: 'red',
-            borderWidth: 14,
-            borderRadius: 20,
-            borderColor: '#C8D9AF',
-            marginLeft: 4,
-            marginRight: 1,
-            marginTop: 10,
-            marginBottom: 2,
-            width: 55,
-          },
-          tabBarLabelStyle: {
-            color: 'red',
-            marginTop: -10,
-          },
+          tabBarStyle: styles.tabBarStyleTabNav,
+          tabBarIndicatorStyle: styles.tabBarIndicatorStyleTabNav,
+          tabBarLabelStyle: styles.tabBarLabelStyleTabNav,
         }}>
         <Tab.Screen
           name={MapScreenName}
@@ -104,9 +81,7 @@ export const AuthNavigator = () => {
             component={TabStack}
             options={{
               headerShown: true,
-              headerStyle: {
-                backgroundColor: '#EAEAEA',
-              },
+              headerStyle: styles.headerStyleStackScreen,
               headerLeft: () => <CustomBackButton />,
               headerBackVisible: false,
               headerTitleAlign: 'center',
@@ -119,9 +94,7 @@ export const AuthNavigator = () => {
             component={DetailedInfo}
             options={{
               headerShown: true,
-              headerStyle: {
-                backgroundColor: '#EAEAEA',
-              },
+              headerStyle: styles.headerStyleStackScreen,
               headerTitleAlign: 'center',
               headerBackVisible: false,
               headerLeft: () => <CustomBackButton />,
@@ -134,9 +107,7 @@ export const AuthNavigator = () => {
             component={DetailProductInfo}
             options={{
               headerShown: true,
-              headerStyle: {
-                backgroundColor: '#EAEAEA',
-              },
+              headerStyle: styles.headerStyleStackScreen,
               headerTitleAlign: 'center',
               headerBackVisible: false,
               headerLeft: () => <CustomBackButton />,
@@ -149,16 +120,13 @@ export const AuthNavigator = () => {
             component={OrderScreen}
             options={{
               headerShown: true,
-              headerStyle: {
-                backgroundColor: '#EAEAEA',
-              },
+              headerStyle: styles.headerStyleStackScreen,
               headerTitleAlign: 'center',
               headerBackVisible: false,
               headerLeft: () => <CustomBackButton />,
               headerTitle: () => <CustomHeaderTitle />,
             }}
           />
-          <Stack.Screen name={'SecondTest'} component={SecondTestScreen} />
         </Stack.Group>
       </Stack.Navigator>
     );
@@ -176,3 +144,35 @@ export const AuthNavigator = () => {
     </Provider>
   );
 };
+
+const styles = StyleSheet.create({
+  tabBarStyleTabNav: {
+    width: 130,
+    height: 35,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderRadius: 40,
+    justifyContent: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+    alignSelf: 'center',
+  },
+  tabBarIndicatorStyleTabNav: {
+    backgroundColor: 'red',
+    borderWidth: 14,
+    borderRadius: 20,
+    borderColor: '#C8D9AF',
+    marginLeft: 4,
+    marginRight: 1,
+    marginTop: 10,
+    marginBottom: 2,
+    width: 55,
+  },
+  tabBarLabelStyleTabNav: {
+    color: 'red',
+    marginTop: -10,
+  },
+  headerStyleStackScreen: {
+    backgroundColor: '#EAEAEA',
+  },
+});

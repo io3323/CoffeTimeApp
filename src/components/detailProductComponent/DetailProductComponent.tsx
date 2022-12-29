@@ -100,43 +100,19 @@ export const DetailProductComponent = () => {
                 <Image source={pressure} style={styles.atributeIconBar} />
               </View>
               <View style={[styles.textConteiner]}>
-                <View
-                  style={{
-                    width: 40,
-                    alignItems: 'center',
-                  }}>
+                <View style={styles.textConteinerMilk}>
                   <Text style={[styles.textAtributesMilk]}>15мл</Text>
                 </View>
-                <View
-                  style={{
-                    width: 40,
-                    marginLeft: 15,
-                    alignItems: 'center',
-                  }}>
+                <View style={styles.textConteinerCoffe}>
                   <Text style={[styles.textAtributesCoffe]}> 25%</Text>
                 </View>
-                <View
-                  style={{
-                    width: 40,
-                    marginLeft: 15,
-                    alignItems: 'center',
-                  }}>
+                <View style={styles.textConteinerWater}>
                   <Text style={[styles.textAtributesWater]}>25мл</Text>
                 </View>
-                <View
-                  style={{
-                    width: 40,
-                    marginLeft: 15,
-                    alignItems: 'center',
-                  }}>
+                <View style={styles.textConteinerTemperature}>
                   <Text style={[styles.textAtributesTemperature]}>95`</Text>
                 </View>
-                <View
-                  style={{
-                    width: 40,
-                    marginLeft: 15,
-                    alignItems: 'center',
-                  }}>
+                <View style={styles.textConteinerPression}>
                   <Text style={[styles.textAtributesPression]}>15б</Text>
                 </View>
               </View>
@@ -231,20 +207,40 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
   },
+  textConteinerCoffe: {
+    width: 40,
+    marginLeft: 15,
+    alignItems: 'center',
+  },
   atributeIconCoffe: {
     width: 40,
     height: 40,
     marginLeft: 15,
+  },
+  textConteinerWater: {
+    width: 40,
+    marginLeft: 15,
+    alignItems: 'center',
   },
   atributeIconWater: {
     width: 40,
     height: 40,
     marginLeft: 15,
   },
+  textConteinerTemperature: {
+    width: 40,
+    marginLeft: 15,
+    alignItems: 'center',
+  },
   atributeIconTemperature: {
     width: 40,
     height: 40,
     marginLeft: 15,
+  },
+  textConteinerPression: {
+    width: 40,
+    marginLeft: 15,
+    alignItems: 'center',
   },
   atributeIconBar: {
     width: 40,
@@ -255,6 +251,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     marginTop: 10,
+  },
+  textConteinerMilk: {
+    width: 40,
+    alignItems: 'center',
   },
   textAtributesMilk: {
     fontSize: 10,

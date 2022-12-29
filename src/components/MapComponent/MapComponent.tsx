@@ -23,9 +23,6 @@ export const MapComponent = () => {
   const coordinateMasState = useSelector(
     (state: RootState) => state.coordinateMasState,
   );
-  const coordinateState = useSelector(
-    (state: RootState) => state.coordinateState,
-  );
   const dispatch = useDispatch();
   const [controllerPosition, setController] = useState(true);
   const getLocationUser = () => {
@@ -72,7 +69,6 @@ export const MapComponent = () => {
   }, [coffeDataState, dispatch]);
   useEffect(() => {
     getLocationUser();
-    console.log('effect')
   }, []);
   const Separator = () => {
     return <View style={styles.separator} />;

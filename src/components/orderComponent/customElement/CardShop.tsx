@@ -82,7 +82,7 @@ export const CardShop: FunctionComponent<ICardShop> = ({
       {id != '' && (
         <View style={styles.conteinerMain}>
           <View style={[styles.conteiner]}>
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View style={styles.imageConteiner}>
               {controler && (
                 <Image
                   source={{uri: imagesPath}}
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
   blockConteiner: {
     marginLeft: 10,
   },
+  imageConteiner: {justifyContent: 'center', alignItems: 'center'},
   image: {
     width: 30,
     height: 30,
