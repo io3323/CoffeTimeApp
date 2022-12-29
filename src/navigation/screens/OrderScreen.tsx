@@ -1,6 +1,5 @@
-import {SafeAreaView, Text, View} from 'react-native';
-import {Provider, useSelector} from 'react-redux';
-import store, {RootState} from '../../redux/reduxStore/store';
+import {Provider} from 'react-redux';
+import store from '../../redux/reduxStore/store';
 import {OrderComponent} from '../../components/orderComponent/OrderComponent';
 
 export const OrderScreen = () => {

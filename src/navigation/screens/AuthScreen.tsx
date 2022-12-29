@@ -15,6 +15,7 @@ import store from '../../redux/reduxStore/store';
 import {useEffect, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {SplachComponent} from '../../components/splashScreenComponent/SplashComponent';
+import {WIDTH_APP} from '../../definitionSize';
 LogBox.ignoreLogs(['Require cycle:']);
 export const AuthScreen = () => {
   const [keyboardStatus, setKeyboardStatus] = useState(false);
@@ -46,10 +47,14 @@ export const AuthScreen = () => {
               enableOnAndroid={true}
               scrollEnabled={keyboardStatus}>
               <SafeAreaView>
-                <Text style={styles.mainText} adjustsFontSizeToFit={true}>
-                  CoffeTime
-                </Text>
-                <Text style={styles.additinalText}>территория кофе</Text>
+                <View style={styles.textConteinerMain}>
+                  <Text style={styles.mainText} adjustsFontSizeToFit={true}>
+                    CoffeTime
+                  </Text>
+                </View>
+                <View style={styles.additinalTextConteiner}>
+                  <Text style={styles.additinalText}>территория кофе</Text>
+                </View>
                 <Provider store={store}>
                   <View style={styles.loginConteiner}>
                     <LoginForm />
@@ -69,20 +74,24 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  textConteinerMain: {
+    marginTop: '15.1%',
+    alignItems: 'center',
+  },
   mainText: {
     fontSize: 64,
     color: '#FFFFFF',
     fontFamily: 'Lobster-Regular',
-    marginTop: '15.1%',
-    marginLeft: '18.7%',
-    marginRight: '18.4%',
+  },
+  additinalTextConteiner: {
+    marginTop: -10,
+    width: WIDTH_APP * 0.8,
+    alignItems: 'flex-end',
   },
   additinalText: {
     fontSize: 16,
     color: '#FFFFFF',
     fontFamily: 'SFUIText-Bold',
-    marginLeft: '42.4%',
-    marginRight: '20%',
   },
   viewStyle: {
     width: '100%',

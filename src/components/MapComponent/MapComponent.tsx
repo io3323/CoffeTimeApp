@@ -23,6 +23,9 @@ export const MapComponent = () => {
   const coordinateMasState = useSelector(
     (state: RootState) => state.coordinateMasState,
   );
+  const coordinateState = useSelector(
+    (state: RootState) => state.coordinateState,
+  );
   const dispatch = useDispatch();
   const [controllerPosition, setController] = useState(true);
   const getLocationUser = () => {

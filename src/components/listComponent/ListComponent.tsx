@@ -28,6 +28,7 @@ import {addProducts} from '../../redux/reduxStateSlice/productsCafeSlice';
 import cafeIcon from '../../assets/image/listScreen/cafeIcon.png';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DetailedInfoName} from '../../navigation/navigator/nameScreen';
+import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
 type ItemModel = {
   id: string;
   name: string;
@@ -74,7 +75,7 @@ export const ListComponent = () => {
   useEffect(() => {
     if (parseController) {
       coffeDataState.forEach(data => {
-        const first = Object.values(data);
+        const first: Array<string> = Object.values(data);
         first.forEach(dataFirst => {
           // @ts-ignore
           setMasTest(dataFirst);
@@ -151,8 +152,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   image: {
-    width: 146,
-    height: 146,
+    width: WIDTH_APP * 0.35,
+    height: HEIGHT_APP * 0.15,
+    alignSelf: 'center',
   },
   view: {
     height: 146,
@@ -184,8 +186,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginLeft: '-10%',
-    width: '100%',
+    width: WIDTH_APP * 0.65,
   },
   icon: {
     width: 32,

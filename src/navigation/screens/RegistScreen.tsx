@@ -2,7 +2,9 @@ import {
   Image,
   ImageBackground,
   Keyboard,
+  Platform,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -14,9 +16,10 @@ import RegisterForm from '../../components/authScreen/RegisterForm';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import backIcon from '../../assets/image/regImageScreen/backIcon.png';
 import {useEffect, useState} from 'react';
-import {CustomBackButton} from '../../components/customComponents/customHeader/CustomBackButton';
 import {useNavigation} from '@react-navigation/native';
+import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
 export const RegistScreen = () => {
+  console.log(HEIGHT_APP, Platform.OS);
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -36,21 +39,56 @@ export const RegistScreen = () => {
       <LinearGradient colors={['rgba(0,0,0,0.00)', 'rgba(243,233,216,0.79)']}>
         <View style={styles.viewStyle}>
           <SafeAreaView>
-            <TouchableOpacity
-              style={styles.backIconConteiner}
-              onPress={() => navigation.goBack()}>
-              <Image source={backIcon} style={styles.backIcon} />
-            </TouchableOpacity>
-            <Text style={styles.mainText}>CoffeTime</Text>
-            <Text style={styles.additinalText}>территория кофе</Text>
-            <KeyboardAwareScrollView
-              extraHeight={150}
-              extraScrollHeight={125}
-              enableOnAndroid={true}
-              scrollEnabled={keyboardStatus}
-              style={styles.keyboardConteiner}>
-              <RegisterForm />
-            </KeyboardAwareScrollView>
+            {HEIGHT_APP > 640 && (
+              <View>
+                <TouchableOpacity
+                  style={styles.backIconConteiner}
+                  onPress={() => navigation.goBack()}>
+                  <Image source={backIcon} style={styles.backIcon} />
+                </TouchableOpacity>
+                <View style={styles.mainTextConteiner}>
+                  <Text style={styles.mainText}>CoffeTime</Text>
+                </View>
+                <View style={styles.additinalTextConteiner}>
+                  <Text style={styles.additinalText}>территория кофе</Text>
+                </View>
+                <View>
+                  <KeyboardAwareScrollView
+                    extraHeight={150}
+                    extraScrollHeight={125}
+                    enableOnAndroid={true}
+                    scrollEnabled={keyboardStatus}
+                    style={styles.keyboardConteiner}>
+                    <RegisterForm />
+                  </KeyboardAwareScrollView>
+                </View>
+              </View>
+            )}
+            {HEIGHT_APP <= 640 && (
+              <ScrollView showsVerticalScrollIndicator={false}>
+                <TouchableOpacity
+                  style={styles.backIconConteiner}
+                  onPress={() => navigation.goBack()}>
+                  <Image source={backIcon} style={styles.backIcon} />
+                </TouchableOpacity>
+                <View style={styles.mainTextConteiner}>
+                  <Text style={styles.mainText}>CoffeTime</Text>
+                </View>
+                <View style={styles.additinalTextConteiner}>
+                  <Text style={styles.additinalText}>территория кофе</Text>
+                </View>
+                <View>
+                  <KeyboardAwareScrollView
+                    extraHeight={150}
+                    extraScrollHeight={125}
+                    enableOnAndroid={true}
+                    scrollEnabled={keyboardStatus}
+                    style={styles.keyboardConteiner}>
+                    <RegisterForm />
+                  </KeyboardAwareScrollView>
+                </View>
+              </ScrollView>
+            )}
           </SafeAreaView>
         </View>
       </LinearGradient>
@@ -63,20 +101,24 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  mainTextConteiner: {
+    marginTop: '5%',
+    alignItems: 'center',
+  },
   mainText: {
     fontSize: 64,
     color: '#FFFFFF',
     fontFamily: 'Lobster-Regular',
-    marginTop: 50,
-    marginLeft: 70,
-    marginRight: 13,
+  },
+  additinalTextConteiner: {
+    marginTop: -10,
+    width: WIDTH_APP * 0.8,
+    alignItems: 'flex-end',
   },
   additinalText: {
     fontSize: 16,
     color: '#FFFFFF',
     fontFamily: 'Helvetica',
-    marginLeft: 159,
-    marginRight: 83,
   },
   viewStyle: {
     width: '100%',
@@ -89,7 +131,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   keyboardConteiner: {
-    height: '70%',
+    height: '80%',
   },
   backIcon: {
     width: 30,

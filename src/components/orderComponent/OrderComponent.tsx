@@ -7,16 +7,18 @@ import {
   View,
   Animated,
   ListRenderItem,
+  Platform,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
-import {useEffect, useState} from 'react';
+import {cloneElement, useEffect, useState} from 'react';
 import imageNoCoffe from '../../assets/image/detailScreen/imageNoCoffe.png';
 import rubleGray from '../../assets/image/detailProductScreen/rubleGray.png';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {IBasketUser} from '../../redux/reduxStateSlice/basketUserSlice';
 import {CardShopTransitionComponent} from './customElement/CardShopTransitionComponent';
 import {HiddenEllement, ItemModel} from './customElement/HiddenEllement';
+import {HEIGHT_APP} from '../../definitionSize';
 export const OrderComponent = () => {
   const basketUserState = useSelector(
     (state: RootState) => state.basketUserState,
@@ -94,8 +96,8 @@ export const OrderComponent = () => {
   return (
     <SafeAreaView>
       {controller && (
-        <View>
-          <View style={{height: 650, borderRadius: 10}}>
+        <View style={{height: '100%'}}>
+          <View style={{flex: 3}}>
             <SwipeListView
               data={basketUserState}
               keyExtractor={item => item.id}
@@ -107,42 +109,68 @@ export const OrderComponent = () => {
               swipeToOpenPercent={10}
               swipeToClosePercent={10}
               useNativeDriver={false}
+              contentContainerStyle={{alignItems: 'center'}}
             />
           </View>
           <View
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginVertical: 30,
+              flex: 1,
+              justifyContent: 'flex-end',
             }}>
-            <View style={styles.totalView}>
-              {totalCount == 1 && (
-                <Text style={styles.totalCountsProduct}>
-                  {totalCount} напиток
-                </Text>
-              )}
-              {(totalCount == 2 || totalCount == 3 || totalCount == 4) && (
-                <Text style={styles.totalCountsProduct}>
-                  {totalCount} напитка
-                </Text>
-              )}
-              {totalCount != 1 &&
-                totalCount != 2 &&
-                totalCount != 3 &&
-                totalCount != 4 && (
-                  <Text style={styles.totalCountsProduct}>
-                    {totalCount} напитков
-                  </Text>
-                )}
-              <View style={{display: 'flex', flexDirection: 'row'}}>
-                <Text style={styles.totalPrice}>{totalPrice}</Text>
-                <Image source={rubleGray} style={styles.rubleGray} />
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <View style={styles.totalView}>
+                <View style={{flexDirection: 'row'}}>
+                  <View
+                    style={{
+                      flex: 2,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <View>
+                      {totalCount == 1 && (
+                        <Text style={styles.totalCountsProduct}>
+                          {totalCount} напиток
+                        </Text>
+                      )}
+                      {(totalCount == 2 ||
+                        totalCount == 3 ||
+                        totalCount == 4) && (
+                        <Text style={styles.totalCountsProduct}>
+                          {totalCount} напитка
+                        </Text>
+                      )}
+                      {totalCount != 1 &&
+                        totalCount != 2 &&
+                        totalCount != 3 &&
+                        totalCount != 4 && (
+                          <Text style={styles.totalCountsProduct}>
+                            {totalCount} напитков
+                          </Text>
+                        )}
+                    </View>
+                    <View style={{display: 'flex', flexDirection: 'row'}}>
+                      <Text style={styles.totalPrice}>{totalPrice}</Text>
+                      <Image source={rubleGray} style={styles.rubleGray} />
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      flex: 4,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <TouchableOpacity style={styles.button}>
+                      <Text style={styles.textButton}>Оформление заказа</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
-              <TouchableOpacity style={styles.button}>
-                <Text style={styles.textButton}>Оформление заказа</Text>
-              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -165,8 +193,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 7,
-    marginLeft: 175,
-    marginTop: -55,
   },
   textButton: {
     fontSize: 20,
@@ -188,16 +214,15 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 100,
     borderRadius: 15,
-    marginTop: -15,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   totalCountsProduct: {
-    marginTop: 10,
-    marginLeft: 10,
     fontSize: 15,
     fontFamily: 'SFUIText-Light',
   },
   totalPrice: {
-    marginLeft: 10,
+    marginLeft: -20,
     fontSize: 30,
     fontFamily: 'Lobster-Regular',
     color: '#474747',

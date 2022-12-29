@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {ICoffeData} from '../reduToolKitQuery';
 export type CoffeModel = {
   id: string;
   name: string;
@@ -7,9 +8,6 @@ export type CoffeModel = {
   description: string;
   images: string;
 };
-// export type ObjectCoffeModel = {
-//   data: Array<CoffeModel>;
-// };
 export const initialStateCoffeData: Array<CoffeModel> = [
   {
     id: '',
@@ -20,25 +18,11 @@ export const initialStateCoffeData: Array<CoffeModel> = [
     images: '',
   },
 ];
-// export const initialStateCoffeData: ObjectCoffeModel = {
-//   data: [
-//     {
-//       id: '',
-//       name: '',
-//       address: '',
-//       coordinates: '',
-//       description: '',
-//       images: '',
-//     },
-//   ],
-// };
 export const coffeDataSlice = createSlice({
   name: 'coffeDataState',
   initialState: initialStateCoffeData,
   reducers: {
-    addDataCoffe(state, action: PayloadAction<CoffeModel>) {
-      //console.log(state)
-      //console.log(action)
+    addDataCoffe(state, action: PayloadAction<ICoffeData>) {
       state.pop();
       state.push(action.payload);
     },

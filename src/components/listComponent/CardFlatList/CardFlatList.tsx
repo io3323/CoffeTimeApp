@@ -41,10 +41,8 @@ const styles = StyleSheet.create({
   image: {
     width: 146,
     height: 146,
-    //backgroundColor: 'red',
   },
   view: {
-    //backgroundColor: 'blue',
     height: 146,
     width: 259,
   },

@@ -21,7 +21,7 @@ import {Separator} from '../listComponent/CardFlatList/Separator';
 import {CardProductsComponent} from './nestedComponent/CardProductsComponent';
 import {addInfoCeffeProduct} from '../../redux/reduxStateSlice/infoProductCoffeSlice';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {CURENT_WIDTH} from '../../definitionSize';
+import { CURENT_WIDTH, WIDTH_APP } from "../../definitionSize";
 import {FetchBaseQueryError} from '@reduxjs/toolkit/query';
 import {SerializedError} from '@reduxjs/toolkit';
 import {DetailProductInfoName} from '../../navigation/navigator/nameScreen';
@@ -153,7 +153,8 @@ export const DetailComponent = () => {
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
           {useNativeDriver: true},
         )}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+        scrollEnabled={true}>
         <RenderFlatList />
       </Animated.ScrollView>
       <Animated.View
@@ -168,9 +169,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: CURENT_WIDTH,
+    width: WIDTH_APP * 0.45,
     height: 270,
-    marginLeft: 10,
+    marginLeft: 12.5,
     backgroundColor: 'red',
   },
   saveArea: {

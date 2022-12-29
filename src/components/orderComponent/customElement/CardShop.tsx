@@ -9,11 +9,8 @@ import {
   deleteBasket,
   deleteProduct,
 } from '../../../redux/reduxStateSlice/basketUserSlice';
-// @ts-ignore
 import rubleIcon from '../../../assets/image/detailScreen/rubleIcon.png';
-// @ts-ignore
 import imageNoCoffe from '../../../assets/image/detailScreen/imageNoCoffe.png';
-// @ts-ignore
 import deleteIcon from '../../../assets/image/detailProductScreen/delete.png';
 import {useDispatch} from 'react-redux';
 interface ICardShop {
@@ -84,8 +81,8 @@ export const CardShop: FunctionComponent<ICardShop> = ({
     <View>
       {id != '' && (
         <View style={styles.conteinerMain}>
-          <View style={styles.conteiner}>
-            <View>
+          <View style={[styles.conteiner]}>
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
               {controler && (
                 <Image
                   source={{uri: imagesPath}}
@@ -97,7 +94,7 @@ export const CardShop: FunctionComponent<ICardShop> = ({
                 <Image source={imageNoCoffe} style={styles.productImage} />
               )}
             </View>
-            <View style={{marginLeft: 10}}>
+            <View style={styles.blockConteiner}>
               <View style={styles.conteinerVertical}>
                 <View style={styles.textPodunctConteinerDelete}>
                   <View style={styles.textProductConteiner}>
@@ -126,7 +123,9 @@ export const CardShop: FunctionComponent<ICardShop> = ({
                   <View style={styles.conteinerButton}>
                     <Decrement />
                     <View style={styles.countConteiner}>
-                      <Text style={styles.counter}>{count}</Text>
+                      <Text style={styles.counter} adjustsFontSizeToFit={true}>
+                        {count}
+                      </Text>
                     </View>
                     <Increment />
                   </View>
@@ -145,6 +144,9 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
   },
+  blockConteiner: {
+    marginLeft: 10,
+  },
   image: {
     width: 30,
     height: 30,
@@ -158,7 +160,6 @@ const styles = StyleSheet.create({
     width: 370,
     height: 131,
     backgroundColor: 'white',
-    marginLeft: 10,
     marginTop: 20,
     borderRadius: 10,
   },
@@ -192,6 +193,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     marginTop: 20,
+    alignItems: 'flex-end',
   },
   priceDesription: {
     fontSize: 23,
@@ -217,10 +219,10 @@ const styles = StyleSheet.create({
     color: '#474747',
   },
   rubleIcon: {
-    width: 25,
-    height: 25,
-    marginLeft: -10,
-    marginTop: 4,
+    width: 15,
+    height: 23,
+    marginLeft: -5,
+    marginBottom: 5,
   },
   priceConteiner: {
     width: 43,

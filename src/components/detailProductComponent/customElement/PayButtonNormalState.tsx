@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 7,
-    marginLeft: 75,
+    marginLeft: 60,
   },
   textButton: {
     fontSize: 20,

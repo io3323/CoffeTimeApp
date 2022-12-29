@@ -1,10 +1,4 @@
-import {
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
 import heartIcon from '../../assets/image/detailScreen/heartIcon.png';
@@ -20,6 +14,7 @@ import {useEffect, useState} from 'react';
 import {PayButtonNormalState} from './customElement/PayButtonNormalState';
 import {PayButtonActiveState} from './customElement/PayButtonActiveState';
 import {addBacketObject} from '../../redux/reduxStateSlice/basketObjectSlice';
+import {HEIGHT_APP} from '../../definitionSize';
 export const DetailProductComponent = () => {
   const infoProductCoffeState = useSelector(
     (state: RootState) => state.infoProductCoffeState,
@@ -66,53 +61,96 @@ export const DetailProductComponent = () => {
   }, [basketUserState, infoProductCoffeState]);
 
   return (
-    <SafeAreaView>
-      <View>
-        <View style={styles.upConteiner}>
-          {controller && (
-            <Image
-              source={{uri: infoProductCoffeState.imagesPath}}
-              style={styles.image}
-              onError={() => setController(false)}
-            />
-          )}
-          {controller == false && (
-            <Image source={imageNoCoffe} style={styles.image} />
-          )}
-        </View>
-        <View style={styles.centerConteiner}>
-          <Text style={styles.productName}>
-            {infoProductCoffeState.productName}
-          </Text>
-          {infoProductCoffeState.favarite && (
-            <Image source={heartIcon} style={styles.heartIcon} />
-          )}
-          {infoProductCoffeState.favarite == false && (
-            <Image source={heartGrayIcon} style={styles.heartIcon} />
-          )}
-        </View>
-        <View style={{backgroundColor: 'white', height: '100%'}}>
-          <View style={styles.imageConteiner}>
-            <Image source={milk} style={styles.atributeIcon} />
-            <Image source={coffe} style={styles.atributeIcon} />
-            <Image source={water} style={styles.atributeIcon} />
-            <Image source={temperature} style={styles.atributeIcon} />
-            <Image source={pressure} style={styles.atributeIcon} />
+    <SafeAreaView style={styles.safeAreaConteiner}>
+      <View style={styles.mainConteiner}>
+        <View style={styles.upGlobalConteiner}>
+          <View style={styles.upConteiner}>
+            {controller && (
+              <Image
+                source={{uri: infoProductCoffeState.imagesPath}}
+                style={styles.image}
+                onError={() => setController(false)}
+              />
+            )}
+            {controller == false && (
+              <Image source={imageNoCoffe} style={styles.image} />
+            )}
           </View>
-          <View style={styles.textConteiner}>
-            <Text style={[styles.textAtributes, {marginLeft: 22}]}>15мл</Text>
-            <Text style={[styles.textAtributes, {marginLeft: 30}]}> 25%</Text>
-            <Text style={[styles.textAtributes, {marginLeft: 32}]}>25мл</Text>
-            <Text style={[styles.textAtributes, {marginLeft: 33}]}>95`</Text>
-            <Text style={[styles.textAtributes, {marginLeft: 35}]}>15б</Text>
+          <View style={styles.centerConteiner}>
+            <Text style={styles.productName}>
+              {infoProductCoffeState.productName}
+            </Text>
+            {infoProductCoffeState.favarite && (
+              <Image source={heartIcon} style={styles.heartIcon} />
+            )}
+            {infoProductCoffeState.favarite == false && (
+              <Image source={heartGrayIcon} style={styles.heartIcon} />
+            )}
           </View>
           <View>
-            <Text style={styles.textDescription}>
-              {infoProductCoffeState.productName} – это бархатистая плотная
-              пенка с золотистым отливом, покрывающая всю поверхность кофе. Из
-              Италии с любовью.
-            </Text>
+            <View>
+              <View style={[styles.imageConteiner]}>
+                <Image source={milk} style={styles.atributeIconMilk} />
+                <Image source={coffe} style={styles.atributeIconCoffe} />
+                <Image source={water} style={styles.atributeIconWater} />
+                <Image
+                  source={temperature}
+                  style={styles.atributeIconTemperature}
+                />
+                <Image source={pressure} style={styles.atributeIconBar} />
+              </View>
+              <View style={[styles.textConteiner]}>
+                <View
+                  style={{
+                    width: 40,
+                    alignItems: 'center',
+                  }}>
+                  <Text style={[styles.textAtributesMilk]}>15мл</Text>
+                </View>
+                <View
+                  style={{
+                    width: 40,
+                    marginLeft: 15,
+                    alignItems: 'center',
+                  }}>
+                  <Text style={[styles.textAtributesCoffe]}> 25%</Text>
+                </View>
+                <View
+                  style={{
+                    width: 40,
+                    marginLeft: 15,
+                    alignItems: 'center',
+                  }}>
+                  <Text style={[styles.textAtributesWater]}>25мл</Text>
+                </View>
+                <View
+                  style={{
+                    width: 40,
+                    marginLeft: 15,
+                    alignItems: 'center',
+                  }}>
+                  <Text style={[styles.textAtributesTemperature]}>95`</Text>
+                </View>
+                <View
+                  style={{
+                    width: 40,
+                    marginLeft: 15,
+                    alignItems: 'center',
+                  }}>
+                  <Text style={[styles.textAtributesPression]}>15б</Text>
+                </View>
+              </View>
+              <View style={styles.textDescriptionConteiner}>
+                <Text style={styles.textDescription}>
+                  {infoProductCoffeState.productName} – это бархатистая плотная
+                  пенка с золотистым отливом, покрывающая всю поверхность кофе.
+                  Из Италии с любовью.
+                </Text>
+              </View>
+            </View>
           </View>
+        </View>
+        <View style={styles.bottomConteiner}>
           <View style={styles.separator} />
           <View style={styles.priceConteiner}>
             <View style={styles.textPriceConteiner}>
@@ -149,24 +187,32 @@ export const DetailProductComponent = () => {
 };
 
 const styles = StyleSheet.create({
+  safeAreaConteiner: {backgroundColor: 'white'},
+  mainConteiner: {
+    height: '100%',
+    backgroundColor: 'white',
+    alignItems: 'center',
+  },
+  upGlobalConteiner: {
+    flex: 6,
+    marginLeft: '3%',
+    marginRight: '3%',
+  },
   upConteiner: {
     alignItems: 'center',
-    backgroundColor: 'white',
-    height: 360,
+    height: HEIGHT_APP * 0.35,
+    justifyContent: 'center',
   },
   image: {
-    width: 260,
-    height: 250,
-    marginTop: 50,
+    width: '80%',
+    height: '90%',
   },
   productName: {
     fontSize: 24,
     fontFamily: 'Lobster-Regular',
     color: '#474747',
-    marginLeft: 24,
   },
   centerConteiner: {
-    backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'row',
   },
@@ -178,11 +224,29 @@ const styles = StyleSheet.create({
   imageConteiner: {
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: 'white',
     marginTop: 20,
-    marginLeft: 10,
+    justifyContent: 'flex-start',
   },
-  atributeIcon: {
+  atributeIconMilk: {
+    width: 40,
+    height: 40,
+  },
+  atributeIconCoffe: {
+    width: 40,
+    height: 40,
+    marginLeft: 15,
+  },
+  atributeIconWater: {
+    width: 40,
+    height: 40,
+    marginLeft: 15,
+  },
+  atributeIconTemperature: {
+    width: 40,
+    height: 40,
+    marginLeft: 15,
+  },
+  atributeIconBar: {
     width: 40,
     height: 40,
     marginLeft: 15,
@@ -190,32 +254,44 @@ const styles = StyleSheet.create({
   textConteiner: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 5,
-    marginLeft: 10,
+    marginTop: 10,
   },
-  textAtributes: {
+  textAtributesMilk: {
     fontSize: 10,
+  },
+  textAtributesCoffe: {
+    fontSize: 10,
+  },
+  textAtributesWater: {
+    fontSize: 10,
+  },
+  textAtributesTemperature: {
+    fontSize: 10,
+  },
+  textAtributesPression: {
+    fontSize: 10,
+  },
+  textDescriptionConteiner: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: HEIGHT_APP * 0.2,
   },
   textDescription: {
     color: '#474747',
-    fontSize: 20,
+    fontSize: HEIGHT_APP * 0.023,
     fontFamily: 'SFUIText-Light',
-    marginTop: 30,
-    marginLeft: 25,
-    marginRight: 25,
   },
   separator: {
-    marginTop: 25,
     borderColor: '#D8D8D8',
     borderWidth: 1,
     width: 340,
-    marginLeft: 24,
   },
   priceConteiner: {
     display: 'flex',
     flexDirection: 'row',
-    marginLeft: 24,
-    marginTop: 23,
+    marginBottom: '3.1%',
+    marginTop: '2.8%',
   },
   price: {
     fontSize: 30,
@@ -231,5 +307,12 @@ const styles = StyleSheet.create({
   textPriceConteiner: {
     width: 50,
     height: 35,
+  },
+  bottomConteiner: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    backgroundColor: 'white',
+    width: '100%',
+    flex: 1.5,
   },
 });
