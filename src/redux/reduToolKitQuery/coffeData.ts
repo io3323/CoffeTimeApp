@@ -1,4 +1,11 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {
+  FetchArgs,
+  FetchBaseQueryArgs,
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+} from '@reduxjs/toolkit/dist/query/fetchBaseQuery';
+import {BaseQueryFn} from '@reduxjs/toolkit/dist/query/baseQueryTypes';
 export interface ILogin {
   email: string;
   password: string;
@@ -54,11 +61,12 @@ export interface IAttributeInfo {
   description: string;
   iconType: string;
 }
+const fetchBaseQueryURL = fetchBaseQuery({
+  baseUrl: 'http://ci2.dextechnology.com:8000/api/',
+});
 export const coffeData = createApi({
   reducerPath: 'coffeData',
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'http://ci2.dextechnology.com:8000/api/',
-  }),
+  baseQuery: fetchBaseQueryURL,
   endpoints: build => ({
     addLogin: build.mutation<string, ILogin>({
       query: body => ({
