@@ -82,9 +82,6 @@ export const coffeData = createApi({
         url: 'Cafe/GetCafe',
         method: 'POST',
         body: body,
-        headers: {
-          'content-type': 'application/json',
-        },
       }),
     }),
     getProductsCafe: build.mutation<
@@ -95,9 +92,6 @@ export const coffeData = createApi({
         url: 'Product/GetProductsCafe',
         method: 'POST',
         body: body,
-        headers: {
-          'content-type': 'application/json',
-        },
       }),
     }),
     getProductInfo: build.mutation<IProductFullInfo, IProductInfoRequest>({
@@ -105,9 +99,6 @@ export const coffeData = createApi({
         url: 'Product/GetProduct',
         method: 'POST',
         body: body,
-        headers: {
-          'content-type': 'application/json',
-        },
       }),
     }),
   }),
