@@ -21,7 +21,7 @@ import {Separator} from '../listComponent/CardFlatList/Separator';
 import {CardProductsComponent} from './nestedComponent/CardProductsComponent';
 import {addInfoCeffeProduct} from '../../redux/reduxStateSlice/infoProductCoffeSlice';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {WIDTH_APP } from "../../definitionSize";
+import {WIDTH_APP} from '../../definitionSize';
 import {FetchBaseQueryError} from '@reduxjs/toolkit/query';
 import {SerializedError} from '@reduxjs/toolkit';
 import {DetailProductInfoName} from '../../navigation/navigator/nameScreen';
@@ -73,7 +73,6 @@ export const DetailComponent = () => {
       const firstOject = Object.values(dataFirstObject);
       firstOject.map(dataSecondObject => {
         const secondObject = Object.values(dataSecondObject);
-
         setProducts(secondObject as SetStateAction<any>);
       });
     });
