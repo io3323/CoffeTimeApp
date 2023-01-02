@@ -1,23 +1,28 @@
-import {FunctionComponent} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import minus from '../../../assets/image/detailProductScreen/minus.png';
 import plus from '../../../assets/image/detailProductScreen/plus.png';
+import minusDark from '../../../assets/image/detailProductScreen/minusDark.png';
+import plusDark from '../../../assets/image/detailProductScreen/plusDark.png';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {
   addBasket,
   deleteBasket,
 } from '../../../redux/reduxStateSlice/basketUserSlice';
-import {HEIGHT_APP} from '../../../definitionSize';
-interface IActive {
-  idSelected: string;
-}
-export const PayButtonActiveState: FunctionComponent<IActive> = ({
-  idSelected,
-}) => {
+import {ru} from '../../../localisationLanguageName';
+import {
+  buttonNormalProductDetailENG,
+  buttonNormalProductDetailRU,
+} from '../../../localisationScreen/DetailProductScreenLocal';
+import {light} from '../../../themeNameApp';
+export const PayButtonActiveState = () => {
+  const localisationState = useSelector(
+    (state: RootState) => state.localisationState,
+  );
   const basketObjectState = useSelector(
     (state: RootState) => state.basketObjectState,
   );
+  const themeState = useSelector((state: RootState) => state.themeState);
   const dispatch = useDispatch();
   const IncrementButton = () => {
     return (
@@ -36,7 +41,10 @@ export const PayButtonActiveState: FunctionComponent<IActive> = ({
             }),
           );
         }}>
-        <Image source={plus} style={styles.incrementButton} />
+        <Image
+          source={themeState.theme == light ? plus : plusDark}
+          style={styles.incrementButton}
+        />
       </TouchableOpacity>
     );
   };
@@ -57,16 +65,37 @@ export const PayButtonActiveState: FunctionComponent<IActive> = ({
             }),
           );
         }}>
-        <Image source={minus} style={styles.incrementButton} />
+        <Image
+          source={themeState.theme == light ? minus : minusDark}
+          style={styles.incrementButton}
+        />
       </TouchableOpacity>
     );
   };
   return (
-    <View style={styles.conteiner}>
-      <Text style={styles.textBlock}>Заказать</Text>
+    <View
+      style={
+        themeState.theme == light ? styles.conteinerLight : styles.conteinerDark
+      }>
+      <Text style={styles.textBlock}>
+        {localisationState.local == ru
+          ? buttonNormalProductDetailRU
+          : buttonNormalProductDetailENG}
+      </Text>
       <DecrementButton />
-      <View style={styles.textConteiner}>
-        <Text style={styles.textCount} adjustsFontSizeToFit={true}>
+      <View
+        style={
+          themeState.theme == light
+            ? styles.textConteinerLight
+            : styles.textConteinerDark
+        }>
+        <Text
+          style={
+            themeState.theme == light
+              ? styles.textCountLight
+              : styles.textCountDark
+          }
+          adjustsFontSizeToFit={true}>
           {basketObjectState.count}
         </Text>
       </View>
@@ -83,7 +112,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
-  conteiner: {
+  conteinerLight: {
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: '#C8D9AF',
@@ -94,17 +123,41 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     marginLeft: 60,
   },
-  textCount: {
+  conteinerDark: {
+    display: 'flex',
+    flexDirection: 'row',
+    backgroundColor: '#bbb8ee',
+    width: 215,
+    height: 41,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    borderRadius: 7,
+    marginLeft: 60,
+  },
+  textCountLight: {
     fontSize: 35,
     color: '#474747',
   },
-  textConteiner: {
+  textCountDark: {
+    fontSize: 35,
+    color: 'white',
+  },
+  textConteinerLight: {
     backgroundColor: 'white',
     width: 50,
     height: '85%',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 2,
+    flex: 1,
+  },
+  textConteinerDark: {
+    backgroundColor: '#716388',
+    width: 50,
+    height: '85%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
     flex: 1,
   },
   textBlock: {

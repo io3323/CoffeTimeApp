@@ -6,17 +6,13 @@ import {
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import {ImageDetailComponent} from './nestedComponent/ImageDetailComponent';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
 import {SetStateAction, useEffect, useRef, useState} from 'react';
-import {
-  IProductCafeModel,
-  IProductFullInfo,
-  IProductInfoRequest,
-  useGetProductInfoMutation,
-} from '../../redux/reduToolKitQuery';
+import {useGetProductInfoMutation} from '../../redux/reduToolKitQuery';
 import {Separator} from '../listComponent/CardFlatList/Separator';
 import {CardProductsComponent} from './nestedComponent/CardProductsComponent';
 import {addInfoCeffeProduct} from '../../redux/reduxStateSlice/infoProductCoffeSlice';
@@ -26,6 +22,12 @@ import {FetchBaseQueryError} from '@reduxjs/toolkit/query';
 import {SerializedError} from '@reduxjs/toolkit';
 import {DetailProductInfoName} from '../../navigation/navigator/nameScreen';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {
+  IProductCafeModel,
+  IProductFullInfo,
+  IProductInfoRequest,
+} from '../../redux/reduToolKitQuery/interfacesCoffeData';
+import {light} from '../../themeNameApp';
 LogBox.ignoreLogs(['source.uri']);
 const HEADER_MIN_HEIGHT = 50;
 const HEADER_MAX_HEIGHT = 320;
@@ -56,6 +58,7 @@ export const DetailComponent = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const tokenUser = useSelector((state: RootState) => state.tokenState);
+  const themeState = useSelector((state: RootState) => state.themeState);
   const initialProductState: Array<IProductCafeModel> = [
     {
       id: '',
@@ -72,6 +75,7 @@ export const DetailComponent = () => {
     productsCafeState.map(dataFirstObject => {
       const firstOject = Object.values(dataFirstObject);
       firstOject.map(dataSecondObject => {
+        // @ts-ignore
         const secondObject = Object.values(dataSecondObject);
         setProducts(secondObject as SetStateAction<any>);
       });
@@ -121,6 +125,9 @@ export const DetailComponent = () => {
         horizontal={false}
         numColumns={2}
         scrollEnabled={false}
+        style={
+          themeState.theme == light ? styles.flatListLight : styles.flatListDark
+        }
       />
     );
   };
@@ -144,9 +151,18 @@ export const DetailComponent = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      style={
+        themeState.theme == light
+          ? styles.mainConteinerLight
+          : styles.mainConteinerDark
+      }>
       <Animated.ScrollView
-        contentContainerStyle={{paddingTop: HEADER_MAX_HEIGHT - 32}}
+        contentContainerStyle={
+          themeState.theme == light
+            ? styles.contentContainerStyleLight
+            : styles.contentContainerStyleDark
+        }
         scrollEventThrottle={16}
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
@@ -164,6 +180,24 @@ export const DetailComponent = () => {
   );
 };
 const styles = StyleSheet.create({
+  mainConteinerLight: {
+    backgroundColor: '#f4f3f4',
+  },
+  mainConteinerDark: {
+    backgroundColor: '#534965',
+  },
+  contentContainerStyleLight: {
+    paddingTop: HEADER_MAX_HEIGHT - 32,
+  },
+  contentContainerStyleDark: {
+    paddingTop: HEADER_MAX_HEIGHT - 32,
+  },
+  flatListLight: {
+    backgroundColor: '#f4f3f4',
+  },
+  flatListDark: {
+    backgroundColor: '#534965',
+  },
   conteiner: {
     display: 'flex',
     flexDirection: 'row',

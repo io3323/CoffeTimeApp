@@ -2,8 +2,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
 import {RootState} from '../../redux/reduxStore/store';
 import {
-  ICafeRequest,
-  IProductCafeRequest,
   useGetCafeMutation,
   useGetCoffeMutation,
   useGetProductsCafeMutation,
@@ -22,12 +20,26 @@ import {
 import {Separator} from './CardFlatList/Separator';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import goIcon from '../../assets/image/listScreen/goIcon.png';
+import goIconDark from '../../assets/image/listScreen/goIconDark.png';
 import {addCafeInfo} from '../../redux/reduxStateSlice/cafeInfoSlice';
 import {addProducts} from '../../redux/reduxStateSlice/productsCafeSlice';
 import cafeIcon from '../../assets/image/listScreen/cafeIcon.png';
+import cafeIconDark from '../../assets/image/listScreen/cafeIconDark.png';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DetailedInfoName} from '../../navigation/navigator/nameScreen';
 import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
+import {
+  ICafeRequest,
+  IProductCafeRequest,
+} from '../../redux/reduToolKitQuery/interfacesCoffeData';
+import {ru} from '../../localisationLanguageName';
+import {
+  descriptionInfoListENG,
+  descriptionInfoListRu,
+  descriptionLocateListENG,
+  descriptionLocateListRU,
+} from '../../localisationScreen/ListScreenLocal';
+import {light} from '../../themeNameApp';
 type ItemModel = {
   id: string;
   name: string;
@@ -64,6 +76,10 @@ export const ListComponent = () => {
   const coffeDataState = useSelector(
     (state: RootState) => state.coffeDataState,
   );
+  const localisationState = useSelector(
+    (state: RootState) => state.localisationState,
+  );
+  const themeState = useSelector((state: RootState) => state.themeState);
   const [getCoffe] = useGetCoffeMutation();
   const [getCafe] = useGetCafeMutation();
   const [getProductsCafe] = useGetProductsCafeMutation();
@@ -133,34 +149,84 @@ export const ListComponent = () => {
           />
         )}
         {imageController == false && (
-          <Image source={cafeIcon} style={styles.image} />
+          <Image
+            source={themeState.theme == light ? cafeIcon : cafeIconDark}
+            style={styles.image}
+          />
         )}
         <View style={styles.view}>
-          <Text style={styles.nameText}>{item.name}</Text>
-          <Text style={styles.adressDesription}>Мы находимся:</Text>
-          <Text style={styles.adress}>{item.address}</Text>
+          <Text
+            style={
+              themeState.theme == light
+                ? styles.nameTextLight
+                : styles.nameTextDark
+            }>
+            {item.name}
+          </Text>
+          <Text
+            style={
+              themeState.theme == light
+                ? styles.adressDesriptionLight
+                : styles.adressDesriptionDark
+            }>
+            {localisationState.local == ru
+              ? descriptionLocateListRU
+              : descriptionLocateListENG}
+            :
+          </Text>
+          <Text
+            style={
+              themeState.theme == light ? styles.adressLight : styles.adressDark
+            }>
+            {item.address}
+          </Text>
           <View style={styles.conteinerGoIcon}>
-            <Text style={styles.text}>Подробнее</Text>
-            <Image style={styles.icon} source={goIcon} />
+            <Text
+              style={
+                themeState.theme == light ? styles.textLight : styles.textDark
+              }>
+              {localisationState.local == ru
+                ? descriptionInfoListRu
+                : descriptionInfoListENG}
+            </Text>
+            <Image
+              style={
+                themeState.theme == light ? styles.iconLight : styles.iconDark
+              }
+              source={themeState.theme == light ? goIcon : goIconDark}
+            />
           </View>
         </View>
       </TouchableOpacity>
     );
   };
   return (
-    <View>
+    <View
+      style={
+        themeState.theme == light
+          ? styles.mainConteinerLight
+          : styles.mainConteinerDark
+      }>
       <FlatList
         data={masTest}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={Separator}
         renderItem={renderItem}
         keyExtractor={item => item.id}
+        style={styles.flatListStyle}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  flatListStyle: {height: '100%'},
+  mainConteinerLight: {
+    backgroundColor: '#f2f2f2',
+  },
+  mainConteinerDark: {
+    backgroundColor: '#574d6c',
+  },
   conteiner: {
     display: 'flex',
     flexDirection: 'row',
@@ -176,26 +242,47 @@ const styles = StyleSheet.create({
     width: 259,
     alignItems: 'flex-start',
   },
-  nameText: {
+  nameTextLight: {
     color: '#c2d5a9',
     fontSize: 20,
     marginTop: 14,
     marginLeft: 14,
   },
-  adressDesription: {
+  nameTextDark: {
+    color: '#9989d9',
+    fontSize: 20,
+    marginTop: 14,
+    marginLeft: 14,
+  },
+  adressDesriptionLight: {
     fontSize: 14,
     marginTop: 15,
     marginLeft: 14,
     color: '#717171',
   },
-  adress: {
+  adressDesriptionDark: {
+    fontSize: 14,
+    marginTop: 15,
+    marginLeft: 14,
+    color: 'white',
+  },
+  adressLight: {
     fontSize: 18,
     marginTop: 5,
     marginLeft: 14,
     color: '#717171',
   },
-  text: {
+  adressDark: {
+    fontSize: 18,
+    marginTop: 5,
+    marginLeft: 14,
+    color: 'white',
+  },
+  textLight: {
     color: '#BBBBBB',
+  },
+  textDark: {
+    color: 'white',
   },
   conteinerGoIcon: {
     display: 'flex',
@@ -203,10 +290,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     width: WIDTH_APP * 0.65,
   },
-  icon: {
+  iconLight: {
     width: 32,
     height: 32,
     marginTop: -7,
     marginLeft: -5,
+  },
+  iconDark: {
+    width: 15,
+    height: 15,
+    marginTop: 4,
+    marginLeft: 5,
   },
 });

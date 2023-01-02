@@ -1,18 +1,21 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {FunctionComponent, useState} from 'react';
-// @ts-ignore
 import minus from '../../../assets/image/detailProductScreen/minus.png';
-// @ts-ignore
 import plus from '../../../assets/image/detailProductScreen/plus.png';
+import minusDark from '../../../assets/image/detailProductScreen/minusDark.png';
+import plusDark from '../../../assets/image/detailProductScreen/plusDark.png';
 import {
   addBasket,
   deleteBasket,
   deleteProduct,
 } from '../../../redux/reduxStateSlice/basketUserSlice';
 import rubleIcon from '../../../assets/image/detailScreen/rubleIcon.png';
+import rubleDark from '../../../assets/image/detailScreen/rubleIconDark.png';
 import imageNoCoffe from '../../../assets/image/detailScreen/imageNoCoffe.png';
 import deleteIcon from '../../../assets/image/detailProductScreen/delete.png';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../../../redux/reduxStore/store';
+import {light} from '../../../themeNameApp';
 interface ICardShop {
   id: string;
   productName: string;
@@ -35,6 +38,7 @@ export const CardShop: FunctionComponent<ICardShop> = ({
 }) => {
   const dispatch = useDispatch();
   const [controler, setControler] = useState(true);
+  const themeState = useSelector((state: RootState) => state.themeState);
   const Increment = () => {
     return (
       <TouchableOpacity
@@ -52,7 +56,10 @@ export const CardShop: FunctionComponent<ICardShop> = ({
             }),
           );
         }}>
-        <Image source={plus} style={styles.image} />
+        <Image
+          source={themeState.theme == light ? plus : plusDark}
+          style={styles.image}
+        />
       </TouchableOpacity>
     );
   };
@@ -73,14 +80,22 @@ export const CardShop: FunctionComponent<ICardShop> = ({
             }),
           );
         }}>
-        <Image source={minus} style={styles.image} />
+        <Image
+          source={themeState.theme == light ? minus : minusDark}
+          style={styles.image}
+        />
       </TouchableOpacity>
     );
   };
   return (
     <View>
       {id != '' && (
-        <View style={styles.conteinerMain}>
+        <View
+          style={
+            themeState.theme == light
+              ? styles.conteinerMainLight
+              : styles.conteinerMainDark
+          }>
           <View style={[styles.conteiner]}>
             <View style={styles.imageConteiner}>
               {controler && (
@@ -99,7 +114,11 @@ export const CardShop: FunctionComponent<ICardShop> = ({
                 <View style={styles.textPodunctConteinerDelete}>
                   <View style={styles.textProductConteiner}>
                     <Text
-                      style={styles.textNameProduct}
+                      style={
+                        themeState.theme == light
+                          ? styles.textNameProductLight
+                          : styles.textNameProductDark
+                      }
                       adjustsFontSizeToFit={true}>
                       {productName}
                     </Text>
@@ -110,20 +129,60 @@ export const CardShop: FunctionComponent<ICardShop> = ({
                     <Image source={deleteIcon} style={styles.deleteIcon} />
                   </TouchableOpacity>
                 </View>
-                <Text style={styles.textShop}>Магазин заказа:</Text>
-                <Text style={styles.textShopName}>{cofeName}</Text>
+                <Text
+                  style={
+                    themeState.theme == light
+                      ? styles.textShopLight
+                      : styles.textShopDark
+                  }>
+                  Магазин заказа:
+                </Text>
+                <Text
+                  style={
+                    themeState.theme == light
+                      ? styles.textShopNameLight
+                      : styles.textShopNameDark
+                  }>
+                  {cofeName}
+                </Text>
                 <View style={styles.conteinerPrice}>
-                  <Text style={styles.priceDesription}>Цена:</Text>
+                  <Text
+                    style={
+                      themeState.theme == light
+                        ? styles.priceDesriptionLight
+                        : styles.priceDesriptionDark
+                    }>
+                    Цена:
+                  </Text>
                   <View style={styles.priceConteiner}>
-                    <Text style={styles.price} adjustsFontSizeToFit={true}>
+                    <Text
+                      style={
+                        themeState.theme == light
+                          ? styles.priceLight
+                          : styles.priceDark
+                      }
+                      adjustsFontSizeToFit={true}>
                       {price}
                     </Text>
                   </View>
-                  <Image source={rubleIcon} style={styles.rubleIcon} />
-                  <View style={styles.conteinerButton}>
+                  <Image
+                    source={themeState.theme == light ? rubleIcon : rubleDark}
+                    style={
+                      themeState.theme == light
+                        ? styles.rubleIconLight
+                        : styles.rubleIconDark
+                    }
+                  />
+                  <View style={themeState.theme == light ? styles.conteinerButtonLight : styles.conteinerButtonDark}>
                     <Decrement />
                     <View style={styles.countConteiner}>
-                      <Text style={styles.counter} adjustsFontSizeToFit={true}>
+                      <Text
+                        style={
+                          themeState.theme == light
+                            ? styles.counterLight
+                            : styles.counterDark
+                        }
+                        adjustsFontSizeToFit={true}>
                         {count}
                       </Text>
                     </View>
@@ -157,38 +216,67 @@ const styles = StyleSheet.create({
     height: 125,
     borderRadius: 10,
   },
-  conteinerMain: {
+  conteinerMainLight: {
     width: 370,
     height: 131,
     backgroundColor: 'white',
     marginTop: 20,
     borderRadius: 10,
   },
-  conteinerButton: {
+  conteinerMainDark: {
+    width: 370,
+    height: 131,
+    backgroundColor: '#6f6483',
+    marginTop: 20,
+    borderRadius: 10,
+  },
+  conteinerButtonLight: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-end',
     marginLeft: 9,
   },
-  textNameProduct: {
+  conteinerButtonDark: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    marginLeft: 4,
+  },
+  textNameProductLight: {
     fontSize: 20,
     marginTop: 5,
     fontFamily: 'Lobster-Regular',
     color: '#474747',
   },
+  textNameProductDark: {
+    fontSize: 20,
+    marginTop: 5,
+    fontFamily: 'Lobster-Regular',
+    color: 'white',
+  },
   conteinerVertical: {
     display: 'flex',
     flexDirection: 'column',
   },
-  textShop: {
+  textShopLight: {
     fontSize: 16,
     fontFamily: 'SFUIText-Light',
     color: '#474747',
   },
-  textShopName: {
+  textShopDark: {
+    fontSize: 16,
+    fontFamily: 'SFUIText-Light',
+    color: 'white',
+  },
+  textShopNameLight: {
     fontSize: 16,
     fontFamily: 'SFUIText-Bold',
     color: '#474747',
+  },
+  textShopNameDark: {
+    fontSize: 16,
+    fontFamily: 'SFUIText-Bold',
+    color: 'white',
   },
   conteinerPrice: {
     display: 'flex',
@@ -196,16 +284,29 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'flex-end',
   },
-  priceDesription: {
+  priceDesriptionLight: {
     fontSize: 23,
     marginTop: 3,
     fontFamily: 'SFUIText-Bold',
     color: '#474747',
   },
-  price: {
+  priceDesriptionDark: {
+    fontSize: 23,
+    marginTop: 3,
+    fontFamily: 'SFUIText-Bold',
+    color: 'white',
+  },
+  priceLight: {
     fontSize: 25,
     fontFamily: 'Lobster-Regular',
     color: '#C8D9AF',
+    marginTop: 3,
+    textAlign: 'center',
+  },
+  priceDark: {
+    fontSize: 25,
+    fontFamily: 'Lobster-Regular',
+    color: '#bbb8ee',
     marginTop: 3,
     textAlign: 'center',
   },
@@ -215,15 +316,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  counter: {
+  counterLight: {
     fontSize: 30,
     color: '#474747',
   },
-  rubleIcon: {
+  counterDark: {
+    fontSize: 30,
+    color: 'white',
+  },
+  rubleIconLight: {
     width: 15,
     height: 23,
     marginLeft: -5,
     marginBottom: 5,
+  },
+  rubleIconDark: {
+    width: 25,
+    height: 30,
+    marginLeft: -5,
   },
   priceConteiner: {
     width: 43,

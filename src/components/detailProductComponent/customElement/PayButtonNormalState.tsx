@@ -1,7 +1,14 @@
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {addBasket} from '../../../redux/reduxStateSlice/basketUserSlice';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {FunctionComponent} from 'react';
+import {RootState} from '../../../redux/reduxStore/store';
+import {ru} from '../../../localisationLanguageName';
+import {
+  buttonNormalProductDetailENG,
+  buttonNormalProductDetailRU,
+} from '../../../localisationScreen/DetailProductScreenLocal';
+import { light } from "../../../themeNameApp";
 interface IButtonState {
   id: string;
   productName: string;
@@ -20,8 +27,12 @@ export const PayButtonNormalState: FunctionComponent<IButtonState> = ({
   cofeName,
   imagesPath,
   count,
-  prevPrice
+  prevPrice,
 }) => {
+  const themeState = useSelector((state: RootState) => state.themeState);
+  const localisationState = useSelector(
+    (state: RootState) => state.localisationState,
+  );
   const dispatch = useDispatch();
   const userBasketAdd = (
     idFunc: string,
@@ -48,7 +59,7 @@ export const PayButtonNormalState: FunctionComponent<IButtonState> = ({
   };
   return (
     <TouchableOpacity
-      style={styles.button}
+      style={themeState.theme == light ? styles.buttonLight : styles.buttonDark}
       onPress={() => {
         userBasketAdd(
           id,
@@ -61,16 +72,29 @@ export const PayButtonNormalState: FunctionComponent<IButtonState> = ({
           prevPrice,
         );
       }}>
-      <Text style={styles.textButton}>Заказать</Text>
+      <Text style={styles.textButton}>
+        {localisationState.local == ru
+          ? buttonNormalProductDetailRU
+          : buttonNormalProductDetailENG}
+      </Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  button: {
+  buttonLight: {
     width: 207,
     height: 41,
     backgroundColor: '#C8D9AF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 7,
+    marginLeft: 60,
+  },
+  buttonDark: {
+    width: 207,
+    height: 41,
+    backgroundColor: '#bbb8ee',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 7,

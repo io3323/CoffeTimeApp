@@ -2,7 +2,6 @@ import {
   Image,
   ImageBackground,
   Keyboard,
-  Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -18,8 +17,17 @@ import backIcon from '../../assets/image/regImageScreen/backIcon.png';
 import {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../redux/reduxStore/store';
+import {ru} from '../../localisationLanguageName';
+import {
+  addirinalRegistTextENG,
+  addirinalRegistTextRU,
+} from '../../localisationScreen/RegistScreenLocal';
 export const RegistScreen = () => {
-  console.log(HEIGHT_APP, Platform.OS);
+  const localisationState = useSelector(
+    (state: RootState) => state.localisationState,
+  );
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   useEffect(() => {
     const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
@@ -50,7 +58,11 @@ export const RegistScreen = () => {
                   <Text style={styles.mainText}>CoffeTime</Text>
                 </View>
                 <View style={styles.additinalTextConteiner}>
-                  <Text style={styles.additinalText}>территория кофе</Text>
+                  <Text style={styles.additinalText}>
+                    {localisationState.local == ru
+                      ? addirinalRegistTextRU
+                      : addirinalRegistTextENG}
+                  </Text>
                 </View>
                 <View>
                   <KeyboardAwareScrollView
@@ -75,7 +87,11 @@ export const RegistScreen = () => {
                   <Text style={styles.mainText}>CoffeTime</Text>
                 </View>
                 <View style={styles.additinalTextConteiner}>
-                  <Text style={styles.additinalText}>территория кофе</Text>
+                  <Text style={styles.additinalText}>
+                    {localisationState.local == ru
+                      ? addirinalRegistTextRU
+                      : addirinalRegistTextENG}
+                  </Text>
                 </View>
                 <View>
                   <KeyboardAwareScrollView

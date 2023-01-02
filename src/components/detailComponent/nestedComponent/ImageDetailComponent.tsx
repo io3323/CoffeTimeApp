@@ -1,16 +1,23 @@
-import {
-  Image,
-  ImageBackground,
-  Platform,
-  StyleSheet,
-  Switch,
-  Text,
-  View,
-} from 'react-native';
+import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {Switch} from 'react-native-switch';
 import {FunctionComponent, useState} from 'react';
-import heartIcon from '../../../assets/image/detailScreen/heartIcon.png';
+
 import cafeIcon from '../../../assets/image/listScreen/cafeIcon.png';
+import cafeIconDark from '../../../assets/image/listScreen/cafeIconDark.png';
+import {
+  backgroundActiveDark,
+  backgroundActiveLight,
+  linerGradientColorsDark,
+  linerGradientColorsLight,
+  thumbColorDark,
+  thumbColorLight,
+} from './DetailComponentColor';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../../redux/reduxStore/store';
+import {light} from '../../../themeNameApp';
+import {HeartComponent} from './HeartComponent';
+import {EmptyComponent} from './EmptyComponent';
 type ImageComponentType = {
   images: string;
   name: string;
@@ -21,6 +28,7 @@ export const ImageDetailComponent: FunctionComponent<ImageComponentType> = ({
   name,
   address,
 }) => {
+  const themeState = useSelector((state: RootState) => state.themeState);
   const [isEnabled, setIsEnabled] = useState(false);
   const [controller, setController] = useState(true);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -32,49 +40,122 @@ export const ImageDetailComponent: FunctionComponent<ImageComponentType> = ({
           source={{uri: images}}
           onError={() => setController(false)}>
           <LinearGradient
-            colors={['rgba(0,0,0,0.00)', 'rgba(243,233,216,0.79)']}
+            colors={
+              themeState.theme == light
+                ? linerGradientColorsLight
+                : linerGradientColorsDark
+            }
             style={styles.linearGradient}>
             <View style={styles.conteiner}>
               <View style={styles.mainBlockConteiner}>
-                <Text style={styles.textName}>{name}</Text>
-                <Text style={styles.textAdress}>{address}</Text>
+                <Text
+                  style={
+                    themeState.theme == light
+                      ? styles.textNameLight
+                      : styles.textNameDark
+                  }>
+                  {name}
+                </Text>
+                <Text
+                  style={
+                    themeState.theme == light
+                      ? styles.textAdressLight
+                      : styles.textAdressDark
+                  }>
+                  {address}
+                </Text>
               </View>
-              <Switch
-                trackColor={{false: '#767577', true: '#f3f1f1'}}
-                thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
-                onValueChange={toggleSwitch}
-                value={isEnabled}
-                style={styles.switchController}
-              />
-              {isEnabled && (
-                <Image source={heartIcon} style={styles.headrIcon} />
-              )}
+              <View style={styles.switchController}>
+                <Switch
+                  backgroundActive={
+                    themeState.theme == light
+                      ? backgroundActiveLight
+                      : backgroundActiveDark
+                  }
+                  backgroundInactive={'#f3f1f1'}
+                  circleActiveColor={'#f4f3f4'}
+                  circleInActiveColor={
+                    themeState.theme == light ? thumbColorLight : thumbColorDark
+                  }
+                  renderInsideCircle={() =>
+                    isEnabled ? <HeartComponent /> : <EmptyComponent />
+                  }
+                  onValueChange={toggleSwitch}
+                  value={isEnabled}
+                  circleSize={30}
+                  switchLeftPx={2.4}
+                  switchRightPx={2.4}
+                  activeText={''}
+                  inActiveText={''}
+                  circleBorderActiveColor={'white'}
+                  circleBorderInactiveColor={
+                    themeState.theme == light ? thumbColorLight : thumbColorDark
+                  }
+                />
+              </View>
             </View>
           </LinearGradient>
         </ImageBackground>
       )}
       {controller == false && (
-        <ImageBackground style={styles.image} source={cafeIcon}>
+        <ImageBackground
+          style={styles.image}
+          source={themeState.theme == light ? cafeIcon : cafeIconDark}>
           <LinearGradient
-            colors={['rgba(0,0,0,0.00)', 'rgba(243,233,216,0.79)']}
+            colors={
+              themeState.theme == light
+                ? linerGradientColorsLight
+                : linerGradientColorsDark
+            }
             style={styles.linearGradient}>
             <View style={styles.conteiner}>
               <View style={styles.mainBlockConteiner}>
-                <Text style={styles.textName}>{name}</Text>
-                <Text style={styles.textAdress} numberOfLines={0}>
+                <Text
+                  style={
+                    themeState.theme == light
+                      ? styles.textNameLight
+                      : styles.textNameDark
+                  }>
+                  {name}
+                </Text>
+                <Text
+                  style={
+                    themeState.theme == light
+                      ? styles.textAdressLight
+                      : styles.textAdressDark
+                  }
+                  numberOfLines={0}>
                   {address}
                 </Text>
               </View>
-              <Switch
-                trackColor={{false: '#767577', true: '#f3f1f1'}}
-                thumbColor={isEnabled ? '#f4f3f4' : '#f4f3f4'}
-                onValueChange={toggleSwitch}
-                value={isEnabled}
-                style={styles.switchController}
-              />
-              {isEnabled && (
-                <Image source={heartIcon} style={styles.headrIcon} />
-              )}
+              <View style={styles.switchController}>
+                <Switch
+                  backgroundActive={
+                    themeState.theme == light
+                      ? backgroundActiveLight
+                      : backgroundActiveDark
+                  }
+                  backgroundInactive={'#f3f1f1'}
+                  circleActiveColor={'#f4f3f4'}
+                  circleInActiveColor={
+                    themeState.theme == light ? thumbColorLight : thumbColorDark
+                  }
+                  renderInsideCircle={() =>
+                    isEnabled ? <HeartComponent /> : <EmptyComponent />
+                  }
+                  onValueChange={toggleSwitch}
+                  value={isEnabled}
+                  circleSize={30}
+                  switchLeftPx={2.4}
+                  switchRightPx={2.4}
+                  activeText={''}
+                  inActiveText={''}
+                  circleBorderActiveColor={'white'}
+                  circleBorderInactiveColor={
+                    themeState.theme == light ? thumbColorLight : thumbColorDark
+                  }
+                />
+              </View>
             </View>
           </LinearGradient>
         </ImageBackground>
@@ -101,17 +182,32 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     borderRadius: 0,
   },
-  textName: {
+  textNameLight: {
     fontFamily: 'Lobster-Regular',
     fontSize: 28,
     color: '#474747',
     marginTop: 220,
     marginLeft: 6,
   },
-  textAdress: {
+  textNameDark: {
+    fontFamily: 'Lobster-Regular',
+    fontSize: 28,
+    color: 'white',
+    marginTop: 220,
+    marginLeft: 6,
+  },
+  textAdressLight: {
     fontFamily: 'SFUIText-Regular',
     fontSize: 18,
     color: '#717171',
+    marginLeft: 6,
+    marginTop: 10,
+    height: 100,
+  },
+  textAdressDark: {
+    fontFamily: 'SFUIText-Regular',
+    fontSize: 18,
+    color: 'white',
     marginLeft: 6,
     marginTop: 10,
     height: 100,
@@ -122,18 +218,14 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   switchController: {
-    marginLeft: 10,
-    borderWidth: 2,
+    marginLeft: -5,
     marginBottom: 50,
-    borderStyle: 'solid',
-    borderColor: '#d5d4d4',
-    borderRadius: 14,
-    backgroundColor: Platform.OS == 'ios' ? '#cccccc' : '',
   },
   headrIcon: {
     width: 20,
     height: 18,
-    marginTop: 293,
-    marginLeft: -25,
+    backgroundColor: 'red',
+    marginLeft: -50,
+    marginBottom: 100,
   },
 });

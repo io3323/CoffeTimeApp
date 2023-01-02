@@ -1,10 +1,17 @@
 import {Image, StyleSheet, View} from 'react-native';
-// @ts-ignore
 import mapIcon from '../../../assets/image/mainScreen/segmentControlIcon/mapIcon.png';
+import mapIconDark from '../../../assets/image/mainScreen/segmentControlIcon/mapIconDark.png';
+import {light} from '../../../themeNameApp';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../../redux/reduxStore/store';
 export const CustomMapIcon = () => {
+  const themeState = useSelector((state: RootState) => state.themeState);
   return (
     <View style={styles.conteiner}>
-      <Image source={mapIcon} style={styles.map} />
+      <Image
+        source={themeState.theme == light ? mapIcon : mapIconDark}
+        style={styles.map}
+      />
     </View>
   );
 };

@@ -10,14 +10,22 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import LoginForm from '../../components/authScreen/LoginForm';
-import {Provider} from 'react-redux';
-import store from '../../redux/reduxStore/store';
+import {Provider, useSelector} from 'react-redux';
+import store, {RootState} from '../../redux/reduxStore/store';
 import {useEffect, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {SplachComponent} from '../../components/splashScreenComponent/SplashComponent';
 import {WIDTH_APP} from '../../definitionSize';
+import {eng, ru} from '../../localisationLanguageName';
+import {
+  addirinalAuthTextENG,
+  addirinalAuthTextRU,
+} from '../../localisationScreen/AuthScreenLocal';
 LogBox.ignoreLogs(['Require cycle:']);
 export const AuthScreen = () => {
+  const localisationState = useSelector(
+    (state: RootState) => state.localisationState,
+  );
   const [keyboardStatus, setKeyboardStatus] = useState(false);
   const [isAppReady, setIsAppReady] = useState(false);
   useEffect(() => {
@@ -53,7 +61,11 @@ export const AuthScreen = () => {
                   </Text>
                 </View>
                 <View style={styles.additinalTextConteiner}>
-                  <Text style={styles.additinalText}>территория кофе</Text>
+                  <Text style={styles.additinalText}>
+                    {localisationState.local == ru
+                      ? addirinalAuthTextRU
+                      : addirinalAuthTextENG}
+                  </Text>
                 </View>
                 <Provider store={store}>
                   <View style={styles.loginConteiner}>

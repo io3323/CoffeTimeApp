@@ -1,0 +1,10 @@
+export const addirinalRegistTextRU = 'территория кофе';
+export const addirinalRegistTextENG = 'coffee territory';
+export const placehjlderRegistNameRU = 'Имя и фамилия';
+export const placehjlderRegistNameENG = 'Name and surname';
+export const placehjlderRegistEmailRU = 'е-мейл';
+export const placehjlderRegistEmailENG = 'email';
+export const placehjlderRegistPasswordRU = 'пароль';
+export const placehjlderRegistPasswordENG = 'password';
+export const buttonRegistRU = 'далее';
+export const buttonRegistENG = 'enter';

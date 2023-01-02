@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IProductFullInfo} from '../reduToolKitQuery';
+import {IProductFullInfo} from '../reduToolKitQuery/interfacesCoffeData';
 
 const initialStateProductCoffeSlice: IProductFullInfo = {
   id: '',
@@ -31,8 +31,11 @@ export const infoProductCoffeSlice = createSlice({
       state.attribute = action.payload.attribute;
       state.imagesPath = action.payload.imagesPath;
     },
+    backInitialStateInfoProductCoffe(state) {
+      state = initialStateProductCoffeSlice;
+    },
   },
 });
 
 export default infoProductCoffeSlice.reducer;
-export const {addInfoCeffeProduct} = infoProductCoffeSlice.actions;
+export const {addInfoCeffeProduct, backInitialStateInfoProductCoffe} = infoProductCoffeSlice.actions;

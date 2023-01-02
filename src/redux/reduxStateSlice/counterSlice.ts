@@ -18,8 +18,6 @@ export const counterSlice = createSlice({
       let count = 0;
       state.forEach((data, index) => {
         if (data.idPredmet == action.payload.idPredmet) {
-          console.log('splice');
-          console.log(index, 'index');
           const obj: ICounter = {
             idPredmet: action.payload.idPredmet,
             count: data.count + 1,
@@ -27,22 +25,17 @@ export const counterSlice = createSlice({
           state.splice(index, 1, obj);
           state.pop();
         } else {
-          console.log(count, 'if count');
           if (count == 0) {
-            console.log('add');
             state.push(action.payload);
             count += 1;
           }
         }
       });
-      console.log(state, 'post state');
     },
     addCountDecrement(state, action: PayloadAction<ICounter>) {
       let count = 0;
       state.forEach((data, index) => {
         if (data.idPredmet == action.payload.idPredmet) {
-          console.log('splice');
-          console.log(index, 'index');
           const obj: ICounter = {
             idPredmet: action.payload.idPredmet,
             count: data.count - 1,
@@ -50,15 +43,12 @@ export const counterSlice = createSlice({
           state.splice(index, 1, obj);
           state.pop();
         } else {
-          console.log(count, 'if count');
           if (count == 0) {
-            console.log('add');
             state.push(action.payload);
             count += 1;
           }
         }
       });
-      console.log(state, 'post state');
     },
   },
 });

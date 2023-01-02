@@ -16,8 +16,12 @@ export const coordinateMasSplice = createSlice({
     addMarkers(state, action: PayloadAction<ICoordinateMas>) {
       state.push(action.payload);
     },
+    backInitialStateMarkers(state) {
+      state = initialMarkersState;
+    },
   },
 });
 
 export default coordinateMasSplice.reducer;
-export const {addMarkers} = coordinateMasSplice.actions;
+export const {addMarkers, backInitialStateMarkers} =
+  coordinateMasSplice.actions;

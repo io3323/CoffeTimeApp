@@ -1,12 +1,13 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-
-import {AuthNavigator} from './src/navigation/navigator/AuthNavigator';
-import {NavigationContainer} from '@react-navigation/native';
+import {Provider} from 'react-redux';
+import store from './src/redux/reduxStore/store';
+import {MainApp} from './MainApp';
 const App = () => {
   return (
-    <NavigationContainer>
-      <AuthNavigator />
-    </NavigationContainer>
+    <Provider store={store}>
+      <MainApp />
+    </Provider>
   );
 };
 

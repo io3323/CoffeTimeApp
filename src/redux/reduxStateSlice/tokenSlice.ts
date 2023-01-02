@@ -13,8 +13,11 @@ export const userAuthToken = createSlice({
       state.data.pop();
       state.data.push(action.payload);
     },
+    backInitialStateUserAuthToken(state) {
+      state = initialStateUserToken;
+    },
   },
 });
 
 export default userAuthToken.reducer;
-export const {addToken} = userAuthToken.actions;
+export const {addToken, backInitialStateUserAuthToken} = userAuthToken.actions;

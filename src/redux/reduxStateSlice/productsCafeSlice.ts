@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IProductCafeModel} from '../reduToolKitQuery';
+import {IProductCafeModel} from '../reduToolKitQuery/interfacesCoffeData';
 const initialStateProductsCafe: Array<IProductCafeModel> = [
   {
     id: '',
@@ -18,8 +18,12 @@ export const ProductsCafeSlice = createSlice({
       state.pop();
       state.push(action.payload);
     },
+    backIntialStateProductsCafe(state) {
+      state = initialStateProductsCafe;
+    },
   },
 });
 
 export default ProductsCafeSlice.reducer;
-export const {addProducts} = ProductsCafeSlice.actions;
+export const {addProducts, backIntialStateProductsCafe} =
+  ProductsCafeSlice.actions;

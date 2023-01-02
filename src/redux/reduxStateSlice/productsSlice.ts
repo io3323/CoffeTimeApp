@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IProductCafeModel} from '../reduToolKitQuery';
+import {IProductCafeModel} from '../reduToolKitQuery/interfacesCoffeData';
+
 const initialStateProductsCafe: Array<IProductCafeModel> = [
   {
     id: '',

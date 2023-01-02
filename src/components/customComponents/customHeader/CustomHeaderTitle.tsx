@@ -1,17 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Provider} from 'react-redux';
+import store from '../../../redux/reduxStore/store';
+import {NestedCustomHeaderTitle} from './nestedElement/NestedCustomHeaderTitle';
 
 export const CustomHeaderTitle = () => {
   return (
-    <View>
-      <Text style={styles.textHeader}>CoffeTime</Text>
-    </View>
+    <Provider store={store}>
+      <NestedCustomHeaderTitle />
+    </Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  textHeader: {
-    fontSize: 28,
-    color: '#474747',
-    fontFamily: 'Lobster-Regular',
-  },
-});

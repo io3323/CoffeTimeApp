@@ -1,7 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {AuthScreen} from '../screens/AuthScreen';
 import React from 'react';
-import {SecondScreen, SecondScreenName} from '../screens/SecondScreen';
 import {RegistScreen} from '../screens/RegistScreen';
 import {CustomBackButton} from '../../components/customComponents/customHeader/CustomBackButton';
 import {CustomHeaderTitle} from '../../components/customComponents/customHeader/CustomHeaderTitle';
@@ -13,10 +12,10 @@ import {CustomListIcon} from '../../components/customComponents/customSegmentedC
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {DetailProductInfo} from '../screens/DetailProductInfo';
 import {OrderScreen} from '../screens/OrderScreen';
-import {CustomBagShopButton} from '../../components/customComponents/customHeader/CustomBagShopButton';
+import {CustomBagShopButton} from '../../components/customComponents/customHeader/nestedElement/CustomBagShopButton';
 import {ShopListButton} from '../../components/customComponents/customHeader/ShopListButton';
-import {Provider} from 'react-redux';
-import store from '../../redux/reduxStore/store';
+import {Provider, useSelector} from 'react-redux';
+import store, {RootState} from '../../redux/reduxStore/store';
 import {
   AuthScreenName,
   DetailedInfoName,
@@ -26,15 +25,31 @@ import {
   RegistScreenName,
 } from './nameScreen';
 import {StyleSheet} from 'react-native';
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import {CustomDrawer} from '../../components/customComponents/customHeader/CustomDrawer';
+import {light} from '../../themeNameApp';
 export const AuthNavigator = () => {
+  const themeState = useSelector((state: RootState) => state.themeState);
+  const Drawer = createDrawerNavigator();
   const Tab = createMaterialTopTabNavigator();
   const TabStack = () => {
     return (
       <Tab.Navigator
         initialRouteName={'Map'}
+        style={
+          themeState.theme == light
+            ? styles.mainTabBarLight
+            : styles.mainTabBarDark
+        }
         screenOptions={{
-          tabBarStyle: styles.tabBarStyleTabNav,
-          tabBarIndicatorStyle: styles.tabBarIndicatorStyleTabNav,
+          tabBarStyle:
+            themeState.theme == light
+              ? styles.tabBarStyleTabNavLight
+              : styles.tabBarStyleTabNavDark,
+          tabBarIndicatorStyle:
+            themeState.theme == light
+              ? styles.tabBarIndicatorStyleTabNavLight
+              : styles.tabBarIndicatorStyleTabNavDark,
           tabBarLabelStyle: styles.tabBarLabelStyleTabNav,
         }}>
         <Tab.Screen
@@ -66,7 +81,6 @@ export const AuthNavigator = () => {
             component={AuthScreen}
             options={{headerShown: false}}
           />
-          <Stack.Screen name={SecondScreenName} component={SecondScreen} />
           <Stack.Screen
             name={RegistScreenName}
             component={RegistScreen}
@@ -81,7 +95,10 @@ export const AuthNavigator = () => {
             component={TabStack}
             options={{
               headerShown: true,
-              headerStyle: styles.headerStyleStackScreen,
+              headerStyle:
+                themeState.theme == light
+                  ? styles.headerStyleStackScreenLight
+                  : styles.headerStyleStackScreenDark,
               headerLeft: () => <CustomBackButton />,
               headerBackVisible: false,
               headerTitleAlign: 'center',
@@ -94,7 +111,10 @@ export const AuthNavigator = () => {
             component={DetailedInfo}
             options={{
               headerShown: true,
-              headerStyle: styles.headerStyleStackScreen,
+              headerStyle:
+                themeState.theme == light
+                  ? styles.headerStyleStackScreenLight
+                  : styles.headerStyleStackScreenDark,
               headerTitleAlign: 'center',
               headerBackVisible: false,
               headerLeft: () => <CustomBackButton />,
@@ -107,7 +127,10 @@ export const AuthNavigator = () => {
             component={DetailProductInfo}
             options={{
               headerShown: true,
-              headerStyle: styles.headerStyleStackScreen,
+              headerStyle:
+                themeState.theme == light
+                  ? styles.headerStyleStackScreenLight
+                  : styles.headerStyleStackScreenDark,
               headerTitleAlign: 'center',
               headerBackVisible: false,
               headerLeft: () => <CustomBackButton />,
@@ -120,7 +143,10 @@ export const AuthNavigator = () => {
             component={OrderScreen}
             options={{
               headerShown: true,
-              headerStyle: styles.headerStyleStackScreen,
+              headerStyle:
+                themeState.theme == light
+                  ? styles.headerStyleStackScreenLight
+                  : styles.headerStyleStackScreenDark,
               headerTitleAlign: 'center',
               headerBackVisible: false,
               headerLeft: () => <CustomBackButton />,
@@ -131,33 +157,57 @@ export const AuthNavigator = () => {
       </Stack.Navigator>
     );
   };
-  const MainStack = createNativeStackNavigator();
   return (
     <Provider store={store}>
-      <MainStack.Navigator initialRouteName="App">
-        <MainStack.Screen
+      <Drawer.Navigator
+        screenOptions={{
+          swipeEnabled: false,
+        }}
+        drawerContent={() => <CustomDrawer />}
+        initialRouteName="App">
+        <Drawer.Screen
           name={'Stack'}
           component={AuthStack}
           options={{headerShown: false}}
         />
-      </MainStack.Navigator>
+      </Drawer.Navigator>
     </Provider>
   );
 };
 
 const styles = StyleSheet.create({
-  tabBarStyleTabNav: {
+  mainTabBarLight: {
+    backgroundColor: '#f2f2f2',
+  },
+  mainTabBarDark: {
+    backgroundColor: '#574d6c',
+  },
+  tabBarStyleTabNavLight: {
     width: 130,
     height: 35,
     borderStyle: 'solid',
     borderWidth: 1,
     borderRadius: 40,
+    borderColor: 'black',
     justifyContent: 'center',
     marginTop: 10,
     marginBottom: 10,
     alignSelf: 'center',
   },
-  tabBarIndicatorStyleTabNav: {
+  tabBarStyleTabNavDark: {
+    width: 130,
+    height: 35,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderRadius: 40,
+    borderColor: 'white',
+    justifyContent: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: '#574d6c',
+    alignSelf: 'center',
+  },
+  tabBarIndicatorStyleTabNavLight: {
     backgroundColor: 'red',
     borderWidth: 14,
     borderRadius: 20,
@@ -168,11 +218,28 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     width: 55,
   },
+  tabBarIndicatorStyleTabNavDark: {
+    backgroundColor: 'red',
+    borderWidth: 14,
+    borderRadius: 20,
+    borderColor: '#9989d9',
+    marginLeft: 4,
+    marginRight: 1,
+    marginTop: 10,
+    marginBottom: 2,
+    width: 55,
+  },
   tabBarLabelStyleTabNav: {
     color: 'red',
     marginTop: -10,
   },
-  headerStyleStackScreen: {
+  headerStyleStackScreenLight: {
     backgroundColor: '#EAEAEA',
+  },
+  headerStyleStackScreenDark: {
+    backgroundColor: '#3a3450',
+  },
+  drawerStyle: {
+    backgroundColor: '#c5b4a0',
   },
 });

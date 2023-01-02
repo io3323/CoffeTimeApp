@@ -11,7 +11,16 @@ import MapView, {Marker} from 'react-native-maps';
 import mesto from '../../assets/image/mapScreen/mesto.png';
 import located from '../../assets/image/mapScreen/located.png';
 import search from '../../assets/image/mapScreen/search.png';
+import locatedDark from '../../assets/image/mapScreen/locatedDark.png';
+import searchDark from '../../assets/image/mapScreen/searchDark.png';
 import {addMarkers} from '../../redux/reduxStateSlice/coordinateMasSplice';
+import mapDarkStyle from '../MapComponent/mapDarkStyle.json';
+import {ru} from '../../localisationLanguageName';
+import {
+  distansMapENG,
+  distansMapRU,
+} from '../../localisationScreen/MapScreenLocal';
+import {light} from '../../themeNameApp';
 export const MapComponent = () => {
   type MarkerModel = {
     latitude: number;
@@ -25,6 +34,10 @@ export const MapComponent = () => {
   );
   const dispatch = useDispatch();
   const [controllerPosition, setController] = useState(true);
+  const localisationState = useSelector(
+    (state: RootState) => state.localisationState,
+  );
+  const themeState = useSelector((state: RootState) => state.themeState);
   const getLocationUser = () => {
     const config = {
       enableHighAccuracy: true,
@@ -78,6 +91,7 @@ export const MapComponent = () => {
       <View>
         <MapView
           onPress={e => console.log(e.target)}
+          customMapStyle={themeState.theme == light ? [] : mapDarkStyle}
           initialRegion={{
             //MARK: - для работы автоопределения координат заменить статичные значени lat и lon на динамические
             //latitude: coordinateState.latitude,
@@ -101,20 +115,40 @@ export const MapComponent = () => {
         <View style={styles.rowConteiner}>
           <View style={styles.locatedConteiner}>
             <TouchableOpacity onPress={() => getLocationUser()}>
-              <Image source={located} style={styles.locatedIcon} />
+              <Image
+                source={themeState.theme == light ? located : locatedDark}
+                style={styles.locatedIcon}
+              />
             </TouchableOpacity>
           </View>
           <View style={styles.locatedSearch}>
             <TouchableOpacity>
-              <Image source={search} style={styles.searchIcon} />
+              <Image
+                source={themeState.theme == light ? search : searchDark}
+                style={styles.searchIcon}
+              />
             </TouchableOpacity>
           </View>
         </View>
         <View style={styles.cardStyle}>
-          <View style={styles.blockConteiner}>
-            <Text style={styles.textCafe}>CoffeTime</Text>
+          <View
+            style={
+              themeState.theme == light
+                ? styles.blockConteinerLight
+                : styles.blockConteinerDark
+            }>
+            <Text
+              style={
+                themeState.theme == light
+                  ? styles.textCafeLight
+                  : styles.textCafeDark
+              }>
+              CoffeTime
+            </Text>
             <Separator />
-            <Text style={styles.subText}>900 м =15 минут</Text>
+            <Text style={styles.subText}>
+              {localisationState.local == ru ? distansMapRU : distansMapENG}
+            </Text>
           </View>
         </View>
       </View>
@@ -146,8 +180,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: '8.2%',
   },
-  textCafe: {
+  textCafeLight: {
     color: '#474747',
+    fontSize: 30,
+    marginTop: 5,
+    fontFamily: 'Lobster-Regular',
+    marginLeft: '10.1%',
+  },
+  textCafeDark: {
+    color: 'white',
     fontSize: 30,
     marginTop: 5,
     fontFamily: 'Lobster-Regular',
@@ -167,8 +208,14 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
   },
-  blockConteiner: {
+  blockConteinerLight: {
     backgroundColor: 'white',
+    width: 287,
+    height: 130,
+    alignItems: 'flex-start',
+  },
+  blockConteinerDark: {
+    backgroundColor: '#3a3450',
     width: 287,
     height: 130,
     alignItems: 'flex-start',

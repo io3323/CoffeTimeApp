@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ICafeInfo} from '../reduToolKitQuery';
-const initialStateCafeInfo: ICafeInfo = {
+import {ICafeInfo} from '../reduToolKitQuery/interfacesCoffeData';
+export const initialStateCafeInfo: ICafeInfo = {
   id: '',
   name: '',
   address: '',

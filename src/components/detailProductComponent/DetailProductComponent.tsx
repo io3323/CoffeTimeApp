@@ -10,11 +10,19 @@ import temperature from '../../assets/image/detailProductScreen/temperature.png'
 import water from '../../assets/image/detailProductScreen/water.png';
 import rubleGray from '../../assets/image/detailProductScreen/rubleGray.png';
 import imageNoCoffe from '../../assets/image/detailScreen/imageNoCoffe.png';
+import imageNoCoffeDark from '../../assets/image/detailScreen/imageNoCoffeDark.png';
+import rubleIconDark from '../../assets/image/detailScreen/rubleIconDark.png';
 import {useEffect, useState} from 'react';
 import {PayButtonNormalState} from './customElement/PayButtonNormalState';
 import {PayButtonActiveState} from './customElement/PayButtonActiveState';
 import {addBacketObject} from '../../redux/reduxStateSlice/basketObjectSlice';
 import {HEIGHT_APP} from '../../definitionSize';
+import {ru} from '../../localisationLanguageName';
+import {
+  descriptionProductDetailENG,
+  descriptionProductDetailRU,
+} from '../../localisationScreen/DetailProductScreenLocal';
+import {light} from '../../themeNameApp';
 export const DetailProductComponent = () => {
   const infoProductCoffeState = useSelector(
     (state: RootState) => state.infoProductCoffeState,
@@ -24,6 +32,10 @@ export const DetailProductComponent = () => {
     (state: RootState) => state.basketUserState,
   );
   const dispatch = useDispatch();
+  const localisationState = useSelector(
+    (state: RootState) => state.localisationState,
+  );
+  const themeState = useSelector((state: RootState) => state.themeState);
   const basketObjectState = useSelector(
     (state: RootState) => state.basketObjectState,
   );
@@ -61,23 +73,47 @@ export const DetailProductComponent = () => {
   }, [basketUserState, infoProductCoffeState]);
 
   return (
-    <SafeAreaView style={styles.safeAreaConteiner}>
-      <View style={styles.mainConteiner}>
+    <SafeAreaView
+      style={
+        themeState.theme == light
+          ? styles.safeAreaConteinerLight
+          : styles.safeAreaConteinerDark
+      }>
+      <View
+        style={
+          themeState.theme == light
+            ? styles.mainConteinerLight
+            : styles.mainConteinerDark
+        }>
         <View style={styles.upGlobalConteiner}>
           <View style={styles.upConteiner}>
             {controller && (
               <Image
                 source={{uri: infoProductCoffeState.imagesPath}}
-                style={styles.image}
+                style={styles.imageLight}
                 onError={() => setController(false)}
               />
             )}
             {controller == false && (
-              <Image source={imageNoCoffe} style={styles.image} />
+              <Image
+                source={
+                  themeState.theme == light ? imageNoCoffe : imageNoCoffeDark
+                }
+                style={
+                  themeState.theme == light
+                    ? styles.imageLight
+                    : styles.imageDark
+                }
+              />
             )}
           </View>
           <View style={styles.centerConteiner}>
-            <Text style={styles.productName}>
+            <Text
+              style={
+                themeState.theme == light
+                  ? styles.productNameLight
+                  : styles.productNameDark
+              }>
               {infoProductCoffeState.productName}
             </Text>
             {infoProductCoffeState.favarite && (
@@ -101,43 +137,107 @@ export const DetailProductComponent = () => {
               </View>
               <View style={[styles.textConteiner]}>
                 <View style={styles.textConteinerMilk}>
-                  <Text style={[styles.textAtributesMilk]}>15мл</Text>
+                  <Text
+                    style={[
+                      themeState.theme == light
+                        ? styles.textAtributesMilkLight
+                        : styles.textAtributesMilkDark,
+                    ]}>
+                    15мл
+                  </Text>
                 </View>
                 <View style={styles.textConteinerCoffe}>
-                  <Text style={[styles.textAtributesCoffe]}> 25%</Text>
+                  <Text
+                    style={[
+                      themeState.theme == light
+                        ? styles.textAtributesCoffeLight
+                        : styles.textAtributesCoffeDark,
+                    ]}>
+                    {' '}
+                    25%
+                  </Text>
                 </View>
                 <View style={styles.textConteinerWater}>
-                  <Text style={[styles.textAtributesWater]}>25мл</Text>
+                  <Text
+                    style={[
+                      themeState.theme == light
+                        ? styles.textAtributesWaterLight
+                        : styles.textAtributesWaterDark,
+                    ]}>
+                    25мл
+                  </Text>
                 </View>
                 <View style={styles.textConteinerTemperature}>
-                  <Text style={[styles.textAtributesTemperature]}>95`</Text>
+                  <Text
+                    style={[
+                      themeState.theme == light
+                        ? styles.textAtributesTemperatureLight
+                        : styles.textAtributesTemperatureDark,
+                    ]}>
+                    95`
+                  </Text>
                 </View>
                 <View style={styles.textConteinerPression}>
-                  <Text style={[styles.textAtributesPression]}>15б</Text>
+                  <Text
+                    style={[
+                      themeState.theme == light
+                        ? styles.textAtributesPressionLight
+                        : styles.textAtributesPressionDark,
+                    ]}>
+                    15б
+                  </Text>
                 </View>
               </View>
               <View style={styles.textDescriptionConteiner}>
-                <Text style={styles.textDescription}>
-                  {infoProductCoffeState.productName} – это бархатистая плотная
-                  пенка с золотистым отливом, покрывающая всю поверхность кофе.
-                  Из Италии с любовью.
+                <Text
+                  style={
+                    themeState.theme == light
+                      ? styles.textDescriptionLight
+                      : styles.textDescriptionDark
+                  }>
+                  {infoProductCoffeState.productName} –{' '}
+                  {localisationState.local == ru
+                    ? descriptionProductDetailRU
+                    : descriptionProductDetailENG}
                 </Text>
               </View>
             </View>
           </View>
         </View>
-        <View style={styles.bottomConteiner}>
-          <View style={styles.separator} />
+        <View
+          style={
+            themeState.theme == light
+              ? styles.bottomConteinerLight
+              : styles.bottomConteinerDark
+          }>
+          <View
+            style={
+              themeState.theme == light
+                ? styles.separatorLight
+                : styles.separatorDark
+            }
+          />
           <View style={styles.priceConteiner}>
             <View style={styles.textPriceConteiner}>
               <Text
-                style={styles.price}
+                style={
+                  themeState.theme == light
+                    ? styles.priceLight
+                    : styles.priceDark
+                }
                 adjustsFontSizeToFit={true}
                 numberOfLines={1}>
                 {basketObjectState.price}
               </Text>
             </View>
-            <Image source={rubleGray} style={styles.rubleGrayIcon} />
+            <Image
+              source={themeState.theme == light ? rubleGray : rubleIconDark}
+              style={
+                themeState.theme == light
+                  ? styles.rubleGrayIconLight
+                  : styles.rubleGrayIconDark
+              }
+            />
             {basketObjectState.count == 0 && (
               <PayButtonNormalState
                 id={infoProductCoffeState.id}
@@ -152,7 +252,7 @@ export const DetailProductComponent = () => {
             )}
             {basketObjectState.count != 0 && (
               <View>
-                <PayButtonActiveState idSelected={infoProductCoffeState.id} />
+                <PayButtonActiveState />
               </View>
             )}
           </View>
@@ -163,10 +263,16 @@ export const DetailProductComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  safeAreaConteiner: {backgroundColor: 'white'},
-  mainConteiner: {
+  safeAreaConteinerLight: {backgroundColor: 'white'},
+  safeAreaConteinerDark: {backgroundColor: '#534965'},
+  mainConteinerLight: {
     height: '100%',
     backgroundColor: 'white',
+    alignItems: 'center',
+  },
+  mainConteinerDark: {
+    height: '100%',
+    backgroundColor: '#534965',
     alignItems: 'center',
   },
   upGlobalConteiner: {
@@ -179,14 +285,23 @@ const styles = StyleSheet.create({
     height: HEIGHT_APP * 0.35,
     justifyContent: 'center',
   },
-  image: {
+  imageLight: {
     width: '80%',
     height: '90%',
   },
-  productName: {
+  imageDark: {
+    width: '68%',
+    height: '80%',
+  },
+  productNameLight: {
     fontSize: 24,
     fontFamily: 'Lobster-Regular',
     color: '#474747',
+  },
+  productNameDark: {
+    fontSize: 24,
+    fontFamily: 'Lobster-Regular',
+    color: 'white',
   },
   centerConteiner: {
     display: 'flex',
@@ -256,20 +371,45 @@ const styles = StyleSheet.create({
     width: 40,
     alignItems: 'center',
   },
-  textAtributesMilk: {
+  textAtributesMilkLight: {
     fontSize: 10,
+    color: '#474747',
   },
-  textAtributesCoffe: {
+  textAtributesMilkDark: {
     fontSize: 10,
+    color: 'white',
   },
-  textAtributesWater: {
+  textAtributesCoffeLight: {
     fontSize: 10,
+    color: '#474747',
   },
-  textAtributesTemperature: {
+  textAtributesCoffeDark: {
     fontSize: 10,
+    color: 'white',
   },
-  textAtributesPression: {
+  textAtributesWaterLight: {
     fontSize: 10,
+    color: '#474747',
+  },
+  textAtributesWaterDark: {
+    fontSize: 10,
+    color: 'white',
+  },
+  textAtributesTemperatureLight: {
+    fontSize: 10,
+    color: '#474747',
+  },
+  textAtributesTemperatureDark: {
+    fontSize: 10,
+    color: 'white',
+  },
+  textAtributesPressionLight: {
+    fontSize: 10,
+    color: '#474747',
+  },
+  textAtributesPressionDark: {
+    fontSize: 10,
+    color: 'white',
   },
   textDescriptionConteiner: {
     justifyContent: 'center',
@@ -277,13 +417,23 @@ const styles = StyleSheet.create({
     width: '100%',
     height: HEIGHT_APP * 0.2,
   },
-  textDescription: {
+  textDescriptionLight: {
     color: '#474747',
     fontSize: HEIGHT_APP * 0.023,
     fontFamily: 'SFUIText-Light',
   },
-  separator: {
+  textDescriptionDark: {
+    color: 'white',
+    fontSize: HEIGHT_APP * 0.023,
+    fontFamily: 'SFUIText-Light',
+  },
+  separatorLight: {
     borderColor: '#D8D8D8',
+    borderWidth: 1,
+    width: 340,
+  },
+  separatorDark: {
+    borderColor: 'white',
     borderWidth: 1,
     width: 340,
   },
@@ -293,25 +443,40 @@ const styles = StyleSheet.create({
     marginBottom: '3.1%',
     marginTop: '2.8%',
   },
-  price: {
+  priceLight: {
     fontSize: 30,
     color: '#6c6c6c',
     textAlign: 'center',
   },
-  rubleGrayIcon: {
-    marginLeft: 0,
+  priceDark: {
+    fontSize: 30,
+    color: '#bbb8ee',
+    textAlign: 'center',
+  },
+  rubleGrayIconLight: {
     marginTop: 5,
     width: 16,
     height: 24,
+  },
+  rubleGrayIconDark: {
+    width: 20,
+    height: 34,
   },
   textPriceConteiner: {
     width: 50,
     height: 35,
   },
-  bottomConteiner: {
+  bottomConteinerLight: {
     alignItems: 'center',
     justifyContent: 'flex-end',
     backgroundColor: 'white',
+    width: '100%',
+    flex: 1.5,
+  },
+  bottomConteinerDark: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    backgroundColor: '#534965',
     width: '100%',
     flex: 1.5,
   },

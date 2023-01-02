@@ -1,4 +1,5 @@
 import {
+  Alert,
   Image,
   StyleSheet,
   Text,
@@ -14,6 +15,22 @@ import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {NameTabStack} from '../../navigation/navigator/nameScreen';
 import {StackNavigationProp} from '@react-navigation/stack';
 import removeIcon from '../../assets/image/authScreen/removeIcon.png';
+import {useDispatch, useSelector} from 'react-redux';
+import {createUserProfile} from '../../redux/reduxStateSlice/userInfoSlice';
+import {ILogin} from '../../redux/reduToolKitQuery/interfacesCoffeData';
+import {addToken} from '../../redux/reduxStateSlice/tokenSlice';
+import {RootState, useAddLoginMutation} from '../../redux/reduToolKitQuery';
+import {ru} from '../../localisationLanguageName';
+import {
+  buttonRegistENG,
+  buttonRegistRU,
+  placehjlderRegistEmailENG,
+  placehjlderRegistEmailRU,
+  placehjlderRegistNameENG,
+  placehjlderRegistNameRU,
+  placehjlderRegistPasswordENG,
+  placehjlderRegistPasswordRU,
+} from '../../localisationScreen/RegistScreenLocal';
 type writeIconModel = {
   name: boolean;
   email: boolean;
@@ -25,6 +42,7 @@ type userInfoModel = {
   password: string;
 };
 const RegisterForm = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const [userInfo, setUserInfo] = useState<userInfoModel>({
     name: '',
@@ -40,8 +58,42 @@ const RegisterForm = () => {
       email: false,
       password: false,
     });
+  const [addLogin] = useAddLoginMutation();
+  const localisationState = useSelector(
+    (state: RootState) => state.localisationState,
+  );
+  const handleLoginScreen = async () => {
+    const result = await addLogin({
+      email: 'string',
+      password: 'string',
+    } as ILogin);
+    console.log(result, 'text');
+    const keysResult = Object.keys(result);
+    keysResult.map(key => {
+      if (key === 'data') {
+        const resultMas = Object.values(result);
+        resultMas.forEach(userToken => {
+          dispatch(addToken(userToken));
+        });
+
+        navigation.navigate(NameTabStack);
+      } else {
+        const valuesResult = Object.values(result);
+        valuesResult.map(values => {
+          const keyValues = Object.keys(values);
+          const includes = keyValues.includes('error');
+          if (includes) {
+            Alert.alert('Проверьте соединение с интернетом');
+          } else {
+            Alert.alert('Неправильный логин или пароль');
+          }
+        });
+      }
+    });
+  };
   const handleTransitionMainScreen = () => {
-    navigation.navigate(NameTabStack);
+    saveData();
+    handleLoginScreen();
   };
   const openCamera = () => {
     const options = {
@@ -57,6 +109,16 @@ const RegisterForm = () => {
         setController(false);
       });
     });
+  };
+  const saveData = () => {
+    dispatch(
+      createUserProfile({
+        userName: userInfo.name,
+        userEmail: userInfo.email,
+        userPassword: userInfo.password,
+        userImage: photo,
+      }),
+    );
   };
   useEffect(() => {
     if (
@@ -123,7 +185,11 @@ const RegisterForm = () => {
       <View style={styles.mainInputConteiner}>
         <View style={styles.inputConteiner}>
           <TextInput
-            placeholder={'Name and surname'}
+            placeholder={
+              localisationState.local == ru
+                ? placehjlderRegistNameRU
+                : placehjlderRegistNameENG
+            }
             placeholderTextColor={'#FFFFFFB5'}
             cursorColor={'#FFFFFFB5'}
             style={styles.input}
@@ -151,7 +217,11 @@ const RegisterForm = () => {
       <View style={styles.mainInputConteiner}>
         <View style={styles.inputConteiner}>
           <TextInput
-            placeholder={'email'}
+            placeholder={
+              localisationState.local == ru
+                ? placehjlderRegistEmailRU
+                : placehjlderRegistEmailENG
+            }
             placeholderTextColor={'#FFFFFFB5'}
             cursorColor={'#FFFFFFB5'}
             style={styles.input}
@@ -179,7 +249,11 @@ const RegisterForm = () => {
       <View style={styles.mainInputConteiner}>
         <View style={styles.inputConteiner}>
           <TextInput
-            placeholder={'password'}
+            placeholder={
+              localisationState.local == ru
+                ? placehjlderRegistPasswordRU
+                : placehjlderRegistPasswordENG
+            }
             placeholderTextColor={'#FFFFFFB5'}
             cursorColor={'#FFFFFFB5'}
             style={styles.input}
@@ -208,12 +282,16 @@ const RegisterForm = () => {
         <TouchableOpacity
           style={styles.buttonLogin}
           onPress={() => handleTransitionMainScreen()}>
-          <Text style={styles.buttonTextLogin}>далее</Text>
+          <Text style={styles.buttonTextLogin}>
+            {localisationState.local == ru ? buttonRegistRU : buttonRegistENG}
+          </Text>
         </TouchableOpacity>
       )}
       {controllerButton == false && (
         <View style={styles.buttonLoginNoActive}>
-          <Text style={styles.buttonTextLogin}>далее</Text>
+          <Text style={styles.buttonTextLogin}>
+            {localisationState.local == ru ? buttonRegistRU : buttonRegistENG}
+          </Text>
         </View>
       )}
     </View>

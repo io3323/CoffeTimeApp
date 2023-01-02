@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ICoffeData} from '../reduToolKitQuery';
+import {ICoffeData} from '../reduToolKitQuery/interfacesCoffeData';
+
 export type CoffeModel = {
   id: string;
   name: string;
@@ -26,8 +27,11 @@ export const coffeDataSlice = createSlice({
       state.pop();
       state.push(action.payload);
     },
+    backInitialStateCoffeData(state) {
+      state = initialStateCoffeData;
+    },
   },
 });
 
 export default coffeDataSlice.reducer;
-export const {addDataCoffe} = coffeDataSlice.actions;
+export const {addDataCoffe, backInitialStateCoffeData} = coffeDataSlice.actions;

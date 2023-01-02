@@ -1,12 +1,15 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import shoppingBag from '../../../assets/image/rigtNavigateIcon/shoppingBag.png';
+import shoppingBag from '../../../../assets/image/rigtNavigateIcon/shoppingBag.png';
+import shoppingBagDark from '../../../../assets/image/rigtNavigateIcon/shoppingbagWhite.png';
 import React, {useEffect, useState} from 'react';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../../redux/reduxStore/store';
-import rubleGray from '../../../assets/image/detailProductScreen/rubleGray.png';
+import {RootState} from '../../../../redux/reduxStore/store';
+import rubleGray from '../../../../assets/image/detailProductScreen/rubleGray.png';
+import rubleDark from '../../../../assets/image/rigtNavigateIcon/ruble.png';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {OrderScreenName} from '../../../navigation/navigator/nameScreen';
+import {OrderScreenName} from '../../../../navigation/navigator/nameScreen';
+import {light} from '../../../../themeNameApp';
 export const CustomBagShopButton = () => {
   const navigate = useNavigation<StackNavigationProp<ParamListBase>>();
   const backButtonActive = () => {
@@ -16,6 +19,7 @@ export const CustomBagShopButton = () => {
     (state: RootState) => state.basketUserState,
   );
   const [totalPrice, setTotalPrice] = useState(0);
+  const themeState = useSelector((state: RootState) => state.themeState);
   useEffect(() => {
     let totalPriceVariable = 0;
     basketUserState.map(data => {
@@ -27,11 +31,24 @@ export const CustomBagShopButton = () => {
     <View>
       <TouchableOpacity onPress={() => backButtonActive()}>
         <View style={styles.conteiner}>
-          <Image source={shoppingBag} style={styles.backButton} />
+          <Image
+            source={themeState.theme == light ? shoppingBag : shoppingBagDark}
+            style={styles.backButton}
+          />
           {totalPrice != 0 && (
             <View style={styles.conteiner}>
-              <Text style={styles.textPrice}>{totalPrice}</Text>
-              <Image source={rubleGray} style={styles.rubleGray} />
+              <Text
+                style={
+                  themeState.theme == light
+                    ? styles.textPriceLight
+                    : styles.textPriceDark
+                }>
+                {totalPrice}
+              </Text>
+              <Image
+                source={themeState.theme == light ? rubleGray : rubleDark}
+                style={styles.rubleGray}
+              />
             </View>
           )}
         </View>
@@ -54,8 +71,12 @@ const styles = StyleSheet.create({
     width: 10,
     height: 15,
   },
-  textPrice: {
+  textPriceLight: {
     color: '#474747',
+    fontFamily: 'Helvetica',
+  },
+  textPriceDark: {
+    color: 'white',
     fontFamily: 'Helvetica',
   },
 });

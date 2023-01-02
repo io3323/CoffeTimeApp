@@ -1,25 +1,11 @@
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
-// @ts-ignore
-import backIconMain from '../../../assets/image/mainScreen/backIconMain.png';
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
-
+import {Provider} from 'react-redux';
+import store from '../../../redux/reduxStore/store';
+import {NestedButtonElement} from './nestedElement/NestedButtonElement';
 export const CustomBackButton = () => {
-  const navigate = useNavigation();
-  const backButtonActive = () => {
-    navigate.goBack();
-  };
   return (
-    <TouchableOpacity onPress={() => backButtonActive()}>
-      <Image source={backIconMain} style={styles.backButton} />
-    </TouchableOpacity>
+    <Provider store={store}>
+      <NestedButtonElement />
+    </Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  backButton: {
-    width: 25,
-    height: 25,
-    marginLeft: -10,
-  },
-});

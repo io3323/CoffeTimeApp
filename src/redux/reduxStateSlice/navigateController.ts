@@ -1,12 +1,16 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-
-const initialNavigateState = false;
+type NavigateModel = {
+  state: boolean;
+};
+const initialNavigateState: NavigateModel = {
+  state: false,
+};
 export const navigateController = createSlice({
   name: 'navigateState',
   initialState: initialNavigateState,
   reducers: {
     setNavigateController(state, action: PayloadAction<boolean>) {
-      state = action.payload;
+      state.state = action.payload;
     },
   },
 });

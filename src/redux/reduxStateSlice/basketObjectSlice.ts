@@ -11,7 +11,7 @@ export interface IBasketObject {
   prevPrice: number;
 }
 
-const initialBasketObject: IBasketObject = {
+export const initialBasketObject: IBasketObject = {
   id: '',
   productName: '',
   price: 0,

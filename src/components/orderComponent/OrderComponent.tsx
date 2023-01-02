@@ -13,14 +13,30 @@ import {RootState} from '../../redux/reduxStore/store';
 import {useEffect, useState} from 'react';
 import imageNoCoffe from '../../assets/image/detailScreen/imageNoCoffe.png';
 import rubleGray from '../../assets/image/detailProductScreen/rubleGray.png';
+import rubleDark from '../../assets/image/detailScreen/rubleIconDark.png';
 import {SwipeListView} from 'react-native-swipe-list-view';
 import {IBasketUser} from '../../redux/reduxStateSlice/basketUserSlice';
 import {CardShopTransitionComponent} from './customElement/CardShopTransitionComponent';
 import {HiddenEllement, ItemModel} from './customElement/HiddenEllement';
+import {ru} from '../../localisationLanguageName';
+import {
+  buttonByyOrderENG,
+  buttonByyOrderRU,
+  drinkCountOrderENG,
+  drinkCountOrderRU,
+  drinksCountOrderENG,
+  drinksCountOrderRU,
+  drinkV2CountOrderRU,
+} from '../../localisationScreen/OrderScreenLocal';
+import {light} from '../../themeNameApp';
 export const OrderComponent = () => {
   const basketUserState = useSelector(
     (state: RootState) => state.basketUserState,
   );
+  const localisationState = useSelector(
+    (state: RootState) => state.localisationState,
+  );
+  const themeState = useSelector((state: RootState) => state.themeState);
   const [controller, setController] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -48,10 +64,20 @@ export const OrderComponent = () => {
       <View style={styles.mainInitialConteiner}>
         <Image source={imageNoCoffe} style={styles.imageNoCoffe} />
         <View style={styles.initialView}>
-          <Text style={styles.textInitialPage}>
+          <Text
+            style={
+              themeState.theme == light
+                ? styles.textInitialPageLight
+                : styles.textInitialPageDark
+            }>
             Здесь нет ни одной чашки кофе
           </Text>
-          <Text style={styles.textInitialPage}>
+          <Text
+            style={
+              themeState.theme == light
+                ? styles.textInitialPageLight
+                : styles.textInitialPageDark
+            }>
             Попробуйте вернуться к нам позже
           </Text>
         </View>
@@ -86,7 +112,12 @@ export const OrderComponent = () => {
     return <HiddenEllement data={data} rowMap={rowMap} />;
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView
+      style={
+        themeState.theme == light
+          ? styles.safeAreaConteinerLight
+          : styles.safeAreaConteinerDark
+      }>
       {controller && (
         <View style={styles.mainConteiner}>
           <View style={styles.collectingContainer}>
@@ -107,39 +138,93 @@ export const OrderComponent = () => {
           </View>
           <View style={styles.mainConteinerBottom}>
             <View style={styles.collectingBottomConteiner}>
-              <View style={styles.totalView}>
+              <View
+                style={
+                  themeState.theme == light
+                    ? styles.totalViewLight
+                    : styles.totalViewDark
+                }>
                 <View style={styles.generalConteiner}>
                   <View style={styles.priceAndCountConteiner}>
                     <View>
                       {totalCount == 1 && (
-                        <Text style={styles.totalCountsProduct}>
-                          {totalCount} напиток
+                        <Text
+                          style={
+                            themeState.theme == light
+                              ? styles.totalCountsProductLight
+                              : styles.totalCountsProductDark
+                          }>
+                          {totalCount}{' '}
+                          {localisationState.local == ru
+                            ? drinkCountOrderRU
+                            : drinkCountOrderENG}
                         </Text>
                       )}
                       {(totalCount == 2 ||
                         totalCount == 3 ||
                         totalCount == 4) && (
-                        <Text style={styles.totalCountsProduct}>
-                          {totalCount} напитка
+                        <Text
+                          style={
+                            themeState.theme == light
+                              ? styles.totalCountsProductLight
+                              : styles.totalCountsProductDark
+                          }>
+                          {totalCount}{' '}
+                          {localisationState.local == ru
+                            ? drinkV2CountOrderRU
+                            : drinkCountOrderENG}
                         </Text>
                       )}
                       {totalCount != 1 &&
                         totalCount != 2 &&
                         totalCount != 3 &&
                         totalCount != 4 && (
-                          <Text style={styles.totalCountsProduct}>
-                            {totalCount} напитков
+                          <Text
+                            style={
+                              themeState.theme == light
+                                ? styles.totalCountsProductLight
+                                : styles.totalCountsProductDark
+                            }>
+                            {totalCount}{' '}
+                            {localisationState.local == ru
+                              ? drinksCountOrderRU
+                              : drinksCountOrderENG}
                           </Text>
                         )}
                     </View>
                     <View style={styles.priceConteiner}>
-                      <Text style={styles.totalPrice}>{totalPrice}</Text>
-                      <Image source={rubleGray} style={styles.rubleGray} />
+                      <Text
+                        style={
+                          themeState.theme == light
+                            ? styles.totalPriceLight
+                            : styles.totalPriceDark
+                        }>
+                        {totalPrice}
+                      </Text>
+                      <Image
+                        source={
+                          themeState.theme == light ? rubleGray : rubleDark
+                        }
+                        style={
+                          themeState.theme == light
+                            ? styles.rubleGray
+                            : styles.rubleDark
+                        }
+                      />
                     </View>
                   </View>
                   <View style={styles.buttonConteiner}>
-                    <TouchableOpacity style={styles.button}>
-                      <Text style={styles.textButton}>Оформление заказа</Text>
+                    <TouchableOpacity
+                      style={
+                        themeState.theme == light
+                          ? styles.buttonLight
+                          : styles.buttonDark
+                      }>
+                      <Text style={styles.textButton}>
+                        {localisationState.local == ru
+                          ? buttonByyOrderRU
+                          : buttonByyOrderENG}
+                      </Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -154,6 +239,10 @@ export const OrderComponent = () => {
 };
 
 const styles = StyleSheet.create({
+  safeAreaConteinerDark: {
+    backgroundColor: '#534965',
+  },
+  safeAreaConteinerLight: {},
   mainInitialConteiner: {
     width: '100%',
     height: '100%',
@@ -192,10 +281,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  button: {
+  buttonLight: {
     width: 207,
     height: 41,
     backgroundColor: '#C8D9AF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 7,
+  },
+  buttonDark: {
+    width: 207,
+    height: 41,
+    backgroundColor: '#bbb8ee',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 7,
@@ -209,13 +306,19 @@ const styles = StyleSheet.create({
     width: 160,
     height: 160,
   },
-  textInitialPage: {
+  textInitialPageLight: {
     marginTop: 20,
     fontFamily: 'SFUIText-Light',
     fontSize: 18,
     color: '#474747',
   },
-  totalView: {
+  textInitialPageDark: {
+    marginTop: 20,
+    fontFamily: 'SFUIText-Light',
+    fontSize: 18,
+    color: 'white',
+  },
+  totalViewLight: {
     backgroundColor: '#FFFFFF',
     width: '100%',
     height: 100,
@@ -223,19 +326,45 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  totalCountsProduct: {
+  totalViewDark: {
+    backgroundColor: '#6f6483',
+    width: '100%',
+    height: 100,
+    borderRadius: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  totalCountsProductLight: {
     fontSize: 15,
     fontFamily: 'SFUIText-Light',
   },
-  totalPrice: {
+  totalCountsProductDark: {
+    fontSize: 15,
+    fontFamily: 'SFUIText-Light',
+    color: 'white',
+  },
+  totalPriceLight: {
     marginLeft: -20,
     fontSize: 30,
     fontFamily: 'Lobster-Regular',
     color: '#474747',
   },
+  totalPriceDark: {
+    marginLeft: -20,
+    fontSize: 30,
+    fontFamily: 'Lobster-Regular',
+    color: '#bbb8ee',
+  },
   rubleGray: {
     width: 20,
     height: 25,
-    marginTop: 5,
+    marginTop: 6,
+    marginLeft: 5,
+  },
+  rubleDark: {
+    width: 30,
+    height: 35,
+    marginTop: 1,
+    marginLeft: 5,
   },
 });
