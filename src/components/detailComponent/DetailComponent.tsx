@@ -11,22 +11,16 @@ import {
 import {ImageDetailComponent} from './nestedComponent/ImageDetailComponent';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
-import {SetStateAction, useEffect, useRef, useState} from 'react';
+import {useRef} from 'react';
 import {useGetProductInfoMutation} from '../../redux/reduToolKitQuery';
 import {Separator} from '../listComponent/CardFlatList/Separator';
 import {CardProductsComponent} from './nestedComponent/CardProductsComponent';
 import {addInfoCeffeProduct} from '../../redux/reduxStateSlice/infoProductCoffeSlice';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {WIDTH_APP} from '../../definitionSize';
-import {FetchBaseQueryError} from '@reduxjs/toolkit/query';
-import {SerializedError} from '@reduxjs/toolkit';
 import {DetailProductInfoName} from '../../navigation/navigator/nameScreen';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {
-  IProductCafeModel,
-  IProductFullInfo,
-  IProductInfoRequest,
-} from '../../redux/reduToolKitQuery/interfacesCoffeData';
+import {IProductCafeModel} from '../../redux/reduToolKitQuery/interfacesCoffeData';
 import {light} from '../../themeNameApp';
 LogBox.ignoreLogs(['source.uri']);
 const HEADER_MIN_HEIGHT = 50;
@@ -59,44 +53,13 @@ export const DetailComponent = () => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const tokenUser = useSelector((state: RootState) => state.tokenState);
   const themeState = useSelector((state: RootState) => state.themeState);
-  const initialProductState: Array<IProductCafeModel> = [
-    {
-      id: '',
-      cofeId: '',
-      name: '',
-      price: 0,
-      favorite: false,
-      imagesPath: '',
-    },
-  ];
-  const [token, setToken] = useState('');
-  const [products, setProducts] = useState(initialProductState);
-  useEffect(() => {
-    productsCafeState.map(dataFirstObject => {
-      const firstOject = Object.values(dataFirstObject);
-      firstOject.map(dataSecondObject => {
-        // @ts-ignore
-        const secondObject = Object.values(dataSecondObject);
-        setProducts(secondObject as SetStateAction<any>);
-      });
-    });
-    tokenUser.data.map(data => {
-      setToken(data);
-    });
-  }, []);
   const [getProductInfo] = useGetProductInfoMutation();
   const getInfoProductsTab = async (id: string) => {
-    const result:
-      | {data: IProductFullInfo}
-      | {error: FetchBaseQueryError | SerializedError} = await getProductInfo({
-      sessionId: token,
+    const result = await getProductInfo({
+      sessionId: tokenUser.token,
       productId: id,
-    } as IProductInfoRequest);
-
-    dispatch(
-      // @ts-ignore
-      addInfoCeffeProduct(result.data),
-    );
+    });
+    dispatch(addInfoCeffeProduct(result));
   };
   const renderItem: ListRenderItem<IProductCafeModel> = ({item}) => {
     return (
@@ -118,7 +81,7 @@ export const DetailComponent = () => {
   const RenderFlatList = () => {
     return (
       <FlatList
-        data={products}
+        data={productsCafeState}
         renderItem={renderItem}
         ItemSeparatorComponent={Separator}
         keyExtractor={item => item.id}

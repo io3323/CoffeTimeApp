@@ -2,7 +2,7 @@ import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {FunctionComponent} from 'react';
 import newUserIcon from '../../../../assets/image/stateImageReg/newUser.png';
 type ModelUserImage = {
-  image: string;
+  image: string | undefined;
 };
 export const UserImageComponent: FunctionComponent<ModelUserImage> = ({
   image,

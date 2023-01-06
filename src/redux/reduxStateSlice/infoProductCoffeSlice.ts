@@ -1,6 +1,9 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {IProductFullInfo} from '../reduToolKitQuery/interfacesCoffeData';
-
+import {
+  InfoProductCoffeModel,
+  IProductFullInfo,
+} from '../reduToolKitQuery/interfacesCoffeData';
+import {adaptViewConfig} from 'react-native-reanimated/lib/types/ConfigHelper';
 const initialStateProductCoffeSlice: IProductFullInfo = {
   id: '',
   productName: '',
@@ -21,21 +24,29 @@ export const infoProductCoffeSlice = createSlice({
   name: 'infoProductCoffeState',
   initialState: initialStateProductCoffeSlice,
   reducers: {
-    addInfoCeffeProduct(state, action: PayloadAction<IProductFullInfo>) {
-      state.id = action.payload.id;
-      state.productName = action.payload.productName;
-      state.price = action.payload.price;
-      state.cofeId = action.payload.cofeId;
-      state.cofeName = action.payload.cofeName;
-      state.favarite = action.payload.favarite;
-      state.attribute = action.payload.attribute;
-      state.imagesPath = action.payload.imagesPath;
-    },
-    backInitialStateInfoProductCoffe(state) {
-      state = initialStateProductCoffeSlice;
+    addInfoCeffeProduct(state, action: PayloadAction<InfoProductCoffeModel>) {
+      const first = Object.values(action.payload);
+      first.map((data: IProductFullInfo) => {
+        state.id = data.id;
+        state.productName = data.productName;
+        state.price = data.price;
+        state.cofeId = data.cofeId;
+        state.attribute = data.attribute;
+        state.imagesPath = data.imagesPath;
+        state.favarite = data.favarite;
+        state.cofeName = data.cofeName;
+      });
+      // state.id = action.payload.id;
+      // state.productName = action.payload.productName;
+      // state.price = action.payload.price;
+      // state.cofeId = action.payload.cofeId;
+      // state.cofeName = action.payload.cofeName;
+      // state.favarite = action.payload.favarite;
+      // state.attribute = action.payload.attribute;
+      // state.imagesPath = action.payload.imagesPath;
     },
   },
 });
 
 export default infoProductCoffeSlice.reducer;
-export const {addInfoCeffeProduct, backInitialStateInfoProductCoffe} = infoProductCoffeSlice.actions;
+export const {addInfoCeffeProduct} = infoProductCoffeSlice.actions;

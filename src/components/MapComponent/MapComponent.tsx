@@ -1,12 +1,17 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
-import React, {useEffect, useState} from 'react';
-import Geolocation from '@react-native-community/geolocation';
+import React, {useEffect} from 'react';
+import Geolocation from 'react-native-geolocation-service';
+import {addElement} from '../../redux/reduxStateSlice/coordinateSlice';
 import {
-  addElement,
-  Coordinate,
-} from '../../redux/reduxStateSlice/coordinateSlice';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+  Image,
+  PermissionsAndroid,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import mesto from '../../assets/image/mapScreen/mesto.png';
 import located from '../../assets/image/mapScreen/located.png';
@@ -21,11 +26,43 @@ import {
   distansMapRU,
 } from '../../localisationScreen/MapScreenLocal';
 import {light} from '../../themeNameApp';
+const requestLocationPermission = async () => {
+  try {
+    if (Platform.OS === 'ios') {
+      const auth = await Geolocation.requestAuthorization('whenInUse');
+      if (auth === 'granted') {
+        console.log('You can use Geolocation');
+        return true;
+      } else {
+        console.log('You cannot use Geolocation');
+        return false;
+      }
+    }
+    if (Platform.OS == 'android') {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'Geolocation Permission',
+          message: 'Can we access your location?',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      console.log('granted', granted);
+      if (granted === 'granted') {
+        console.log('You can use Geolocation');
+        return true;
+      } else {
+        console.log('You cannot use Geolocation');
+        return false;
+      }
+    }
+  } catch (err) {
+    return false;
+  }
+};
 export const MapComponent = () => {
-  type MarkerModel = {
-    latitude: number;
-    longitude: number;
-  };
   const coffeDataState = useSelector(
     (state: RootState) => state.coffeDataState,
   );
@@ -33,74 +70,56 @@ export const MapComponent = () => {
     (state: RootState) => state.coordinateMasState,
   );
   const dispatch = useDispatch();
-  const [controllerPosition, setController] = useState(true);
   const localisationState = useSelector(
     (state: RootState) => state.localisationState,
   );
   const themeState = useSelector((state: RootState) => state.themeState);
-  const getLocationUser = () => {
-    const config = {
-      enableHighAccuracy: true,
-      timeout: 2000,
-      maximumAge: 3600000,
-    };
-    if (controllerPosition) {
-      Geolocation.getCurrentPosition(
-        info => {
-          const payloadAmmount: Coordinate = info.coords;
-          dispatch(addElement(payloadAmmount));
-          console.log('INFO', info);
-          setController(false);
-        },
-        error => console.log('ERROR', error),
-        config,
-      );
-    }
-  };
   useEffect(() => {
-    coffeDataState.map(data => {
-      const first = Object.values(data);
-      first.map(secondData => {
-        const second = Object.values(secondData);
-        second.map(marker => {
-          // @ts-ignore
-          for (let markerKey in marker) {
-            if (markerKey == 'coordinates') {
-              const markerSplit = marker[markerKey].split(',', 2);
-              const lat = markerSplit[0];
-              const lon = markerSplit[1];
-              const objectT: MarkerModel = {
-                latitude: Number(lat),
-                longitude: Number(lon),
-              };
-              dispatch(addMarkers(objectT));
-            }
-          }
-        });
-      });
-    });
-  }, [coffeDataState, dispatch]);
-  useEffect(() => {
-    getLocationUser();
+    dispatch(addMarkers(coffeDataState));
   }, []);
   const Separator = () => {
     return <View style={styles.separator} />;
   };
+  const getLocation = () => {
+    const result = requestLocationPermission();
+    result.then(res => {
+      console.log('res is:', res);
+      if (res) {
+        Geolocation.getCurrentPosition(
+          position => {
+            console.log(position);
+            dispatch(addElement(position));
+          },
+          error => {
+            console.log(error.code, error.message);
+          },
+          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+        );
+      }
+    });
+  };
+  useEffect(() => {
+    getLocation();
+  }, []);
+
   return (
     <View>
       <View>
         <MapView
           onPress={e => console.log(e.target)}
           customMapStyle={themeState.theme == light ? [] : mapDarkStyle}
-          initialRegion={{
-            //MARK: - для работы автоопределения координат заменить статичные значени lat и lon на динамические
-            //latitude: coordinateState.latitude,
+          region={{
             latitude: 46.834159,
-            //longitude: coordinateState.longitude,
             longitude: 29.624785,
             latitudeDelta: 0.015,
             longitudeDelta: 0.0121,
           }}
+          // region={{
+          //   latitude: coordinateState.latitude,
+          //   longitude: coordinateState.longitude,
+          //   latitudeDelta: 0.015,
+          //   longitudeDelta: 0.0121,
+          // }}
           style={styles.mapView}>
           {coordinateMasState.map(marker => (
             <Marker
@@ -114,7 +133,7 @@ export const MapComponent = () => {
       <View style={styles.mapInfo}>
         <View style={styles.rowConteiner}>
           <View style={styles.locatedConteiner}>
-            <TouchableOpacity onPress={() => getLocationUser()}>
+            <TouchableOpacity onPress={() => getLocation()}>
               <Image
                 source={themeState.theme == light ? located : locatedDark}
                 style={styles.locatedIcon}

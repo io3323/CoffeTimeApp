@@ -20,6 +20,7 @@ import {
   AuthScreenName,
   DetailedInfoName,
   DetailProductInfoName,
+  LoaderScreenName,
   NameTabStack,
   OrderScreenName,
   RegistScreenName,
@@ -28,6 +29,7 @@ import {StyleSheet} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {CustomDrawer} from '../../components/customComponents/customHeader/CustomDrawer';
 import {light} from '../../themeNameApp';
+import {LoaderScreen} from '../screens/LoaderScreen';
 export const AuthNavigator = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   const Drawer = createDrawerNavigator();
@@ -90,6 +92,11 @@ export const AuthNavigator = () => {
           />
         </Stack.Group>
         <Stack.Group>
+          <Stack.Screen
+            name={LoaderScreenName}
+            component={LoaderScreen}
+            options={{headerShown: false}}
+          />
           <Stack.Screen
             name={NameTabStack}
             component={TabStack}

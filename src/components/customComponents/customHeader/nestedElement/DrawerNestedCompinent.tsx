@@ -14,10 +14,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import shoppingBagWhite from '../../../../assets/image/rigtNavigateIcon/shoppingbagWhite.png';
 import React, {useEffect, useState} from 'react';
 import rubleGray from '../../../../assets/image/rigtNavigateIcon/ruble.png';
-import {
-  changeLanguage,
-  localLangInitialState,
-} from '../../../../redux/reduxStateSlice/localisationSlice';
+import {changeLanguage} from '../../../../redux/reduxStateSlice/localisationSlice';
 import {eng, ru} from '../../../../localisationLanguageName';
 import {
   bagShopDrawerENG,
@@ -31,35 +28,8 @@ import {
   userNameDrawerENG,
   userNameDrawerRU,
 } from '../../../../localisationScreen/DrawerNestedCompineLocal';
-import {
-  changeTheme,
-  initialThemeState,
-} from '../../../../redux/reduxStateSlice/themeSlice';
+import {changeTheme} from '../../../../redux/reduxStateSlice/themeSlice';
 import {dark, light} from '../../../../themeNameApp';
-import {changeState} from '../../../../redux/reduxStateSlice/backButtonControllerSlice';
-import {
-  addBacketObject,
-  initialBasketObject,
-} from '../../../../redux/reduxStateSlice/basketObjectSlice';
-import {backInitalStateBasketUser} from '../../../../redux/reduxStateSlice/basketUserSlice';
-import {
-  addCafeInfo,
-  initialStateCafeInfo,
-} from '../../../../redux/reduxStateSlice/cafeInfoSlice';
-import {backInitialStateMarkers} from '../../../../redux/reduxStateSlice/coordinateMasSplice';
-import {
-  addElement,
-  initialCoordinateState,
-} from '../../../../redux/reduxStateSlice/coordinateSlice';
-import {backInitialStateCoffeData} from '../../../../redux/reduxStateSlice/dataSlice';
-import {backInitialStateInfoProductCoffe} from '../../../../redux/reduxStateSlice/infoProductCoffeSlice';
-import {backIntialStateProductsCafe} from '../../../../redux/reduxStateSlice/productsCafeSlice';
-import {backInitialStateUserAuthToken} from '../../../../redux/reduxStateSlice/tokenSlice';
-import {
-  createUserProfile,
-  initialStateUserInfo,
-} from '../../../../redux/reduxStateSlice/userInfoSlice';
-import {setNavigateController} from '../../../../redux/reduxStateSlice/navigateController';
 export const DrawerNestedCompinent = () => {
   const userInfoState = useSelector((state: RootState) => state.userInfoState);
   const localisationState = useSelector(
@@ -83,20 +53,6 @@ export const DrawerNestedCompinent = () => {
       : dispatch(changeTheme({theme: dark}));
   };
   const exitActionButton = () => {
-    dispatch(setNavigateController(true));
-    dispatch(changeState(''));
-    dispatch(addBacketObject(initialBasketObject));
-    dispatch(backInitalStateBasketUser());
-    dispatch(addCafeInfo(initialStateCafeInfo));
-    dispatch(backInitialStateMarkers());
-    dispatch(addElement(initialCoordinateState));
-    dispatch(backInitialStateCoffeData());
-    dispatch(backInitialStateInfoProductCoffe());
-    dispatch(changeLanguage(localLangInitialState));
-    dispatch(backIntialStateProductsCafe());
-    dispatch(changeTheme(initialThemeState));
-    dispatch(backInitialStateUserAuthToken());
-    dispatch(createUserProfile(initialStateUserInfo));
     navigation.navigate(AuthScreenName);
   };
   const basketUserState = useSelector(

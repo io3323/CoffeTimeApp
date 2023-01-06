@@ -7,17 +7,19 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {
+  ImageLibraryOptions,
+  launchImageLibrary,
+} from 'react-native-image-picker';
 import {useEffect, useState} from 'react';
 import newUserIcon from '../../assets/image/stateImageReg/newUser.png';
 import pencilIcon from '../../assets/image/regImageScreen/pencilIcon.png';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {NameTabStack} from '../../navigation/navigator/nameScreen';
+import {LoaderScreenName} from '../../navigation/navigator/nameScreen';
 import {StackNavigationProp} from '@react-navigation/stack';
 import removeIcon from '../../assets/image/authScreen/removeIcon.png';
 import {useDispatch, useSelector} from 'react-redux';
 import {createUserProfile} from '../../redux/reduxStateSlice/userInfoSlice';
-import {ILogin} from '../../redux/reduToolKitQuery/interfacesCoffeData';
 import {addToken} from '../../redux/reduxStateSlice/tokenSlice';
 import {RootState, useAddLoginMutation} from '../../redux/reduToolKitQuery';
 import {ru} from '../../localisationLanguageName';
@@ -31,6 +33,18 @@ import {
   placehjlderRegistPasswordENG,
   placehjlderRegistPasswordRU,
 } from '../../localisationScreen/RegistScreenLocal';
+import {
+  checkFunction,
+  ERORNet,
+  GOODRes,
+  MistakeUser,
+} from '../../externalFunctions/externalFunction';
+import {
+  networkStatusENG,
+  networkStatusRU,
+  userDataAuthENG,
+  userDataAuthRU,
+} from '../../localisationScreen/AuthScreenLocal';
 type writeIconModel = {
   name: boolean;
   email: boolean;
@@ -51,7 +65,7 @@ const RegisterForm = () => {
   });
   const [controller, setController] = useState(true);
   const [controllerButton, setControllerButton] = useState(true);
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState<string | undefined>('');
   const [writeIconController, setWriteIconController] =
     useState<writeIconModel>({
       name: false,
@@ -66,46 +80,34 @@ const RegisterForm = () => {
     const result = await addLogin({
       email: 'string',
       password: 'string',
-    } as ILogin);
-    console.log(result, 'text');
-    const keysResult = Object.keys(result);
-    keysResult.map(key => {
-      if (key === 'data') {
-        const resultMas = Object.values(result);
-        resultMas.forEach(userToken => {
-          dispatch(addToken(userToken));
-        });
-
-        navigation.navigate(NameTabStack);
-      } else {
-        const valuesResult = Object.values(result);
-        valuesResult.map(values => {
-          const keyValues = Object.keys(values);
-          const includes = keyValues.includes('error');
-          if (includes) {
-            Alert.alert('Проверьте соединение с интернетом');
-          } else {
-            Alert.alert('Неправильный логин или пароль');
-          }
-        });
-      }
     });
+    dispatch(addToken(result));
+    saveData();
+    const checkResult = checkFunction(result);
+    if (checkResult === GOODRes) {
+      navigation.navigate(LoaderScreenName);
+    } else if (checkResult === MistakeUser) {
+      Alert.alert(
+        localisationState.local == ru ? userDataAuthRU : userDataAuthENG,
+      );
+    } else if (checkResult === ERORNet) {
+      Alert.alert(
+        localisationState.local == ru ? networkStatusRU : networkStatusENG,
+      );
+    }
   };
   const handleTransitionMainScreen = () => {
     saveData();
     handleLoginScreen();
   };
   const openCamera = () => {
-    const options = {
-      noData: true,
+    const options: ImageLibraryOptions = {
+      mediaType: 'photo',
     };
 
-    // @ts-ignore
     launchImageLibrary(options, response => {
       response.assets?.map(photoLib => {
-        // @ts-ignore
         setPhoto(photoLib.uri);
-        console.log(typeof photoLib.uri);
         setController(false);
       });
     });

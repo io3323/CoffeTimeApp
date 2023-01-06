@@ -1,3 +1,6 @@
+import {Draft} from '@reduxjs/toolkit';
+import {FetchBaseQueryError} from '@reduxjs/toolkit/query';
+import {SerializedError} from '@reduxjs/toolkit';
 export interface ILogin {
   email: string;
   password: string;
@@ -10,6 +13,19 @@ export interface ICoffeData {
   description: string;
   images: string;
 }
+export interface INestedCoffeModel {
+  id: string;
+  name: string;
+  address: string;
+  coordinates: string;
+  description: string;
+  images: string;
+}
+
+export type ArrayUserModel = Array<INestedCoffeModel>;
+export type ICoffeDataV2 =
+  | {data: ArrayUserModel}
+  | {error: FetchBaseQueryError | SerializedError};
 export interface ICafeRequest {
   sessionId: string;
   cafeId: string;
@@ -30,6 +46,10 @@ export interface IProductCafeModel {
   favorite: boolean;
   imagesPath: string;
 }
+export type NestedProductCafeModel = Array<IProductCafeModel>;
+export type IProductCafeModelV2 =
+  | {data: NestedProductCafeModel}
+  | {error: FetchBaseQueryError | SerializedError};
 export interface IProductCafeRequest {
   sessionId: string;
   cafeId: string;
@@ -53,3 +73,6 @@ export interface IAttributeInfo {
   description: string;
   iconType: string;
 }
+export type InfoProductCoffeModel =
+  | {data: IProductFullInfo}
+  | {error: FetchBaseQueryError | SerializedError};

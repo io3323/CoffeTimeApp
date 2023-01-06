@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
-import {useEffect, useState} from 'react';
+import {useCallback, useState} from 'react';
 import {RootState} from '../../redux/reduxStore/store';
 import {
   useGetCafeMutation,
@@ -12,6 +12,7 @@ import {
   Image,
   ListRenderItem,
   LogBox,
+  RefreshControl,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -28,10 +29,6 @@ import cafeIconDark from '../../assets/image/listScreen/cafeIconDark.png';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DetailedInfoName} from '../../navigation/navigator/nameScreen';
 import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
-import {
-  ICafeRequest,
-  IProductCafeRequest,
-} from '../../redux/reduToolKitQuery/interfacesCoffeData';
 import {ru} from '../../localisationLanguageName';
 import {
   descriptionInfoListENG,
@@ -48,30 +45,10 @@ type ItemModel = {
   description: string;
   images: string;
 };
-const initialState = {
-  id: '',
-  name: '',
-  address: '',
-  coordinates: '',
-  description: '',
-  images: '',
-};
-type InState = {
-  id: string;
-  name: string;
-  address: string;
-  coordinates: string;
-  description: string;
-  images: string;
-};
 LogBox.ignoreLogs(['source.uri']);
 export const ListComponent = () => {
   const dispatch = useDispatch();
-  const [token, setToken] = useState('');
-  const [secondToken, setSecondToken] = useState('');
-  const [parseController, setParsController] = useState(false);
   const [imageController, setImageController] = useState(true);
-  const [masTest, setMasTest] = useState<Array<InState>>([initialState]);
   const tokenUser = useSelector((state: RootState) => state.tokenState);
   const coffeDataState = useSelector(
     (state: RootState) => state.coffeDataState,
@@ -79,55 +56,36 @@ export const ListComponent = () => {
   const localisationState = useSelector(
     (state: RootState) => state.localisationState,
   );
+
   const themeState = useSelector((state: RootState) => state.themeState);
   const [getCoffe] = useGetCoffeMutation();
   const [getCafe] = useGetCafeMutation();
   const [getProductsCafe] = useGetProductsCafeMutation();
-  const getToken = () => {
-    tokenUser.data.map(tokenMas => {
-      setToken(JSON.stringify(tokenMas));
-      setSecondToken(tokenMas);
-    });
+  const [refreshing, setRefreshing] = useState(false);
+  const wait = (timeout: number) => {
+    setTimeout(() => setRefreshing(false), timeout);
   };
+  const onRefresh = useCallback(() => {
+    getDataOnPress();
+    setRefreshing(true);
+    wait(1000);
+  }, []);
+  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const getDataOnPress = async () => {
-    const result = await getCoffe(token);
-    // @ts-ignore
+    const result = await getCoffe(JSON.stringify(tokenUser.token));
     dispatch(addDataCoffe(result));
   };
-  useEffect(() => {
-    getToken();
-  }, []);
-  useEffect(() => {
-    if (token != '') {
-      getDataOnPress();
-      setParsController(true);
-    }
-  }, [token]);
-  useEffect(() => {
-    if (parseController) {
-      coffeDataState.forEach(data => {
-        const first: Array<string> = Object.values(data);
-        first.forEach(dataFirst => {
-          // @ts-ignore
-          setMasTest(dataFirst);
-        });
-      });
-    }
-  }, [coffeDataState]);
-  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const handleNavigation = async (idCafe: string) => {
     if (idCafe != '') {
       const cafeInfo = await getCafe({
-        sessionId: secondToken,
+        sessionId: tokenUser.token,
         cafeId: idCafe,
-      } as ICafeRequest).unwrap();
-      // @ts-ignore
+      }).unwrap();
       dispatch(addCafeInfo(cafeInfo));
       const cafeProducts = await getProductsCafe({
-        sessionId: secondToken,
+        sessionId: tokenUser.token,
         cafeId: idCafe,
-      } as IProductCafeRequest);
-      // @ts-ignore
+      });
       dispatch(addProducts(cafeProducts));
     } else {
       console.log('no idCafe');
@@ -208,12 +166,15 @@ export const ListComponent = () => {
           : styles.mainConteinerDark
       }>
       <FlatList
-        data={masTest}
+        data={coffeDataState}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={Separator}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         style={styles.flatListStyle}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </View>
   );

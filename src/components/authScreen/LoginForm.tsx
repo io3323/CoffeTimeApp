@@ -4,8 +4,8 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  Alert,
   Image,
+  Alert,
 } from 'react-native';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {useState} from 'react';
@@ -14,12 +14,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addToken} from '../../redux/reduxStateSlice/tokenSlice';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {
-  NameTabStack,
+  LoaderScreenName,
   RegistScreenName,
 } from '../../navigation/navigator/nameScreen';
 import pencilIcon from '../../assets/image/regImageScreen/pencilIcon.png';
 import removeIcon from '../../assets/image/authScreen/removeIcon.png';
-import {ILogin} from '../../redux/reduToolKitQuery/interfacesCoffeData';
 import {createUserProfile} from '../../redux/reduxStateSlice/userInfoSlice';
 import {ru} from '../../localisationLanguageName';
 import {
@@ -36,6 +35,12 @@ import {
   userDataAuthENG,
   userDataAuthRU,
 } from '../../localisationScreen/AuthScreenLocal';
+import {
+  checkFunction,
+  ERORNet,
+  GOODRes,
+  MistakeUser,
+} from '../../externalFunctions/externalFunction';
 const LoginForm = () => {
   const [addLogin] = useAddLoginMutation();
   const [loginUser, setLogin] = useState('');
@@ -49,37 +54,21 @@ const LoginForm = () => {
     const result = await addLogin({
       email: loginUser,
       password: passwordUser,
-    } as ILogin);
-    console.log(result);
-    const keysResult = Object.keys(result);
-    keysResult.map(key => {
-      if (key === 'data') {
-        const resultMas = Object.values(result);
-        resultMas.forEach(userToken => {
-          dispatch(addToken(userToken));
-        });
-
-        navigation.navigate(NameTabStack);
-      } else {
-        const valuesResult = Object.values(result);
-        valuesResult.map(values => {
-          const keyValues = Object.keys(values);
-          const includes = keyValues.includes('error');
-          if (includes) {
-            Alert.alert(
-              localisationState.local == ru
-                ? networkStatusRU
-                : networkStatusENG,
-            );
-          } else {
-            Alert.alert(
-              localisationState.local == ru ? userDataAuthRU : userDataAuthENG,
-            );
-          }
-        });
-      }
     });
+    dispatch(addToken(result));
     saveData();
+    const checkResult = checkFunction(result);
+    if (checkResult === GOODRes) {
+      navigation.navigate(LoaderScreenName);
+    } else if (checkResult === MistakeUser) {
+      Alert.alert(
+        localisationState.local == ru ? userDataAuthRU : userDataAuthENG,
+      );
+    } else if (checkResult === ERORNet) {
+      Alert.alert(
+        localisationState.local == ru ? networkStatusRU : networkStatusENG,
+      );
+    }
   };
   const saveData = () => {
     dispatch(
@@ -111,6 +100,7 @@ const LoginForm = () => {
           onChangeText={text => {
             setLogin(text);
           }}
+          scrollEnabled={false}
         />
         {loginUser == '' && <Image source={pencilIcon} style={styles.icon} />}
         {loginUser != '' && (
@@ -136,6 +126,7 @@ const LoginForm = () => {
           autoCapitalize={'none'}
           value={passwordUser}
           onChangeText={text => setPassword(text)}
+          scrollEnabled={false}
         />
         {passwordUser == '' && (
           <Image source={pencilIcon} style={styles.icon} />
@@ -198,7 +189,7 @@ const styles = StyleSheet.create({
     width: '70%',
     margin: 12,
     color: '#FFFFFFB5',
-    fontSize: 20,
+    fontSize: 18,
   },
   buttonLogin: {
     borderStyle: 'solid',

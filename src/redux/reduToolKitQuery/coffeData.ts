@@ -1,8 +1,10 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import {
+  ArrayUserModel,
   ICafeInfo,
   ICafeRequest,
   ICoffeData,
+  ICoffeDataV2,
   ILogin,
   IProductCafeModel,
   IProductCafeRequest,
@@ -23,7 +25,7 @@ export const coffeData = createApi({
         body: body,
       }),
     }),
-    getCoffe: build.mutation<Array<ICoffeData>, string>({
+    getCoffe: build.mutation<ArrayUserModel, string>({
       query: (body: string) => ({
         url: 'Cafe/GetAll',
         method: 'POST',
@@ -33,7 +35,7 @@ export const coffeData = createApi({
         },
       }),
     }),
-    getCafe: build.mutation<Array<ICafeInfo>, ICafeRequest>({
+    getCafe: build.mutation<ICafeInfo, ICafeRequest>({
       query: body => ({
         url: 'Cafe/GetCafe',
         method: 'POST',

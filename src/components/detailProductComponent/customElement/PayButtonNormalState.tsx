@@ -8,7 +8,7 @@ import {
   buttonNormalProductDetailENG,
   buttonNormalProductDetailRU,
 } from '../../../localisationScreen/DetailProductScreenLocal';
-import { light } from "../../../themeNameApp";
+import {light} from '../../../themeNameApp';
 interface IButtonState {
   id: string;
   productName: string;
