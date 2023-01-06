@@ -83,16 +83,8 @@ export const basketUserSlice = createSlice({
         }
       });
     },
-    backInitalStateBasketUser(state) {
-      state = initialStateBasketUser;
-    },
   },
 });
 
 export default basketUserSlice.reducer;
-export const {
-  addBasket,
-  deleteBasket,
-  deleteProduct,
-  backInitalStateBasketUser,
-} = basketUserSlice.actions;
+export const {addBasket, deleteBasket, deleteProduct} = basketUserSlice.actions;

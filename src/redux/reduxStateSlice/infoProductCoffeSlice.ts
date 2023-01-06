@@ -3,7 +3,6 @@ import {
   InfoProductCoffeModel,
   IProductFullInfo,
 } from '../reduToolKitQuery/interfacesCoffeData';
-import {adaptViewConfig} from 'react-native-reanimated/lib/types/ConfigHelper';
 const initialStateProductCoffeSlice: IProductFullInfo = {
   id: '',
   productName: '',

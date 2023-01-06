@@ -1,4 +1,3 @@
-import {Draft} from '@reduxjs/toolkit';
 import {FetchBaseQueryError} from '@reduxjs/toolkit/query';
 import {SerializedError} from '@reduxjs/toolkit';
 export interface ILogin {

@@ -3,8 +3,6 @@ import {
   ArrayUserModel,
   ICafeInfo,
   ICafeRequest,
-  ICoffeData,
-  ICoffeDataV2,
   ILogin,
   IProductCafeModel,
   IProductCafeRequest,

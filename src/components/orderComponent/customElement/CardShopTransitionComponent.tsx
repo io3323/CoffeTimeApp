@@ -1,7 +1,5 @@
-import {StyleSheet, View} from 'react-native';
 import {CardShop} from './CardShop';
 import {FunctionComponent} from 'react';
-import {IBasketUser} from '../../../redux/reduxStateSlice/basketUserSlice';
 import {Animated} from 'react-native';
 interface ICardShopTrans {
   id: string;
@@ -26,7 +24,6 @@ export const CardShopTransitionComponent: FunctionComponent<
     count,
     prevState,
   } = props;
-  const rowKey = id;
   return (
     <Animated.View>
       <CardShop

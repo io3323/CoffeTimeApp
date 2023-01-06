@@ -16,7 +16,7 @@ import {useEffect, useState} from 'react';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {SplachComponent} from '../../components/splashScreenComponent/SplashComponent';
 import {WIDTH_APP} from '../../definitionSize';
-import {eng, ru} from '../../localisationLanguageName';
+import {ru} from '../../localisationLanguageName';
 import {
   addirinalAuthTextENG,
   addirinalAuthTextRU,

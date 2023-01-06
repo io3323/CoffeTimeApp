@@ -6,7 +6,6 @@ import {
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
-  View,
 } from 'react-native';
 import {ImageDetailComponent} from './nestedComponent/ImageDetailComponent';
 import {useDispatch, useSelector} from 'react-redux';

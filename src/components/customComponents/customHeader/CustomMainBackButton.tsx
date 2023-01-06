@@ -1,14 +1,13 @@
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
-// @ts-ignore
 import backIconMain from '../../../assets/image/mainScreen/backIconMain.png';
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
+import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {MainScreenName} from '../../../navigation/screens/MainScreen';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 export const CustomMainBackButton = () => {
-  const navigate = useNavigation();
+  const navigate = useNavigation<StackNavigationProp<ParamListBase>>();
   const backButtonActive = () => {
-    // @ts-ignore
     navigate.navigate(MainScreenName);
   };
   return (
