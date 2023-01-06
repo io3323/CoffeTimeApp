@@ -45,6 +45,8 @@ import {
   userDataAuthENG,
   userDataAuthRU,
 } from '../../localisationScreen/AuthScreenLocal';
+import openEye from '../../assets/image/authScreen/openEye.png';
+import closeEye from '../../assets/image/authScreen/closeEye.png';
 type writeIconModel = {
   name: boolean;
   email: boolean;
@@ -76,6 +78,7 @@ const RegisterForm = () => {
   const localisationState = useSelector(
     (state: RootState) => state.localisationState,
   );
+  const [securePassword, setSecurePassword] = useState(true);
   const handleLoginScreen = async () => {
     const result = await addLogin({
       email: 'string',
@@ -262,9 +265,24 @@ const RegisterForm = () => {
             onChangeText={text =>
               setUserInfo(prevState => ({...prevState, password: text}))
             }
+            secureTextEntry={securePassword}
             value={userInfo.password}
           />
         </View>
+        {securePassword == false && (
+          <TouchableOpacity
+            style={styles.eyeConeiner}
+            onPress={() => setSecurePassword(prevState => !prevState)}>
+            <Image source={openEye} style={styles.openEyeIcon} />
+          </TouchableOpacity>
+        )}
+        {securePassword && (
+          <TouchableOpacity
+            style={styles.eyeConeiner}
+            onPress={() => setSecurePassword(prevState => !prevState)}>
+            <Image source={closeEye} style={styles.closeEyeIcon} />
+          </TouchableOpacity>
+        )}
         {writeIconController.password && (
           <View>
             <Image style={styles.pencilIcon} source={pencilIcon} />
@@ -413,6 +431,19 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     marginTop: 15,
+  },
+  openEyeIcon: {
+    width: 35,
+    height: 35,
+  },
+  closeEyeIcon: {
+    width: 35,
+    height: 35,
+  },
+  eyeConeiner: {
+    position: 'absolute',
+    marginTop: 2,
+    right: '0%',
   },
 });
 export default RegisterForm;

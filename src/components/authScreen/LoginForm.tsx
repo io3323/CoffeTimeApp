@@ -21,6 +21,8 @@ import pencilIcon from '../../assets/image/regImageScreen/pencilIcon.png';
 import removeIcon from '../../assets/image/authScreen/removeIcon.png';
 import {createUserProfile} from '../../redux/reduxStateSlice/userInfoSlice';
 import {ru} from '../../localisationLanguageName';
+import openEye from '../../assets/image/authScreen/openEye.png';
+import closeEye from '../../assets/image/authScreen/closeEye.png';
 import {
   buttonAuthTitleENG,
   buttonAuthTitleRU,
@@ -46,6 +48,7 @@ const LoginForm = () => {
   const [loginUser, setLogin] = useState('');
   const [passwordUser, setPassword] = useState('');
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+  const [securePassword, setSecurePassword] = useState(true);
   const dispatch = useDispatch();
   const localisationState = useSelector(
     (state: RootState) => state.localisationState,
@@ -127,14 +130,32 @@ const LoginForm = () => {
           value={passwordUser}
           onChangeText={text => setPassword(text)}
           scrollEnabled={false}
+          secureTextEntry={securePassword}
         />
+        {securePassword == false && (
+          <TouchableOpacity
+            style={styles.eyeConeiner}
+            onPress={() => setSecurePassword(prevState => !prevState)}>
+            <Image source={openEye} style={styles.openEyeIcon} />
+          </TouchableOpacity>
+        )}
+        {securePassword && (
+          <TouchableOpacity
+            style={styles.eyeConeiner}
+            onPress={() => setSecurePassword(prevState => !prevState)}>
+            <Image source={closeEye} style={styles.closeEyeIcon} />
+          </TouchableOpacity>
+        )}
         {passwordUser == '' && (
           <Image source={pencilIcon} style={styles.icon} />
         )}
         {passwordUser != '' && (
           <TouchableOpacity
             style={styles.removeIcon}
-            onPress={() => setPassword('')}>
+            onPress={() => {
+              setSecurePassword(true);
+              setPassword('');
+            }}>
             <Image source={removeIcon} style={{width: 20, height: 20}} />
           </TouchableOpacity>
         )}
@@ -251,5 +272,18 @@ const styles = StyleSheet.create({
     height: 1,
     marginTop: -5,
     backgroundColor: '#D8D8D8',
+  },
+  openEyeIcon: {
+    width: 35,
+    height: 35,
+  },
+  closeEyeIcon: {
+    width: 35,
+    height: 35,
+  },
+  eyeConeiner: {
+    position: 'absolute',
+    marginTop: 15,
+    right: '22%',
   },
 });
