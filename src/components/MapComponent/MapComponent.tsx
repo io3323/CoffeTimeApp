@@ -83,11 +83,9 @@ export const MapComponent = () => {
   const getLocation = () => {
     const result = requestLocationPermission();
     result.then(res => {
-      console.log('res is:', res);
       if (res) {
         Geolocation.getCurrentPosition(
           position => {
-            console.log(position);
             dispatch(addElement(position));
           },
           error => {
