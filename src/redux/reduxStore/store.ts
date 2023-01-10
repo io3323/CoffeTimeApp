@@ -16,6 +16,7 @@ import backButtonControllerSlice from '../reduxStateSlice/backButtonControllerSl
 import userInfoSlice from '../reduxStateSlice/userInfoSlice';
 import localisationSlice from '../reduxStateSlice/localisationSlice';
 import themeSlice from '../reduxStateSlice/themeSlice';
+import indicatorButtonSlice from '../reduxStateSlice/indicatorButtonSlice';
 
 const rootReducer = combineReducers({
   coordinateState: coordinateSlice,
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   userInfoState: userInfoSlice,
   localisationState: localisationSlice,
   themeState: themeSlice,
+  indicatorButtonState: indicatorButtonSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

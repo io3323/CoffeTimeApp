@@ -7,6 +7,7 @@ import {useGetCoffeMutation} from '../../redux/reduToolKitQuery';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {NameTabStack} from '../navigator/nameScreen';
+import {changeButtonIndicatorState} from '../../redux/reduxStateSlice/indicatorButtonSlice';
 export const LoaderScreen = () => {
   const tokenUser = useSelector((state: RootState) => state.tokenState);
   const [getCoffe] = useGetCoffeMutation();
@@ -17,6 +18,7 @@ export const LoaderScreen = () => {
   }, []);
   const getDataOnPress = async () => {
     const result = await getCoffe(JSON.stringify(tokenUser.token));
+    dispatch(changeButtonIndicatorState({active: false}));
     dispatch(addDataCoffe(result));
     navigation.navigate(NameTabStack);
   };

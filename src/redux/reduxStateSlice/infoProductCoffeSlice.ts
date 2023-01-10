@@ -35,14 +35,6 @@ export const infoProductCoffeSlice = createSlice({
         state.favarite = data.favarite;
         state.cofeName = data.cofeName;
       });
-      // state.id = action.payload.id;
-      // state.productName = action.payload.productName;
-      // state.price = action.payload.price;
-      // state.cofeId = action.payload.cofeId;
-      // state.cofeName = action.payload.cofeName;
-      // state.favarite = action.payload.favarite;
-      // state.attribute = action.payload.attribute;
-      // state.imagesPath = action.payload.imagesPath;
     },
   },
 });

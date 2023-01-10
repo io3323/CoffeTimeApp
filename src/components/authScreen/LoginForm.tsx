@@ -6,9 +6,10 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {RootState, useAddLoginMutation} from '../../redux/reduToolKitQuery';
 import {useDispatch, useSelector} from 'react-redux';
 import {addToken} from '../../redux/reduxStateSlice/tokenSlice';
@@ -43,6 +44,7 @@ import {
   GOODRes,
   MistakeUser,
 } from '../../externalFunctions/externalFunction';
+import {changeButtonIndicatorState} from '../../redux/reduxStateSlice/indicatorButtonSlice';
 const LoginForm = () => {
   const [addLogin] = useAddLoginMutation();
   const [loginUser, setLogin] = useState('');
@@ -53,7 +55,11 @@ const LoginForm = () => {
   const localisationState = useSelector(
     (state: RootState) => state.localisationState,
   );
+  const indicatorButtonState = useSelector(
+    (state: RootState) => state.indicatorButtonState,
+  );
   const handleLoginScreen = async () => {
+    dispatch(changeButtonIndicatorState({active: true}));
     const result = await addLogin({
       email: loginUser,
       password: passwordUser,
@@ -64,10 +70,12 @@ const LoginForm = () => {
     if (checkResult === GOODRes) {
       navigation.navigate(LoaderScreenName);
     } else if (checkResult === MistakeUser) {
+      dispatch(changeButtonIndicatorState({active: false}))
       Alert.alert(
         localisationState.local == ru ? userDataAuthRU : userDataAuthENG,
       );
     } else if (checkResult === ERORNet) {
+      dispatch(changeButtonIndicatorState({active: false}))
       Alert.alert(
         localisationState.local == ru ? networkStatusRU : networkStatusENG,
       );
@@ -163,28 +171,41 @@ const LoginForm = () => {
       </View>
 
       <View style={[styles.buttonConteiner]}>
-        {loginUser !== '' && passwordUser !== '' && (
-          <TouchableOpacity
-            style={styles.buttonLogin}
-            onPress={() => {
-              handleLoginScreen();
-            }}>
-            <Text style={styles.buttonTextLogin}>
-              {localisationState.local == ru
-                ? buttonAuthTitleRU
-                : buttonAuthTitleENG}
-            </Text>
-          </TouchableOpacity>
-        )}
-        {((loginUser === '' && passwordUser === '') ||
-          (loginUser !== '' && passwordUser === '') ||
-          (loginUser === '' && passwordUser !== '')) && (
+        {loginUser !== '' &&
+          passwordUser !== '' &&
+          indicatorButtonState.active === false && (
+            <TouchableOpacity
+              style={styles.buttonLogin}
+              onPress={() => {
+                handleLoginScreen();
+              }}>
+              <Text style={styles.buttonTextLogin}>
+                {localisationState.local == ru
+                  ? buttonAuthTitleRU
+                  : buttonAuthTitleENG}
+              </Text>
+            </TouchableOpacity>
+          )}
+        {((loginUser === '' &&
+          passwordUser === '' &&
+          indicatorButtonState.active === false) ||
+          (loginUser !== '' &&
+            passwordUser === '' &&
+            indicatorButtonState.active === false) ||
+          (loginUser === '' &&
+            passwordUser !== '' &&
+            indicatorButtonState.active === false)) && (
           <View style={styles.buttonLoginNotEctive}>
             <Text style={styles.buttonTextLogin}>
               {localisationState.local == ru
                 ? buttonAuthTitleRU
                 : buttonAuthTitleENG}
             </Text>
+          </View>
+        )}
+        {indicatorButtonState.active && (
+          <View style={styles.buttonIndicator}>
+            <ActivityIndicator color={'white'} />
           </View>
         )}
       </View>
@@ -249,6 +270,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '5%',
+  },
+  buttonIndicator: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderStyle: 'solid',
+    borderRadius: 40,
+    backgroundColor: '#bdbbbb',
+    borderColor: '#BDBBBBFF',
+    borderWidth: 1,
+    width: 300,
+    height: 52,
   },
   registConteiner: {
     width: '100%',

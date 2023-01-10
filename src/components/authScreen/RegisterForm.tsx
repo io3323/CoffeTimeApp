@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   Alert,
   Image,
   StyleSheet,
@@ -47,6 +48,7 @@ import {
 } from '../../localisationScreen/AuthScreenLocal';
 import openEye from '../../assets/image/authScreen/openEye.png';
 import closeEye from '../../assets/image/authScreen/closeEye.png';
+import {changeButtonIndicatorState} from '../../redux/reduxStateSlice/indicatorButtonSlice';
 type writeIconModel = {
   name: boolean;
   email: boolean;
@@ -78,8 +80,12 @@ const RegisterForm = () => {
   const localisationState = useSelector(
     (state: RootState) => state.localisationState,
   );
+  const indicatorButtonState = useSelector(
+    (state: RootState) => state.indicatorButtonState,
+  );
   const [securePassword, setSecurePassword] = useState(true);
-  const handleLoginScreen = async () => {
+  const handleRegistScreen = async () => {
+    dispatch(changeButtonIndicatorState({active: true}));
     const result = await addLogin({
       email: 'string',
       password: 'string',
@@ -101,7 +107,7 @@ const RegisterForm = () => {
   };
   const handleTransitionMainScreen = () => {
     saveData();
-    handleLoginScreen();
+    handleRegistScreen();
   };
   const openCamera = () => {
     const options: ImageLibraryOptions = {
@@ -298,20 +304,33 @@ const RegisterForm = () => {
         )}
       </View>
       <View style={styles.line} />
-      {controllerButton && (
-        <TouchableOpacity
-          style={styles.buttonLogin}
-          onPress={() => handleTransitionMainScreen()}>
-          <Text style={styles.buttonTextLogin}>
-            {localisationState.local == ru ? buttonRegistRU : buttonRegistENG}
-          </Text>
-        </TouchableOpacity>
+      {indicatorButtonState.active == false && (
+        <View>
+          {controllerButton && (
+            <TouchableOpacity
+              style={styles.buttonLogin}
+              onPress={() => handleTransitionMainScreen()}>
+              <Text style={styles.buttonTextLogin}>
+                {localisationState.local == ru
+                  ? buttonRegistRU
+                  : buttonRegistENG}
+              </Text>
+            </TouchableOpacity>
+          )}
+          {controllerButton == false && (
+            <View style={styles.buttonLoginNoActive}>
+              <Text style={styles.buttonTextLogin}>
+                {localisationState.local == ru
+                  ? buttonRegistRU
+                  : buttonRegistENG}
+              </Text>
+            </View>
+          )}
+        </View>
       )}
-      {controllerButton == false && (
-        <View style={styles.buttonLoginNoActive}>
-          <Text style={styles.buttonTextLogin}>
-            {localisationState.local == ru ? buttonRegistRU : buttonRegistENG}
-          </Text>
+      {indicatorButtonState.active && (
+        <View style={styles.buttonIndicator}>
+          <ActivityIndicator color={'white'} />
         </View>
       )}
     </View>
@@ -422,6 +441,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#bdbbbb',
     borderColor: '#bdbbbb',
     borderWidth: 1,
+    width: 300,
+    height: 52,
+  },
+  buttonIndicator: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderStyle: 'solid',
+    borderRadius: 40,
+    backgroundColor: '#bdbbbb',
+    borderColor: '#BDBBBBFF',
+    borderWidth: 1,
+    marginTop: 23.5,
     width: 300,
     height: 52,
   },
