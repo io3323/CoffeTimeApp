@@ -1,29 +1,45 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {FunctionComponent, useState} from 'react';
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {FunctionComponent} from 'react';
 import rubleIcon from '../../../assets/image/detailScreen/rubleIcon.png';
 import heartGrayIcon from '../../../assets/image/detailScreen/heartGrayIcon.png';
 import heartIcon from '../../../assets/image/detailScreen/heartIcon.png';
 import imageNoCoffe from '../../../assets/image/detailScreen/imageNoCoffe.png';
 import imageNoCoffeDark from '../../../assets/image/detailScreen/imageNoCoffeDark.png';
 import {WIDTH_APP} from '../../../definitionSize';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {light} from '../../../themeNameApp';
 import rubleIconDark from '../../../assets/image/detailScreen/rubleIconDark.png';
+import {addFavoriteProduct} from '../../../redux/reduxStateSlice/favoriteProductSlice';
+import {updateIncludeFunction} from '../../../externalFunctions/updateIncludeFunction';
 type CartProductsType = {
+  id: string;
   name: string;
   images: string;
   price: number;
+  cofeId: string;
   favorite: boolean;
 };
 export const CardProductsComponent: FunctionComponent<CartProductsType> = ({
+  id,
   name,
   images,
   price,
   favorite,
+  cofeId,
 }) => {
   const themeState = useSelector((state: RootState) => state.themeState);
-  const [controller, setController] = useState(true);
+  const disatch = useDispatch();
+  const favoriteProductState = useSelector(
+    (state: RootState) => state.favoriteProductState,
+  );
   return (
     <View
       style={
@@ -43,29 +59,13 @@ export const CardProductsComponent: FunctionComponent<CartProductsType> = ({
           кофейный напиток
         </Text>
       </View>
-      <View>
+      <ImageBackground
+        style={themeState.theme == light ? styles.imageLight : styles.imageDark}
+        source={themeState.theme == light ? imageNoCoffe : imageNoCoffeDark}>
         <View style={styles.imageConteiner}>
-          {controller && (
-            <Image
-              source={{uri: images}}
-              style={styles.imageLight}
-              onError={() => setController(false)}
-            />
-          )}
+          <Image source={{uri: images}} style={styles.imageLight} />
         </View>
-        <View style={styles.imageConteiner}>
-          {controller == false && (
-            <Image
-              source={
-                themeState.theme == light ? imageNoCoffe : imageNoCoffeDark
-              }
-              style={
-                themeState.theme == light ? styles.imageLight : styles.imageDark
-              }
-            />
-          )}
-        </View>
-      </View>
+      </ImageBackground>
       <View style={styles.secondConteiner}>
         <View style={styles.priceConteiner}>
           <Text
@@ -83,10 +83,27 @@ export const CardProductsComponent: FunctionComponent<CartProductsType> = ({
             }
           />
         </View>
-        {favorite && <Image source={heartIcon} style={styles.heartIcon} />}
-        {favorite == false && (
-          <Image source={heartGrayIcon} style={styles.heartIcon} />
-        )}
+        <TouchableOpacity
+          onPress={() => {
+            console.log('press two');
+            disatch(
+              addFavoriteProduct({
+                id: id,
+                name: name,
+                imagesPath: images,
+                price: price,
+                favorite: favorite,
+                cofeId: cofeId,
+              }),
+            );
+          }}>
+          {updateIncludeFunction(id, favoriteProductState) === false && (
+            <Image source={heartGrayIcon} style={styles.heartIconNotActive} />
+          )}
+          {updateIncludeFunction(id, favoriteProductState) && (
+            <Image source={heartIcon} style={styles.heartIconActive} />
+          )}
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -98,12 +115,14 @@ const styles = StyleSheet.create({
     height: 270,
     backgroundColor: 'white',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   conteinerDark: {
     width: WIDTH_APP * 0.45,
     height: 270,
     backgroundColor: '#3a3450',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   nameLight: {
     fontSize: 18,
@@ -146,29 +165,27 @@ const styles = StyleSheet.create({
     height: 130,
   },
   secondConteiner: {
+    width: '100%',
+    height: '15%',
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 15,
-    marginLeft: 10,
     justifyContent: 'space-between',
     alignItems: 'flex-end',
   },
   priceConteiner: {
     flexDirection: 'row',
+    marginBottom: 8,
+    marginLeft: 8,
   },
   priceLight: {
     fontSize: 25,
     color: '#C8D9AF',
     fontFamily: 'Lobster-Regular',
-    marginLeft: 8,
-    marginBottom: 8,
   },
   priceDark: {
     fontSize: 25,
     color: '#bbb8ee',
     fontFamily: 'Lobster-Regular',
-    marginLeft: 8,
-    marginBottom: 8,
   },
   rubleIconLight: {
     width: 12,
@@ -182,11 +199,17 @@ const styles = StyleSheet.create({
     marginTop: 2,
     marginLeft: 4,
   },
-  heartIcon: {
+  heartIconNotActive: {
     marginRight: 8,
     marginBottom: 12,
     width: 30,
     height: 30,
+  },
+  heartIconActive: {
+    marginRight: 11,
+    marginBottom: 16,
+    width: 22,
+    height: 20,
   },
   textConteiner: {
     width: '100%',

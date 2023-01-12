@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {RootState, useAddLoginMutation} from '../../redux/reduToolKitQuery';
 import {useDispatch, useSelector} from 'react-redux';
 import {addToken} from '../../redux/reduxStateSlice/tokenSlice';
@@ -43,7 +43,7 @@ import {
   ERORNet,
   GOODRes,
   MistakeUser,
-} from '../../externalFunctions/externalFunction';
+} from '../../externalFunctions/checkFunction';
 import {changeButtonIndicatorState} from '../../redux/reduxStateSlice/indicatorButtonSlice';
 const LoginForm = () => {
   const [addLogin] = useAddLoginMutation();
@@ -70,12 +70,12 @@ const LoginForm = () => {
     if (checkResult === GOODRes) {
       navigation.navigate(LoaderScreenName);
     } else if (checkResult === MistakeUser) {
-      dispatch(changeButtonIndicatorState({active: false}))
+      dispatch(changeButtonIndicatorState({active: false}));
       Alert.alert(
         localisationState.local == ru ? userDataAuthRU : userDataAuthENG,
       );
     } else if (checkResult === ERORNet) {
-      dispatch(changeButtonIndicatorState({active: false}))
+      dispatch(changeButtonIndicatorState({active: false}));
       Alert.alert(
         localisationState.local == ru ? networkStatusRU : networkStatusENG,
       );

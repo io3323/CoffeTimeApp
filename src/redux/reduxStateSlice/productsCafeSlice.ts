@@ -3,6 +3,10 @@ import {
   IProductCafeModel,
   IProductCafeModelV2,
 } from '../reduToolKitQuery/interfacesCoffeData';
+type ModelFavoriteProductAction = {
+  idProduct: string;
+  favoriteProduct: boolean;
+};
 const initialStateProductsCafe: Array<IProductCafeModel> = [
   {
     id: '',

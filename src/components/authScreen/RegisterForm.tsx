@@ -39,7 +39,7 @@ import {
   ERORNet,
   GOODRes,
   MistakeUser,
-} from '../../externalFunctions/externalFunction';
+} from '../../externalFunctions/checkFunction';
 import {
   networkStatusENG,
   networkStatusRU,

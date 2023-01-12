@@ -8,6 +8,7 @@ import {RootState} from '../../../../redux/reduxStore/store';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {
   AuthScreenName,
+  FavoriteCoffeScreenName,
   OrderScreenName,
 } from '../../../../navigation/navigator/nameScreen';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -15,6 +16,7 @@ import shoppingBagWhite from '../../../../assets/image/rigtNavigateIcon/shopping
 import React, {useEffect, useState} from 'react';
 import rubleGray from '../../../../assets/image/rigtNavigateIcon/ruble.png';
 import {changeLanguage} from '../../../../redux/reduxStateSlice/localisationSlice';
+import favoriteCoffeIcon from '../../../../assets/image/mainScreen/favoriteCoffe.png';
 import {eng, ru} from '../../../../localisationLanguageName';
 import {
   bagShopDrawerENG,
@@ -115,6 +117,20 @@ export const DrawerNestedCompinent = () => {
             )}
           </View>
         </TouchableOpacity>
+        <View style={styles.favoriteCoffeConteiner}>
+          <View style={styles.favoriteTextConteiner}>
+            <Text style={styles.favoriteText}>Избранные</Text>
+            <Text style={styles.favoriteText}>напитки:</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.favoriteIconConteiner}
+            onPress={() => navigation.navigate(FavoriteCoffeScreenName)}>
+            <Image
+              source={favoriteCoffeIcon}
+              style={styles.favoriteCoffeIcon}
+            />
+          </TouchableOpacity>
+        </View>
         <View style={styles.switchMainConteiner}>
           <View style={styles.textSwitchConteiner}>
             <Text style={styles.textSwitch}>
@@ -290,5 +306,27 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontFamily: 'SFUIText-Regular',
+  },
+  favoriteCoffeConteiner: {
+    flexDirection: 'row',
+  },
+  favoriteCoffeIcon: {
+    width: 50,
+    height: 50,
+  },
+  favoriteTextConteiner: {
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  favoriteIconConteiner: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  favoriteText: {
+    fontSize: 20,
+    fontFamily: 'SFUIText-Regular',
+    color: 'white',
   },
 });

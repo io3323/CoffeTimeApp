@@ -10,6 +10,7 @@ import {addDataCoffe} from '../../redux/reduxStateSlice/dataSlice';
 import {
   FlatList,
   Image,
+  ImageBackground,
   ListRenderItem,
   LogBox,
   RefreshControl,
@@ -48,7 +49,6 @@ type ItemModel = {
 LogBox.ignoreLogs(['source.uri']);
 export const ListComponent = () => {
   const dispatch = useDispatch();
-  const [imageController, setImageController] = useState(true);
   const tokenUser = useSelector((state: RootState) => state.tokenState);
   const coffeDataState = useSelector(
     (state: RootState) => state.coffeDataState,
@@ -99,19 +99,11 @@ export const ListComponent = () => {
         onPress={() => {
           handleNavigation(item.id);
         }}>
-        {imageController && (
-          <Image
-            source={{uri: item.images}}
-            style={styles.image}
-            onError={() => setImageController(false)}
-          />
-        )}
-        {imageController == false && (
-          <Image
-            source={themeState.theme == light ? cafeIcon : cafeIconDark}
-            style={styles.image}
-          />
-        )}
+        <ImageBackground
+          source={themeState.theme == light ? cafeIcon : cafeIconDark}
+          imageStyle={styles.plagImage}>
+          <Image source={{uri: item.images}} style={styles.image} />
+        </ImageBackground>
         <View style={styles.view}>
           <Text
             style={
@@ -194,6 +186,11 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   image: {
+    width: WIDTH_APP * 0.35,
+    height: HEIGHT_APP * 0.15,
+    alignSelf: 'center',
+  },
+  plagImage: {
     width: WIDTH_APP * 0.35,
     height: HEIGHT_APP * 0.15,
     alignSelf: 'center',

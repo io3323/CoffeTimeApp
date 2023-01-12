@@ -5,4 +5,5 @@ export const DetailedInfoName: string = 'DetailedInfo';
 export const DetailProductInfoName: string = 'DetailProductInfo';
 export const OrderScreenName: string = 'OrderScreen';
 export const DrawerScreenName: string = 'DrawerScreen';
-export const LoaderScreenName = 'Loader screen';
+export const LoaderScreenName: string = 'Loader screen';
+export const FavoriteCoffeScreenName: string = 'FavoriteCoffeScreen';

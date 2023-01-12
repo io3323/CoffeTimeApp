@@ -20,6 +20,7 @@ import {
   AuthScreenName,
   DetailedInfoName,
   DetailProductInfoName,
+  FavoriteCoffeScreenName,
   LoaderScreenName,
   NameTabStack,
   OrderScreenName,
@@ -30,6 +31,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import {CustomDrawer} from '../../components/customComponents/customHeader/CustomDrawer';
 import {light} from '../../themeNameApp';
 import {LoaderScreen} from '../screens/LoaderScreen';
+import {FavoriteCoffeScreen} from '../screens/FavoriteCoffeScreen';
 export const AuthNavigator = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   const Drawer = createDrawerNavigator();
@@ -158,6 +160,22 @@ export const AuthNavigator = () => {
               headerBackVisible: false,
               headerLeft: () => <CustomBackButton />,
               headerTitle: () => <CustomHeaderTitle />,
+            }}
+          />
+          <Stack.Screen
+            name={FavoriteCoffeScreenName}
+            component={FavoriteCoffeScreen}
+            options={{
+              headerShown: true,
+              headerStyle:
+                themeState.theme == light
+                  ? styles.headerStyleStackScreenLight
+                  : styles.headerStyleStackScreenDark,
+              headerTitleAlign: 'center',
+              headerBackVisible: false,
+              headerLeft: () => <CustomBackButton />,
+              headerTitle: () => <CustomHeaderTitle />,
+              headerRight: () => <ShopListButton />,
             }}
           />
         </Stack.Group>

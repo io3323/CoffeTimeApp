@@ -1,4 +1,12 @@
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
 import heartIcon from '../../assets/image/detailScreen/heartIcon.png';
@@ -12,7 +20,7 @@ import rubleGray from '../../assets/image/detailProductScreen/rubleGray.png';
 import imageNoCoffe from '../../assets/image/detailScreen/imageNoCoffe.png';
 import imageNoCoffeDark from '../../assets/image/detailScreen/imageNoCoffeDark.png';
 import rubleIconDark from '../../assets/image/detailScreen/rubleIconDark.png';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {PayButtonNormalState} from './customElement/PayButtonNormalState';
 import {PayButtonActiveState} from './customElement/PayButtonActiveState';
 import {addBacketObject} from '../../redux/reduxStateSlice/basketObjectSlice';
@@ -23,11 +31,15 @@ import {
   descriptionProductDetailRU,
 } from '../../localisationScreen/DetailProductScreenLocal';
 import {light} from '../../themeNameApp';
+import {updateIncludeFunction} from '../../externalFunctions/updateIncludeFunction';
+import {addFavoriteProduct} from '../../redux/reduxStateSlice/favoriteProductSlice';
 export const DetailProductComponent = () => {
   const infoProductCoffeState = useSelector(
     (state: RootState) => state.infoProductCoffeState,
   );
-  const [controller, setController] = useState(true);
+  const favoriteProductState = useSelector(
+    (state: RootState) => state.favoriteProductState,
+  );
   const basketUserState = useSelector(
     (state: RootState) => state.basketUserState,
   );
@@ -87,25 +99,19 @@ export const DetailProductComponent = () => {
         }>
         <View style={styles.upGlobalConteiner}>
           <View style={styles.upConteiner}>
-            {controller && (
+            <ImageBackground
+              source={
+                themeState.theme == light ? imageNoCoffe : imageNoCoffeDark
+              }
+              style={
+                themeState.theme == light ? styles.imageLight : styles.imageDark
+              }
+              imageStyle={styles.imageBackStyle}>
               <Image
                 source={{uri: infoProductCoffeState.imagesPath}}
-                style={styles.imageLight}
-                onError={() => setController(false)}
+                style={styles.image}
               />
-            )}
-            {controller == false && (
-              <Image
-                source={
-                  themeState.theme == light ? imageNoCoffe : imageNoCoffeDark
-                }
-                style={
-                  themeState.theme == light
-                    ? styles.imageLight
-                    : styles.imageDark
-                }
-              />
-            )}
+            </ImageBackground>
           </View>
           <View style={styles.centerConteiner}>
             <Text
@@ -116,12 +122,33 @@ export const DetailProductComponent = () => {
               }>
               {infoProductCoffeState.productName}
             </Text>
-            {infoProductCoffeState.favarite && (
-              <Image source={heartIcon} style={styles.heartIcon} />
-            )}
-            {infoProductCoffeState.favarite == false && (
-              <Image source={heartGrayIcon} style={styles.heartIcon} />
-            )}
+            <TouchableOpacity
+              onPress={() =>
+                dispatch(
+                  addFavoriteProduct({
+                    id: infoProductCoffeState.id,
+                    name: infoProductCoffeState.productName,
+                    cofeId: infoProductCoffeState.cofeId,
+                    price: infoProductCoffeState.price,
+                    favorite: infoProductCoffeState.favarite,
+                    imagesPath: infoProductCoffeState.imagesPath,
+                  }),
+                )
+              }>
+              {updateIncludeFunction(
+                infoProductCoffeState.id,
+                favoriteProductState,
+              ) && <Image source={heartIcon} style={styles.heartIconActive} />}
+              {updateIncludeFunction(
+                infoProductCoffeState.id,
+                favoriteProductState,
+              ) === false && (
+                <Image
+                  source={heartGrayIcon}
+                  style={styles.heartIconNotActive}
+                />
+              )}
+            </TouchableOpacity>
           </View>
           <View>
             <View>
@@ -286,12 +313,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   imageLight: {
-    width: '80%',
-    height: '90%',
+    width: '75%',
+    height: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageBackStyle: {
+    width: '100%',
+    height: '100%',
   },
   imageDark: {
     width: '68%',
     height: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
   productNameLight: {
     fontSize: 24,
@@ -306,11 +345,19 @@ const styles = StyleSheet.create({
   centerConteiner: {
     display: 'flex',
     flexDirection: 'row',
+    height: '6%',
   },
-  heartIcon: {
+  heartIconNotActive: {
     width: 30,
     height: 30,
     marginLeft: 5,
+    marginTop: 2,
+  },
+  heartIconActive: {
+    width: 20,
+    height: 18,
+    marginLeft: 10,
+    marginTop: 8,
   },
   imageConteiner: {
     display: 'flex',

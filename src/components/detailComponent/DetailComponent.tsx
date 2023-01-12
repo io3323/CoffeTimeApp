@@ -3,6 +3,8 @@ import {
   FlatList,
   ListRenderItem,
   LogBox,
+  Platform,
+  Pressable,
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
@@ -60,7 +62,27 @@ export const DetailComponent = () => {
     });
     dispatch(addInfoCeffeProduct(result));
   };
-  const renderItem: ListRenderItem<IProductCafeModel> = ({item}) => {
+  const renderItemAndroid: ListRenderItem<IProductCafeModel> = ({item}) => {
+    return (
+      <Pressable
+        android_ripple={{color: '#f4f3f4', foreground: true}}
+        style={styles.conteiner}
+        onPress={() => {
+          getInfoProductsTab(item.id);
+          navigation.navigate(DetailProductInfoName);
+        }}>
+        <CardProductsComponent
+          id={item.id}
+          name={item.name}
+          images={item.imagesPath}
+          price={item.price}
+          cofeId={item.cofeId}
+          favorite={item.favorite}
+        />
+      </Pressable>
+    );
+  };
+  const renderItemIOS: ListRenderItem<IProductCafeModel> = ({item}) => {
     return (
       <TouchableOpacity
         style={styles.conteiner}
@@ -69,10 +91,12 @@ export const DetailComponent = () => {
           navigation.navigate(DetailProductInfoName);
         }}>
         <CardProductsComponent
+          id={item.id}
           name={item.name}
           images={item.imagesPath}
           price={item.price}
           favorite={item.favorite}
+          cofeId={item.cofeId}
         />
       </TouchableOpacity>
     );
@@ -81,7 +105,7 @@ export const DetailComponent = () => {
     return (
       <FlatList
         data={productsCafeState}
-        renderItem={renderItem}
+        renderItem={Platform.OS == 'ios' ? renderItemIOS : renderItemAndroid}
         ItemSeparatorComponent={Separator}
         keyExtractor={item => item.id}
         horizontal={false}
