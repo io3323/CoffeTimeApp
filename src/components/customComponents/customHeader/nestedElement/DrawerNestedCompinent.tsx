@@ -15,7 +15,10 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import shoppingBagWhite from '../../../../assets/image/rigtNavigateIcon/shoppingbagWhite.png';
 import React, {useEffect, useState} from 'react';
 import rubleGray from '../../../../assets/image/rigtNavigateIcon/ruble.png';
-import {changeLanguage} from '../../../../redux/reduxStateSlice/localisationSlice';
+import {
+  changeLanguage,
+  changeLanguageController,
+} from '../../../../redux/reduxStateSlice/localisationSlice';
 import favoriteCoffeIcon from '../../../../assets/image/mainScreen/favoriteCoffe.png';
 import {eng, ru} from '../../../../localisationLanguageName';
 import {
@@ -30,7 +33,10 @@ import {
   userNameDrawerENG,
   userNameDrawerRU,
 } from '../../../../localisationScreen/DrawerNestedCompineLocal';
-import {changeTheme} from '../../../../redux/reduxStateSlice/themeSlice';
+import {
+  changeControllerTheme,
+  changeTheme,
+} from '../../../../redux/reduxStateSlice/themeSlice';
 import {dark, light} from '../../../../themeNameApp';
 export const DrawerNestedCompinent = () => {
   const userInfoState = useSelector((state: RootState) => state.userInfoState);
@@ -39,18 +45,16 @@ export const DrawerNestedCompinent = () => {
   );
   const themeState = useSelector((state: RootState) => state.themeState);
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
-  const [isEnabled, setIsEnabled] = useState(false);
-  const [isEnabledTheme, setIsEnabledTheme] = useState(false);
   const dispatch = useDispatch();
   const toggleSwitch = () => {
-    setIsEnabled(previousState => !previousState);
-    isEnabled
+    dispatch(changeLanguageController());
+    localisationState.localController
       ? dispatch(changeLanguage({local: ru}))
       : dispatch(changeLanguage({local: eng}));
   };
   const toggleSwitchTheme = () => {
-    setIsEnabledTheme(previousState => !previousState);
-    isEnabledTheme
+    dispatch(changeControllerTheme());
+    themeState.themeController
       ? dispatch(changeTheme({theme: light}))
       : dispatch(changeTheme({theme: dark}));
   };
@@ -139,7 +143,7 @@ export const DrawerNestedCompinent = () => {
           </View>
           <View style={styles.switchConteiner}>
             <Switch
-              value={isEnabled}
+              value={localisationState.localController}
               onValueChange={toggleSwitch}
               disabled={false}
               activeText={'🇺🇸'}
@@ -163,7 +167,7 @@ export const DrawerNestedCompinent = () => {
           </View>
           <View style={styles.switchConteiner}>
             <Switch
-              value={isEnabledTheme}
+              value={themeState.themeController}
               onValueChange={toggleSwitchTheme}
               disabled={false}
               activeText={'🌑'}

@@ -25,6 +25,7 @@ import {
   NameTabStack,
   OrderScreenName,
   RegistScreenName,
+  SplachScreenName,
 } from './nameScreen';
 import {StyleSheet} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -32,6 +33,7 @@ import {CustomDrawer} from '../../components/customComponents/customHeader/Custo
 import {light} from '../../themeNameApp';
 import {LoaderScreen} from '../screens/LoaderScreen';
 import {FavoriteCoffeScreen} from '../screens/FavoriteCoffeScreen';
+import {SplachScreen} from '../screens/SplachScreen';
 export const AuthNavigator = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   const Drawer = createDrawerNavigator();
@@ -80,6 +82,11 @@ export const AuthNavigator = () => {
     return (
       <Stack.Navigator>
         <Stack.Group>
+          <Stack.Screen
+            name={SplachScreenName}
+            component={SplachScreen}
+            options={{headerShown: false}}
+          />
           <Stack.Screen
             name={AuthScreenName}
             component={AuthScreen}

@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#C8D9AF',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 7,
     marginLeft: 60,
   },
   buttonDark: {
@@ -97,7 +96,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#bbb8ee',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 7,
     marginLeft: 60,
   },
   textButton: {

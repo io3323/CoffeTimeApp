@@ -20,11 +20,12 @@ import rubleGray from '../../assets/image/detailProductScreen/rubleGray.png';
 import imageNoCoffe from '../../assets/image/detailScreen/imageNoCoffe.png';
 import imageNoCoffeDark from '../../assets/image/detailScreen/imageNoCoffeDark.png';
 import rubleIconDark from '../../assets/image/detailScreen/rubleIconDark.png';
+import hitIcon from '../../assets/image/detailScreen/hitIcon.png';
 import {useEffect} from 'react';
 import {PayButtonNormalState} from './customElement/PayButtonNormalState';
 import {PayButtonActiveState} from './customElement/PayButtonActiveState';
 import {addBacketObject} from '../../redux/reduxStateSlice/basketObjectSlice';
-import {HEIGHT_APP} from '../../definitionSize';
+import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
 import {ru} from '../../localisationLanguageName';
 import {
   descriptionProductDetailENG,
@@ -99,6 +100,9 @@ export const DetailProductComponent = () => {
         }>
         <View style={styles.upGlobalConteiner}>
           <View style={styles.upConteiner}>
+            <View style={styles.hitConteiner}>
+              <Image source={hitIcon} style={styles.hitImageStyles} />
+            </View>
             <ImageBackground
               source={
                 themeState.theme == light ? imageNoCoffe : imageNoCoffeDark
@@ -150,7 +154,7 @@ export const DetailProductComponent = () => {
               )}
             </TouchableOpacity>
           </View>
-          <View>
+          <View style={{marginLeft: '5.9%'}}>
             <View>
               <View style={[styles.imageConteiner]}>
                 <Image source={milk} style={styles.atributeIconMilk} />
@@ -310,11 +314,11 @@ const styles = StyleSheet.create({
   upConteiner: {
     alignItems: 'center',
     height: HEIGHT_APP * 0.35,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   imageLight: {
-    width: '75%',
-    height: '80%',
+    width: '55%',
+    height: '70%',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -323,14 +327,21 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   imageDark: {
-    width: '68%',
-    height: '80%',
+    width: '55%',
+    height: '73%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   image: {
     width: '100%',
     height: '100%',
+  },
+  hitConteiner: {
+    width: WIDTH_APP,
+  },
+  hitImageStyles: {
+    width: 74,
+    height: 41,
   },
   productNameLight: {
     fontSize: 24,
@@ -346,6 +357,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     height: '6%',
+    marginLeft: '6%',
   },
   heartIconNotActive: {
     width: 30,
@@ -460,8 +472,8 @@ const styles = StyleSheet.create({
   },
   textDescriptionConteiner: {
     justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
+    alignItems: 'flex-start',
+    width: '94%',
     height: HEIGHT_APP * 0.2,
   },
   textDescriptionLight: {

@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+  DarkTheme,
+  DefaultTheme,
   NavigationContainer,
   useNavigationContainerRef,
 } from '@react-navigation/native';

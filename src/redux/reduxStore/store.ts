@@ -19,6 +19,8 @@ import themeSlice from '../reduxStateSlice/themeSlice';
 import indicatorButtonSlice from '../reduxStateSlice/indicatorButtonSlice';
 import favoriteProductSlice from '../reduxStateSlice/favoriteProductSlice';
 import favoriteScreenSlice from '../reduxStateSlice/favoriteScreenSlice';
+import authDataUserSlice from '../reduxStateSlice/authDataUserSlice';
+import settingsControllerSlice from '../reduxStateSlice/settingsControllerSlice';
 const rootReducer = combineReducers({
   coordinateState: coordinateSlice,
   [coffeData.reducerPath]: coffeData.reducer,
@@ -39,6 +41,8 @@ const rootReducer = combineReducers({
   indicatorButtonState: indicatorButtonSlice,
   favoriteProductState: favoriteProductSlice,
   favoriteScreenState: favoriteScreenSlice,
+  authDataUserState: authDataUserSlice,
+  settingsControllerState: settingsControllerSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

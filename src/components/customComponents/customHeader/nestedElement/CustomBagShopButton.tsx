@@ -30,13 +30,15 @@ export const CustomBagShopButton = () => {
   return (
     <View>
       <TouchableOpacity onPress={() => backButtonActive()}>
-        <View style={styles.conteiner}>
-          <Image
-            source={themeState.theme == light ? shoppingBag : shoppingBagDark}
-            style={styles.backButton}
-          />
+        <View style={styles.mainConteiner}>
+          <View style={styles.shopIconConteiner}>
+            <Image
+              source={themeState.theme == light ? shoppingBag : shoppingBagDark}
+              style={styles.backButton}
+            />
+          </View>
           {totalPrice != 0 && (
-            <View style={styles.conteiner}>
+            <View style={styles.textPriceConteiner}>
               <Text
                 style={
                   themeState.theme == light
@@ -61,10 +63,17 @@ const styles = StyleSheet.create({
   backButton: {
     width: 40,
     height: 40,
-    marginLeft: -10,
   },
-  conteiner: {
-    display: 'flex',
+  mainConteiner: {width: 60, height: 50, flexDirection: 'row'},
+  shopIconConteiner: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textPriceConteiner: {
+    flex: 1.5,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
     flexDirection: 'row',
   },
   rubleGray: {

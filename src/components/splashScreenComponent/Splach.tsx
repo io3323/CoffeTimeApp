@@ -1,21 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Animated, StyleSheet} from 'react-native';
-
-export const SplachComponent = ({
-  children,
-  isAppReady,
-}: {
-  isAppReady: boolean;
-  children: React.ReactNode;
-}) => {
-  return (
-    <>
-      {isAppReady && children}
-
-      <Splash isAppReady={isAppReady} />
-    </>
-  );
-};
+import {ParamListBase, useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {AuthScreenName} from '../../navigation/navigator/nameScreen';
 
 const LOADING_IMAGE = 'Loading image';
 const FADE_IN_IMAGE = 'Fade in image';
@@ -23,10 +10,10 @@ const WAIT_FOR_APP_TO_BE_READY = 'Wait for app to be ready';
 const FADE_OUT = 'Fade out';
 const HIDDEN = 'Hidden';
 
-export const Splash = ({isAppReady}: {isAppReady: boolean}) => {
+export const Splash = () => {
   const containerOpacity = useRef(new Animated.Value(1)).current;
   const imageOpacity = useRef(new Animated.Value(0)).current;
-
+  const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const [state, setState] = useState<
     | typeof LOADING_IMAGE
     | typeof FADE_IN_IMAGE
@@ -49,11 +36,10 @@ export const Splash = ({isAppReady}: {isAppReady: boolean}) => {
 
   useEffect(() => {
     if (state === WAIT_FOR_APP_TO_BE_READY) {
-      if (isAppReady) {
-        setState(FADE_OUT);
-      }
+      setState(FADE_OUT);
+      navigation.navigate(AuthScreenName);
     }
-  }, [isAppReady, state]);
+  }, [state]);
 
   useEffect(() => {
     if (state === FADE_OUT) {
@@ -71,7 +57,6 @@ export const Splash = ({isAppReady}: {isAppReady: boolean}) => {
   if (state === HIDDEN) {
     return null;
   }
-
   return (
     <Animated.View
       collapsable={false}

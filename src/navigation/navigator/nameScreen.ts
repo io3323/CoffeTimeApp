@@ -7,3 +7,4 @@ export const OrderScreenName: string = 'OrderScreen';
 export const DrawerScreenName: string = 'DrawerScreen';
 export const LoaderScreenName: string = 'Loader screen';
 export const FavoriteCoffeScreenName: string = 'FavoriteCoffeScreen';
+export const SplachScreenName: string = 'SplachScreenName';

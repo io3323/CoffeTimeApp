@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
     height: 41,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    borderRadius: 7,
     marginLeft: 60,
   },
   conteinerDark: {
@@ -131,7 +130,6 @@ const styles = StyleSheet.create({
     height: 41,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    borderRadius: 7,
     marginLeft: 60,
   },
   textCountLight: {
