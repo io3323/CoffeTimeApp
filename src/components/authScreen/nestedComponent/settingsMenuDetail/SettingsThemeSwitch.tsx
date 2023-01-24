@@ -8,11 +8,12 @@ import {
 import {dark, light} from '../../../../themeNameApp';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
-
+import {toggleSwitch} from '../../../../redux/reduxStateSlice/switchThemeControllerSlice';
 export const SettingsThemeSwitch = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   const dispatch = useDispatch();
   const toggleSwitchTheme = () => {
+    dispatch(toggleSwitch());
     dispatch(changeControllerTheme());
     themeState.themeController
       ? dispatch(changeTheme({theme: light}))

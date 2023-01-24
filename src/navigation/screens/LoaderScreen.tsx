@@ -15,7 +15,7 @@ export const LoaderScreen = () => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   useEffect(() => {
     getDataOnPress();
-  }, []);
+  }, [tokenUser]);
   const getDataOnPress = async () => {
     const result = await getCoffe(JSON.stringify(tokenUser.token));
     dispatch(changeButtonIndicatorState({active: false}));

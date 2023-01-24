@@ -26,7 +26,6 @@ import {
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import {changeStatusController} from '../../redux/reduxStateSlice/settingsControllerSlice';
 import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
-
 export const AuthComponent = () => {
   const dispatch = useDispatch();
   const themeState = useSelector((state: RootState) => state.themeState);
@@ -43,19 +42,14 @@ export const AuthComponent = () => {
       hideSubscription.remove();
     };
   });
-  const settingsControllerState = useSelector(
-    (state: RootState) => state.settingsControllerState,
-  );
   const functrionDispatch = (stateController: boolean) => {
     dispatch(changeStatusController(stateController));
   };
   const gesture = useAnimatedGestureHandler({
     onStart: () => {
-      console.log('tapp');
       runOnJS(functrionDispatch)(false);
     },
   });
-  console.log(settingsControllerState.controller);
   return (
     <ImageBackground style={styles.viewContainer} source={image}>
       <LinearGradient
@@ -65,7 +59,7 @@ export const AuthComponent = () => {
             : linerGradientColorsDark
         }>
         <SafeAreaView style={styles.viewStyle}>
-          <View style={{}}>
+          <View>
             <TextAuthComponent />
           </View>
           <KeyboardAwareScrollView
@@ -77,20 +71,23 @@ export const AuthComponent = () => {
           </KeyboardAwareScrollView>
           <PanGestureHandler onGestureEvent={gesture}>
             <Animated.View
-              style={{
-                height: HEIGHT_APP * 0.25,
-                justifyContent: 'flex-end',
-              }}
+              style={[
+                {
+                  height: HEIGHT_APP * 0.25,
+                },
+              ]}
             />
           </PanGestureHandler>
-          <View
-            style={{
-              position: 'absolute',
-              marginTop: HEIGHT_APP * 0.88,
-              marginLeft: WIDTH_APP * 0.85,
-            }}>
+          <Animated.View
+            style={[
+              {
+                position: 'absolute',
+                marginTop: HEIGHT_APP * 0.83,
+                marginLeft: WIDTH_APP * 0.8,
+              },
+            ]}>
             <SettingsIcon />
-          </View>
+          </Animated.View>
         </SafeAreaView>
       </LinearGradient>
     </ImageBackground>
@@ -114,5 +111,18 @@ const styles = StyleSheet.create({
   },
   keyboardConteiner: {
     flex: 1,
+  },
+  buttonConteiner: {
+    width: '100%',
+    height: '10%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+    backgroundColor: 'red',
+  },
+  registConteiner: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

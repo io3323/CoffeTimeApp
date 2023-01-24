@@ -15,6 +15,15 @@ import removeIcon from '../../../../assets/image/authScreen/removeIcon.png';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {addLoginUser} from '../../../../redux/reduxStateSlice/authDataUserSlice';
+import {light} from '../../../../themeNameApp';
+import {formObjectColor} from './formObjectColor';
+import {
+  interpolateColor,
+  useAnimatedStyle,
+  useDerivedValue,
+  withTiming,
+} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 export const LoginInputDetail = () => {
   const localisationState = useSelector(
@@ -24,6 +33,21 @@ export const LoginInputDetail = () => {
     (state: RootState) => state.authDataUserState,
   );
   const themeState = useSelector((state: RootState) => state.themeState);
+  const progress = useDerivedValue(() =>
+    themeState.theme == light
+      ? withTiming(0, {duration: 2000})
+      : withTiming(1, {duration: 2000}),
+  );
+  const rStyle = useAnimatedStyle(() => {
+    const background = interpolateColor(
+      progress.value,
+      [0, 1],
+      [formObjectColor.lineColorLight, formObjectColor.lineColorDark],
+    );
+    return {
+      backgroundColor: background,
+    };
+  });
   const dispatch = useDispatch();
   return (
     <View style={styles.inputConteiner}>
@@ -33,9 +57,25 @@ export const LoginInputDetail = () => {
             ? placeholderAuthLoginRu
             : placeholderAuthLoginENG
         }
-        cursorColor={'#FFFFFFB5'}
-        placeholderTextColor={'#FFFFFFB5'}
-        style={styles.input}
+        cursorColor={
+          themeState.theme == light
+            ? formObjectColor.colorLight
+            : formObjectColor.colorDark
+        }
+        placeholderTextColor={
+          themeState.theme == light
+            ? formObjectColor.colorLight
+            : formObjectColor.colorDark
+        }
+        style={[
+          styles.input,
+          {
+            color:
+              themeState.theme == light
+                ? formObjectColor.colorLight
+                : formObjectColor.colorDark,
+          },
+        ]}
         autoCapitalize={'none'}
         value={authDataUserState.login}
         onChangeText={text => {
@@ -53,7 +93,7 @@ export const LoginInputDetail = () => {
           <Image source={removeIcon} style={{width: 20, height: 20}} />
         </TouchableOpacity>
       )}
-      <View style={styles.line} />
+      <Animated.View style={[styles.line, rStyle]} />
     </View>
   );
 };
@@ -66,7 +106,6 @@ const styles = StyleSheet.create({
     height: 40,
     width: '70%',
     margin: 12,
-    color: '#FFFFFFB5',
     fontSize: 18,
   },
   icon: {
@@ -85,6 +124,5 @@ const styles = StyleSheet.create({
     width: '75%',
     height: 1,
     marginTop: -5,
-    backgroundColor: '#D8D8D8',
   },
 });

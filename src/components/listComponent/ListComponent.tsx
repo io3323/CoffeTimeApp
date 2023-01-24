@@ -19,7 +19,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Separator} from './CardFlatList/Separator';
+import {Separator} from './Separator/Separator';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import goIcon from '../../assets/image/listScreen/goIcon.png';
 import goIconDark from '../../assets/image/listScreen/goIconDark.png';
@@ -31,6 +31,12 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {DetailedInfoName} from '../../navigation/navigator/nameScreen';
 import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
 import {ru} from '../../localisationLanguageName';
+import Animated, {
+  interpolateColor,
+  useAnimatedStyle,
+  useDerivedValue,
+  withSpring,
+} from 'react-native-reanimated';
 import {
   descriptionInfoListENG,
   descriptionInfoListRu,
@@ -38,6 +44,7 @@ import {
   descriptionLocateListRU,
 } from '../../localisationScreen/ListScreenLocal';
 import {light} from '../../themeNameApp';
+import {colorFlatListObject} from './colorFlatListObject';
 type ItemModel = {
   id: string;
   name: string;
@@ -92,6 +99,58 @@ export const ListComponent = () => {
     }
     navigation.navigate(DetailedInfoName);
   };
+  const progress = useDerivedValue(() =>
+    themeState.theme == light ? withSpring(0) : withSpring(1),
+  );
+  const rStyleMainCont = useAnimatedStyle(() => {
+    const background = interpolateColor(
+      progress.value,
+      [0, 1],
+      [
+        colorFlatListObject.mainConteinerLightBack,
+        colorFlatListObject.mainConteinerDarkBack,
+      ],
+    );
+    return {
+      backgroundColor: background,
+    };
+  });
+  const rStyleTextColor = useAnimatedStyle(() => {
+    const color = interpolateColor(
+      progress.value,
+      [0, 1],
+      [
+        colorFlatListObject.nameTextLightColor,
+        colorFlatListObject.nameTextDarkColor,
+      ],
+    );
+    return {
+      color: color,
+    };
+  });
+  const rStyleTextColorDesc = useAnimatedStyle(() => {
+    const color = interpolateColor(
+      progress.value,
+      [0, 1],
+      [
+        colorFlatListObject.adressDesriptionLightColor,
+        colorFlatListObject.adressDesriptionDarkColor,
+      ],
+    );
+    return {
+      color: color,
+    };
+  });
+  const rStyleTextColorInfo = useAnimatedStyle(() => {
+    const color = interpolateColor(
+      progress.value,
+      [0, 1],
+      [colorFlatListObject.textLight, colorFlatListObject.textDark],
+    );
+    return {
+      color: color,
+    };
+  });
   const renderItem: ListRenderItem<ItemModel> = ({item}) => {
     return (
       <TouchableOpacity
@@ -105,40 +164,24 @@ export const ListComponent = () => {
           <Image source={{uri: item.images}} style={styles.image} />
         </ImageBackground>
         <View style={styles.view}>
-          <Text
-            style={
-              themeState.theme == light
-                ? styles.nameTextLight
-                : styles.nameTextDark
-            }>
+          <Animated.Text style={[styles.nameText, rStyleTextColor]}>
             {item.name}
-          </Text>
-          <Text
-            style={
-              themeState.theme == light
-                ? styles.adressDesriptionLight
-                : styles.adressDesriptionDark
-            }>
+          </Animated.Text>
+          <Animated.Text style={[styles.adressDesription, rStyleTextColorDesc]}>
             {localisationState.local == ru
               ? descriptionLocateListRU
               : descriptionLocateListENG}
             :
-          </Text>
-          <Text
-            style={
-              themeState.theme == light ? styles.adressLight : styles.adressDark
-            }>
+          </Animated.Text>
+          <Animated.Text style={[styles.adressColor, rStyleTextColorDesc]}>
             {item.address}
-          </Text>
+          </Animated.Text>
           <View style={styles.conteinerGoIcon}>
-            <Text
-              style={
-                themeState.theme == light ? styles.textLight : styles.textDark
-              }>
+            <Animated.Text style={rStyleTextColorInfo}>
               {localisationState.local == ru
                 ? descriptionInfoListRu
                 : descriptionInfoListENG}
-            </Text>
+            </Animated.Text>
             <Image
               style={
                 themeState.theme == light ? styles.iconLight : styles.iconDark
@@ -151,12 +194,7 @@ export const ListComponent = () => {
     );
   };
   return (
-    <View
-      style={
-        themeState.theme == light
-          ? styles.mainConteinerLight
-          : styles.mainConteinerDark
-      }>
+    <Animated.View style={rStyleMainCont}>
       <FlatList
         data={coffeDataState}
         showsVerticalScrollIndicator={false}
@@ -168,18 +206,12 @@ export const ListComponent = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       />
-    </View>
+    </Animated.View>
   );
 };
 
 const styles = StyleSheet.create({
   flatListStyle: {height: '100%'},
-  mainConteinerLight: {
-    backgroundColor: '#f2f2f2',
-  },
-  mainConteinerDark: {
-    backgroundColor: '#574d6c',
-  },
   conteiner: {
     display: 'flex',
     flexDirection: 'row',
@@ -200,47 +232,20 @@ const styles = StyleSheet.create({
     width: 259,
     alignItems: 'flex-start',
   },
-  nameTextLight: {
-    color: '#c2d5a9',
+  nameText: {
     fontSize: 20,
     marginTop: 14,
     marginLeft: 14,
   },
-  nameTextDark: {
-    color: '#9989d9',
-    fontSize: 20,
-    marginTop: 14,
-    marginLeft: 14,
-  },
-  adressDesriptionLight: {
+  adressDesription: {
     fontSize: 14,
     marginTop: 15,
     marginLeft: 14,
-    color: '#717171',
   },
-  adressDesriptionDark: {
-    fontSize: 14,
-    marginTop: 15,
-    marginLeft: 14,
-    color: 'white',
-  },
-  adressLight: {
+  adressColor: {
     fontSize: 18,
     marginTop: 5,
     marginLeft: 14,
-    color: '#717171',
-  },
-  adressDark: {
-    fontSize: 18,
-    marginTop: 5,
-    marginLeft: 14,
-    color: 'white',
-  },
-  textLight: {
-    color: '#BBBBBB',
-  },
-  textDark: {
-    color: 'white',
   },
   conteinerGoIcon: {
     display: 'flex',
@@ -251,13 +256,14 @@ const styles = StyleSheet.create({
   iconLight: {
     width: 32,
     height: 32,
-    marginTop: -7,
+    marginTop: -6,
     marginLeft: -5,
   },
   iconDark: {
     width: 15,
     height: 15,
     marginTop: 4,
-    marginLeft: 5,
+    marginLeft: 10,
+    right: 5,
   },
 });

@@ -17,7 +17,7 @@ import {addInfoCeffeProduct} from '../../redux/reduxStateSlice/infoProductCoffeS
 import {DetailProductInfoName} from '../../navigation/navigator/nameScreen';
 import {CardProductsComponent} from '../detailComponent/nestedComponent/CardProductsComponent';
 import {WIDTH_APP} from '../../definitionSize';
-import {Separator} from '../listComponent/CardFlatList/Separator';
+import {Separator} from '../listComponent/Separator/Separator';
 import {useEffect} from 'react';
 import {cloneMassive} from '../../redux/reduxStateSlice/favoriteScreenSlice';
 import {HeaderComponent} from './nestedElement/HeaderComponent';

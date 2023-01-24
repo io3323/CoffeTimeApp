@@ -18,6 +18,15 @@ import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {addPasswordUser} from '../../../../redux/reduxStateSlice/authDataUserSlice';
+import {light} from '../../../../themeNameApp';
+import {formObjectColor} from './formObjectColor';
+import {
+  interpolateColor,
+  useAnimatedStyle,
+  useDerivedValue,
+  withTiming,
+} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 export const PasswordInputDetail = () => {
   const [securePassword, setSecurePassword] = useState(true);
@@ -27,6 +36,22 @@ export const PasswordInputDetail = () => {
   const localisationState = useSelector(
     (state: RootState) => state.localisationState,
   );
+  const themeState = useSelector((state: RootState) => state.themeState);
+  const progress = useDerivedValue(() =>
+    themeState.theme == light
+      ? withTiming(0, {duration: 2000})
+      : withTiming(1, {duration: 2000}),
+  );
+  const rStyle = useAnimatedStyle(() => {
+    const background = interpolateColor(
+      progress.value,
+      [0, 1],
+      [formObjectColor.lineColorLight, formObjectColor.lineColorDark],
+    );
+    return {
+      backgroundColor: background,
+    };
+  });
   const dispatch = useDispatch();
   return (
     <View style={styles.inputConteiner}>
@@ -36,9 +61,25 @@ export const PasswordInputDetail = () => {
             ? placeholderAuthPasswordRu
             : placeholderAuthPasswordENG
         }
-        cursorColor={'#FFFFFFB5'}
-        placeholderTextColor={'#FFFFFFB5'}
-        style={styles.input}
+        cursorColor={
+          themeState.theme == light
+            ? formObjectColor.colorLight
+            : formObjectColor.colorDark
+        }
+        placeholderTextColor={
+          themeState.theme == light
+            ? formObjectColor.colorLight
+            : formObjectColor.colorDark
+        }
+        style={[
+          styles.input,
+          {
+            color:
+              themeState.theme == light
+                ? formObjectColor.colorLight
+                : formObjectColor.colorDark,
+          },
+        ]}
         autoCapitalize={'none'}
         value={authDataUserState.password}
         onChangeText={text => dispatch(addPasswordUser({password: text}))}
@@ -72,7 +113,7 @@ export const PasswordInputDetail = () => {
           <Image source={removeIcon} style={{width: 20, height: 20}} />
         </TouchableOpacity>
       )}
-      <View style={styles.line} />
+      <Animated.View style={[styles.line, rStyle]} />
     </View>
   );
 };

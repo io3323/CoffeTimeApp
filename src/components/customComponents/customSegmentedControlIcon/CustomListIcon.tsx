@@ -30,10 +30,10 @@ const styles = StyleSheet.create({
   },
   conteinerLight: {
     marginTop: 6,
-    marginRight: 11,
+    marginLeft: 10,
   },
   conteinerDark: {
-    marginTop: 2.5,
-    marginRight: 15,
+    marginTop: 2,
+    marginLeft: 15,
   },
 });

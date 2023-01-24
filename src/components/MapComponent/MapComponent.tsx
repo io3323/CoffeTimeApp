@@ -13,6 +13,7 @@ import {
   View,
 } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
+import Animated from 'react-native-reanimated';
 import mesto from '../../assets/image/mapScreen/mesto.png';
 import located from '../../assets/image/mapScreen/located.png';
 import search from '../../assets/image/mapScreen/search.png';
@@ -26,6 +27,13 @@ import {
   distansMapRU,
 } from '../../localisationScreen/MapScreenLocal';
 import {light} from '../../themeNameApp';
+import {
+  interpolateColor,
+  useAnimatedStyle,
+  useDerivedValue,
+  withSpring,
+} from 'react-native-reanimated';
+import {MapColorObject} from './MapColorObject';
 const requestLocationPermission = async () => {
   try {
     if (Platform.OS === 'ios') {
@@ -98,7 +106,32 @@ export const MapComponent = () => {
   useEffect(() => {
     getLocation();
   }, []);
-
+  const progress = useDerivedValue(() =>
+    themeState.theme == light ? withSpring(0) : withSpring(1),
+  );
+  const rStyleText = useAnimatedStyle(() => {
+    const textColor = interpolateColor(
+      progress.value,
+      [0, 1],
+      [MapColorObject.textColorLight, MapColorObject.textColorDark],
+    );
+    return {
+      color: textColor,
+    };
+  });
+  const rStyleBlockBack = useAnimatedStyle(() => {
+    const background = interpolateColor(
+      progress.value,
+      [0, 1],
+      [
+        MapColorObject.blockContBackgroundLight,
+        MapColorObject.blockContBackgroundDark,
+      ],
+    );
+    return {
+      backgroundColor: background,
+    };
+  });
   return (
     <View>
       <View>
@@ -147,25 +180,15 @@ export const MapComponent = () => {
           </View>
         </View>
         <View style={styles.cardStyle}>
-          <View
-            style={
-              themeState.theme == light
-                ? styles.blockConteinerLight
-                : styles.blockConteinerDark
-            }>
-            <Text
-              style={
-                themeState.theme == light
-                  ? styles.textCafeLight
-                  : styles.textCafeDark
-              }>
+          <Animated.View style={[styles.blockConteiner, rStyleBlockBack]}>
+            <Animated.Text style={[styles.textCafe, rStyleText]}>
               CoffeTime
-            </Text>
+            </Animated.Text>
             <Separator />
             <Text style={styles.subText}>
               {localisationState.local == ru ? distansMapRU : distansMapENG}
             </Text>
-          </View>
+          </Animated.View>
         </View>
       </View>
     </View>
@@ -196,15 +219,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginLeft: '8.2%',
   },
-  textCafeLight: {
-    color: '#474747',
-    fontSize: 30,
-    marginTop: 5,
-    fontFamily: 'Lobster-Regular',
-    marginLeft: '10.1%',
-  },
-  textCafeDark: {
-    color: 'white',
+  textCafe: {
     fontSize: 30,
     marginTop: 5,
     fontFamily: 'Lobster-Regular',
@@ -224,14 +239,7 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
   },
-  blockConteinerLight: {
-    backgroundColor: 'white',
-    width: 287,
-    height: 130,
-    alignItems: 'flex-start',
-  },
-  blockConteinerDark: {
-    backgroundColor: '#3a3450',
+  blockConteiner: {
     width: 287,
     height: 130,
     alignItems: 'flex-start',

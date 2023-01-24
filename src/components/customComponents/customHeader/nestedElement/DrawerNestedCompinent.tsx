@@ -1,4 +1,11 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Switch} from 'react-native-switch';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import {HEIGHT_APP} from '../../../../definitionSize';
@@ -38,6 +45,16 @@ import {
   changeTheme,
 } from '../../../../redux/reduxStateSlice/themeSlice';
 import {dark, light} from '../../../../themeNameApp';
+import {
+  interpolateColor,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated';
+import {colorObjectDrawer} from './colorObjectNestedComponent/colorObjectDrawer';
+import Animated from 'react-native-reanimated';
 export const DrawerNestedCompinent = () => {
   const userInfoState = useSelector((state: RootState) => state.userInfoState);
   const localisationState = useSelector(
@@ -59,7 +76,7 @@ export const DrawerNestedCompinent = () => {
       : dispatch(changeTheme({theme: dark}));
   };
   const exitActionButton = () => {
-    navigation.navigate(AuthScreenName);
+    setTimeout(() => navigation.navigate(AuthScreenName), 1000);
   };
   const basketUserState = useSelector(
     (state: RootState) => state.basketUserState,
@@ -72,16 +89,33 @@ export const DrawerNestedCompinent = () => {
     });
     setTotalPrice(totalPriceVariable);
   }, [basketUserState]);
+  const progress = useDerivedValue(() =>
+    themeState.theme == light ? withSpring(0) : withSpring(1),
+  );
+  const rStyleDrawerCont = useAnimatedStyle(() => {
+    const background = interpolateColor(
+      progress.value,
+      [0, 1],
+      [
+        colorObjectDrawer.drawerConteinerLightBack,
+        colorObjectDrawer.drawerConteinerDarkBack,
+      ],
+    );
+    return {
+      backgroundColor: background,
+    };
+  });
   return (
     <DrawerContentScrollView
-      style={
-        themeState.theme == light
-          ? styles.drawerConteinerLight
-          : styles.drawerConteinerDark
-      }>
-      <View style={styles.mainConteiner}>
+      style={{
+        backgroundColor:
+          themeState.theme == light
+            ? colorObjectDrawer.drawerConteinerLightBack
+            : colorObjectDrawer.drawerConteinerDarkBack,
+      }}>
+      <Animated.View style={[styles.mainConteiner, rStyleDrawerCont]}>
         <View style={styles.imageConteiner}>
-          <UserImageComponent image={userInfoState.userImage} />
+          <UserImageComponent image={userInfoState.userInfo!.userImage} />
         </View>
         <View style={styles.userDataConteiner}>
           <View style={styles.descriptionTextConteiner}>
@@ -93,7 +127,9 @@ export const DrawerNestedCompinent = () => {
             </Text>
           </View>
           <View style={styles.userNameTextConteiner}>
-            <Text style={styles.userNameText}>{userInfoState.userName}</Text>
+            <Text style={styles.userNameText}>
+              {userInfoState.userInfo!.userName}
+            </Text>
           </View>
         </View>
         <TouchableOpacity
@@ -191,13 +227,11 @@ export const DrawerNestedCompinent = () => {
             {localisationState.local == ru ? exitRU : exitENG}
           </Text>
         </TouchableOpacity>
-      </View>
+      </Animated.View>
     </DrawerContentScrollView>
   );
 };
 const styles = StyleSheet.create({
-  drawerConteinerLight: {backgroundColor: '#c5b4a0'},
-  drawerConteinerDark: {backgroundColor: '#3a3450'},
   mainConteiner: {
     width: '100%',
     height: HEIGHT_APP,

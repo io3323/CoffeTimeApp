@@ -2,8 +2,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {AuthScreen} from '../screens/AuthScreen';
 import React from 'react';
 import {RegistScreen} from '../screens/RegistScreen';
-import {CustomBackButton} from '../../components/customComponents/customHeader/CustomBackButton';
-import {CustomHeaderTitle} from '../../components/customComponents/customHeader/CustomHeaderTitle';
 import {DetailedInfo} from '../screens/DetailedInfo';
 import {MapScreen, MapScreenName} from '../screens/MapScreen';
 import {CustomMapIcon} from '../../components/customComponents/customSegmentedControlIcon/CustomMapIcon';
@@ -12,10 +10,8 @@ import {CustomListIcon} from '../../components/customComponents/customSegmentedC
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {DetailProductInfo} from '../screens/DetailProductInfo';
 import {OrderScreen} from '../screens/OrderScreen';
-import {CustomBagShopButton} from '../../components/customComponents/customHeader/nestedElement/CustomBagShopButton';
-import {ShopListButton} from '../../components/customComponents/customHeader/ShopListButton';
-import {Provider, useSelector} from 'react-redux';
-import store, {RootState} from '../../redux/reduxStore/store';
+import {Provider} from 'react-redux';
+import store from '../../redux/reduxStore/store';
 import {
   AuthScreenName,
   DetailedInfoName,
@@ -27,37 +23,21 @@ import {
   RegistScreenName,
   SplachScreenName,
 } from './nameScreen';
-import {StyleSheet} from 'react-native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {CustomDrawer} from '../../components/customComponents/customHeader/CustomDrawer';
-import {light} from '../../themeNameApp';
 import {LoaderScreen} from '../screens/LoaderScreen';
 import {FavoriteCoffeScreen} from '../screens/FavoriteCoffeScreen';
 import {SplachScreen} from '../screens/SplachScreen';
+import {CustomTabBar} from '../../components/customComponents/customTabBar/CustomTabBar';
+import {CustomHeaderComponent} from '../../components/customComponents/customHeader/customHeaderElement/CustomHeaderComponent';
 export const AuthNavigator = () => {
-  const themeState = useSelector((state: RootState) => state.themeState);
   const Drawer = createDrawerNavigator();
   const Tab = createMaterialTopTabNavigator();
   const TabStack = () => {
     return (
       <Tab.Navigator
         initialRouteName={'Map'}
-        style={
-          themeState.theme == light
-            ? styles.mainTabBarLight
-            : styles.mainTabBarDark
-        }
-        screenOptions={{
-          tabBarStyle:
-            themeState.theme == light
-              ? styles.tabBarStyleTabNavLight
-              : styles.tabBarStyleTabNavDark,
-          tabBarIndicatorStyle:
-            themeState.theme == light
-              ? styles.tabBarIndicatorStyleTabNavLight
-              : styles.tabBarIndicatorStyleTabNavDark,
-          tabBarLabelStyle: styles.tabBarLabelStyleTabNav,
-        }}>
+        tabBar={props => <CustomTabBar {...props} />}>
         <Tab.Screen
           name={MapScreenName}
           component={MapScreen}
@@ -110,16 +90,8 @@ export const AuthNavigator = () => {
             name={NameTabStack}
             component={TabStack}
             options={{
+              header: () => <CustomHeaderComponent />,
               headerShown: true,
-              headerStyle:
-                themeState.theme == light
-                  ? styles.headerStyleStackScreenLight
-                  : styles.headerStyleStackScreenDark,
-              headerLeft: () => <CustomBackButton />,
-              headerBackVisible: false,
-              headerTitleAlign: 'center',
-              headerTitle: () => <CustomHeaderTitle />,
-              headerRight: () => <CustomBagShopButton />,
             }}
           />
           <Stack.Screen
@@ -127,15 +99,7 @@ export const AuthNavigator = () => {
             component={DetailedInfo}
             options={{
               headerShown: true,
-              headerStyle:
-                themeState.theme == light
-                  ? styles.headerStyleStackScreenLight
-                  : styles.headerStyleStackScreenDark,
-              headerTitleAlign: 'center',
-              headerBackVisible: false,
-              headerLeft: () => <CustomBackButton />,
-              headerTitle: () => <CustomHeaderTitle />,
-              headerRight: () => <ShopListButton />,
+              header: () => <CustomHeaderComponent />,
             }}
           />
           <Stack.Screen
@@ -143,15 +107,7 @@ export const AuthNavigator = () => {
             component={DetailProductInfo}
             options={{
               headerShown: true,
-              headerStyle:
-                themeState.theme == light
-                  ? styles.headerStyleStackScreenLight
-                  : styles.headerStyleStackScreenDark,
-              headerTitleAlign: 'center',
-              headerBackVisible: false,
-              headerLeft: () => <CustomBackButton />,
-              headerTitle: () => <CustomHeaderTitle />,
-              headerRight: () => <ShopListButton />,
+              header: () => <CustomHeaderComponent />,
             }}
           />
           <Stack.Screen
@@ -159,14 +115,7 @@ export const AuthNavigator = () => {
             component={OrderScreen}
             options={{
               headerShown: true,
-              headerStyle:
-                themeState.theme == light
-                  ? styles.headerStyleStackScreenLight
-                  : styles.headerStyleStackScreenDark,
-              headerTitleAlign: 'center',
-              headerBackVisible: false,
-              headerLeft: () => <CustomBackButton />,
-              headerTitle: () => <CustomHeaderTitle />,
+              header: () => <CustomHeaderComponent />,
             }}
           />
           <Stack.Screen
@@ -174,15 +123,7 @@ export const AuthNavigator = () => {
             component={FavoriteCoffeScreen}
             options={{
               headerShown: true,
-              headerStyle:
-                themeState.theme == light
-                  ? styles.headerStyleStackScreenLight
-                  : styles.headerStyleStackScreenDark,
-              headerTitleAlign: 'center',
-              headerBackVisible: false,
-              headerLeft: () => <CustomBackButton />,
-              headerTitle: () => <CustomHeaderTitle />,
-              headerRight: () => <ShopListButton />,
+              header: () => <CustomHeaderComponent />,
             }}
           />
         </Stack.Group>
@@ -206,72 +147,3 @@ export const AuthNavigator = () => {
     </Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  mainTabBarLight: {
-    backgroundColor: '#f2f2f2',
-  },
-  mainTabBarDark: {
-    backgroundColor: '#574d6c',
-  },
-  tabBarStyleTabNavLight: {
-    width: 130,
-    height: 35,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderRadius: 40,
-    borderColor: 'black',
-    justifyContent: 'center',
-    marginTop: 10,
-    marginBottom: 10,
-    alignSelf: 'center',
-  },
-  tabBarStyleTabNavDark: {
-    width: 130,
-    height: 35,
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderRadius: 40,
-    borderColor: 'white',
-    justifyContent: 'center',
-    marginTop: 10,
-    marginBottom: 10,
-    backgroundColor: '#574d6c',
-    alignSelf: 'center',
-  },
-  tabBarIndicatorStyleTabNavLight: {
-    backgroundColor: 'red',
-    borderWidth: 14,
-    borderRadius: 20,
-    borderColor: '#C8D9AF',
-    marginLeft: 4,
-    marginRight: 1,
-    marginTop: 10,
-    marginBottom: 2,
-    width: 55,
-  },
-  tabBarIndicatorStyleTabNavDark: {
-    backgroundColor: 'red',
-    borderWidth: 14,
-    borderRadius: 20,
-    borderColor: '#9989d9',
-    marginLeft: 4,
-    marginRight: 1,
-    marginTop: 10,
-    marginBottom: 2,
-    width: 55,
-  },
-  tabBarLabelStyleTabNav: {
-    color: 'red',
-    marginTop: -10,
-  },
-  headerStyleStackScreenLight: {
-    backgroundColor: '#EAEAEA',
-  },
-  headerStyleStackScreenDark: {
-    backgroundColor: '#3a3450',
-  },
-  drawerStyle: {
-    backgroundColor: '#c5b4a0',
-  },
-});

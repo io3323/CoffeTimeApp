@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
   },
   conteiner: {
     marginTop: 6,
-    marginRight: 25,
+    marginLeft: 25,
   },
 });

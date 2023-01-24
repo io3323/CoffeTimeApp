@@ -21,6 +21,10 @@ import favoriteProductSlice from '../reduxStateSlice/favoriteProductSlice';
 import favoriteScreenSlice from '../reduxStateSlice/favoriteScreenSlice';
 import authDataUserSlice from '../reduxStateSlice/authDataUserSlice';
 import settingsControllerSlice from '../reduxStateSlice/settingsControllerSlice';
+import layoutTabSlice from '../reduxStateSlice/layoutTabSlice';
+import switchThemeControllerSlice from '../reduxStateSlice/switchThemeControllerSlice';
+import securePasswordSlice from '../reduxStateSlice/securePasswordSlice';
+import writeIconControllerSlice from '../reduxStateSlice/writeIconControllerSlice';
 const rootReducer = combineReducers({
   coordinateState: coordinateSlice,
   [coffeData.reducerPath]: coffeData.reducer,
@@ -43,6 +47,10 @@ const rootReducer = combineReducers({
   favoriteScreenState: favoriteScreenSlice,
   authDataUserState: authDataUserSlice,
   settingsControllerState: settingsControllerSlice,
+  layoutTabState: layoutTabSlice,
+  switchThemeControllerState: switchThemeControllerSlice,
+  securePasswordState: securePasswordSlice,
+  writeIconControllerState: writeIconControllerSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -1,4 +1,4 @@
-import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {ru} from '../../../../localisationLanguageName';
 import {
   buttonAuthTitleENG,
@@ -19,11 +19,21 @@ import {
   MistakeUser,
 } from '../../../../externalFunctions/checkFunction';
 import {LoaderScreenName} from '../../../../navigation/navigator/nameScreen';
-import {createUserProfile} from '../../../../redux/reduxStateSlice/userInfoSlice';
+import {
+  addUserNameProfile,
+  addUserPasswordProfile,
+} from '../../../../redux/reduxStateSlice/userInfoSlice';
 import {useAddLoginMutation} from '../../../../redux/reduToolKitQuery';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {light} from '../../../../themeNameApp';
+import {
+  interpolateColor,
+  useAnimatedStyle,
+  useDerivedValue,
+  withTiming,
+} from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 export const AuthButtonActive = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   const authDataUserState = useSelector(
@@ -62,36 +72,44 @@ export const AuthButtonActive = () => {
   };
   const dispatch = useDispatch();
   const saveData = () => {
+    dispatch(addUserNameProfile({userName: authDataUserState.login}));
     dispatch(
-      createUserProfile({
-        userName: authDataUserState.login!,
-        userEmail: '',
-        userPassword: authDataUserState.password!,
-        userImage: '',
-      }),
+      addUserPasswordProfile({userPassword: authDataUserState.password}),
     );
   };
+  const progress = useDerivedValue(() =>
+    themeState.theme == light ? withTiming(0) : withTiming(1),
+  );
+  const rStyle = useAnimatedStyle(() => {
+    const backgroundColor = interpolateColor(
+      progress.value,
+      [0, 1],
+      ['#C8D9AF', '#bbb8ee'],
+    );
+    return {
+      backgroundColor: backgroundColor,
+      borderColor: backgroundColor,
+    };
+  });
   return (
-    <View style={styles.mainContainer}>
+    <Animated.View style={[styles.mainContainer]}>
       {authDataUserState.login !== '' &&
         authDataUserState.password !== '' &&
         indicatorButtonState.active === false && (
-          <TouchableOpacity
-            style={[
-              styles.buttonLogin,
-              themeState.theme == light ? styles.colorLight : styles.colorDark,
-            ]}
-            onPress={() => {
-              handleLoginScreen();
-            }}>
-            <Text style={styles.buttonTextLogin}>
-              {localisationState.local == ru
-                ? buttonAuthTitleRU
-                : buttonAuthTitleENG}
-            </Text>
-          </TouchableOpacity>
+          <Animated.View style={[styles.buttonLogin, rStyle]}>
+            <TouchableOpacity
+              onPress={() => {
+                handleLoginScreen();
+              }}>
+              <Text style={styles.buttonTextLogin}>
+                {localisationState.local == ru
+                  ? buttonAuthTitleRU
+                  : buttonAuthTitleENG}
+              </Text>
+            </TouchableOpacity>
+          </Animated.View>
         )}
-    </View>
+    </Animated.View>
   );
 };
 

@@ -5,6 +5,7 @@ import {AuthButtonActive} from './authButtonDetail/AuthButtonActive';
 import {AuthButtonNotActive} from './authButtonDetail/AuthButtonNotActive';
 import {AuthRegistButton} from './authButtonDetail/AuthRegistButton';
 import {AuthButtonActivityIndicator} from './authButtonDetail/AuthButtonActivityIndicator';
+import { HEIGHT_APP } from "../../../definitionSize";
 const LoginForm = () => {
   return (
     <View style={styles.mainContainer}>
@@ -29,14 +30,14 @@ export default LoginForm;
 const styles = StyleSheet.create({
   mainContainer: {
     marginTop: '25%',
-    height: 230,
+    height: HEIGHT_APP,
   },
   buttonConteiner: {
     width: '100%',
-    height: '30%',
+    height: '10%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '5%',
+    marginTop: '1%',
   },
   registConteiner: {
     width: '100%',

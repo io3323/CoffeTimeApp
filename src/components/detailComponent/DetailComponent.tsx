@@ -14,7 +14,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
 import {useRef} from 'react';
 import {useGetProductInfoMutation} from '../../redux/reduToolKitQuery';
-import {Separator} from '../listComponent/CardFlatList/Separator';
+import {Separator} from '../listComponent/Separator/Separator';
 import {CardProductsComponent} from './nestedComponent/CardProductsComponent';
 import {addInfoCeffeProduct} from '../../redux/reduxStateSlice/infoProductCoffeSlice';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
