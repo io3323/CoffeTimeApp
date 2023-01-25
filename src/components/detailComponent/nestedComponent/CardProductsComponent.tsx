@@ -19,6 +19,7 @@ import {light} from '../../../themeNameApp';
 import rubleIconDark from '../../../assets/image/detailScreen/rubleIconDark.png';
 import {addFavoriteProduct} from '../../../redux/reduxStateSlice/favoriteProductSlice';
 import {updateIncludeFunction} from '../../../externalFunctions/updateIncludeFunction';
+import {useTranslation} from 'react-i18next';
 type CartProductsType = {
   id: string;
   name: string;
@@ -40,6 +41,7 @@ export const CardProductsComponent: FunctionComponent<CartProductsType> = ({
   const favoriteProductState = useSelector(
     (state: RootState) => state.favoriteProductState,
   );
+  const {t} = useTranslation();
   return (
     <View
       style={
@@ -56,7 +58,7 @@ export const CardProductsComponent: FunctionComponent<CartProductsType> = ({
           style={
             themeState.theme == light ? styles.fraseLight : styles.fraseDark
           }>
-          кофейный напиток
+          {t('common:detailScreen:description')}
         </Text>
       </View>
       <ImageBackground

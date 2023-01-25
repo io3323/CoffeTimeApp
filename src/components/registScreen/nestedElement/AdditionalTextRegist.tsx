@@ -1,23 +1,13 @@
 import {StyleSheet, Text, View} from 'react-native';
-import {ru} from '../../../localisationLanguageName';
-import {
-  addirinalRegistTextENG,
-  addirinalRegistTextRU,
-} from '../../../localisationScreen/RegistScreenLocal';
 import {WIDTH_APP} from '../../../definitionSize';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../../redux/reduxStore/store';
+import {useTranslation} from 'react-i18next';
 
 export const AdditionalTextRegist = () => {
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  const {t} = useTranslation();
   return (
     <View style={styles.additinalTextConteiner}>
       <Text style={styles.additinalText}>
-        {localisationState.local == ru
-          ? addirinalRegistTextRU
-          : addirinalRegistTextENG}
+        {t('common:registScreen:additionalText')}
       </Text>
     </View>
   );
@@ -32,6 +22,6 @@ const styles = StyleSheet.create({
   additinalText: {
     fontSize: 16,
     color: '#FFFFFF',
-    fontFamily: 'Helvetica',
+    fontFamily: 'SFUIText-Bold',
   },
 });

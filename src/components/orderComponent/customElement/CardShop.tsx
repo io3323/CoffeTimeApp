@@ -16,6 +16,7 @@ import deleteIcon from '../../../assets/image/detailProductScreen/delete.png';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {light} from '../../../themeNameApp';
+import {useTranslation} from 'react-i18next';
 interface ICardShop {
   id: string;
   productName: string;
@@ -36,6 +37,7 @@ export const CardShop: FunctionComponent<ICardShop> = ({
   count,
   prevPrice,
 }) => {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const [controler, setControler] = useState(true);
   const themeState = useSelector((state: RootState) => state.themeState);
@@ -135,7 +137,7 @@ export const CardShop: FunctionComponent<ICardShop> = ({
                       ? styles.textShopLight
                       : styles.textShopDark
                   }>
-                  Магазин заказа:
+                  {t('common:orderScreen:cardShop:shopDescription')}
                 </Text>
                 <Text
                   style={
@@ -152,7 +154,7 @@ export const CardShop: FunctionComponent<ICardShop> = ({
                         ? styles.priceDesriptionLight
                         : styles.priceDesriptionDark
                     }>
-                    Цена:
+                    {t('common:orderScreen:cardShop:price')}
                   </Text>
                   <View style={styles.priceConteiner}>
                     <Text
@@ -173,7 +175,12 @@ export const CardShop: FunctionComponent<ICardShop> = ({
                         : styles.rubleIconDark
                     }
                   />
-                  <View style={themeState.theme == light ? styles.conteinerButtonLight : styles.conteinerButtonDark}>
+                  <View
+                    style={
+                      themeState.theme == light
+                        ? styles.conteinerButtonLight
+                        : styles.conteinerButtonDark
+                    }>
                     <Decrement />
                     <View style={styles.countConteiner}>
                       <Text

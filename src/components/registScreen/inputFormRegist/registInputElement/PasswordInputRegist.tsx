@@ -1,19 +1,14 @@
 import {StyleSheet, TextInput, View} from 'react-native';
-import {ru} from '../../../../localisationLanguageName';
-import {
-  placehjlderRegistPasswordENG,
-  placehjlderRegistPasswordRU,
-} from '../../../../localisationScreen/RegistScreenLocal';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {addUserPasswordProfile} from '../../../../redux/reduxStateSlice/userInfoSlice';
 import {light} from '../../../../themeNameApp';
 import {inputRegistColorObject} from './colorRegistObject/inputRegistColorObject';
+import {useTranslation} from 'react-i18next';
 
 export const PasswordInputRegist = () => {
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  const {t} = useTranslation();
+  let textPlaceholder = t('common:registScreen:passwordInput');
   const dispatch = useDispatch();
   const userInfoState = useSelector((state: RootState) => state.userInfoState);
   const securePasswordState = useSelector(
@@ -23,11 +18,7 @@ export const PasswordInputRegist = () => {
   return (
     <View style={styles.inputConteiner}>
       <TextInput
-        placeholder={
-          localisationState.local == ru
-            ? placehjlderRegistPasswordRU
-            : placehjlderRegistPasswordENG
-        }
+        placeholder={textPlaceholder}
         placeholderTextColor={
           themeState.theme == light
             ? inputRegistColorObject.placeholderColorLight

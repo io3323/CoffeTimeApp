@@ -3,22 +3,21 @@ import {Switch} from 'react-native-switch';
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
-import {
-  changeLanguage,
-  changeLanguageController,
-} from '../../../../redux/reduxStateSlice/localisationSlice';
-import {eng, ru} from '../../../../localisationLanguageName';
-
+import {changeLanguageController} from '../../../../redux/reduxStateSlice/localisationSlice';
+import {en, ru} from '../../../../localisationLanguageName';
+import {useTranslation} from 'react-i18next';
 export const SettingsLanguageSwitch = () => {
   const dispatch = useDispatch();
   const localisationState = useSelector(
     (state: RootState) => state.localisationState,
   );
+  const {i18n} = useTranslation();
+  const changeLanguage = (language: string) => {
+    i18n.changeLanguage(language);
+  };
   const toggleSwitch = () => {
     dispatch(changeLanguageController());
-    localisationState.localController
-      ? dispatch(changeLanguage({local: ru}))
-      : dispatch(changeLanguage({local: eng}));
+    localisationState.localController ? changeLanguage(ru) : changeLanguage(en);
   };
   return (
     <View>

@@ -1,17 +1,11 @@
 import {StyleSheet, Text, View} from 'react-native';
-import {ru} from '../../../localisationLanguageName';
-import {
-  addirinalAuthTextENG,
-  addirinalAuthTextRU,
-} from '../../../localisationScreen/AuthScreenLocal';
 import {WIDTH_APP} from '../../../definitionSize';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
-
+import {useTranslation} from 'react-i18next';
 export const TextAuthComponent = () => {
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  useSelector((state: RootState) => state.localisationState);
+  const {t} = useTranslation();
   return (
     <View>
       <View style={styles.textConteinerMain}>
@@ -21,9 +15,7 @@ export const TextAuthComponent = () => {
       </View>
       <View style={styles.additinalTextConteiner}>
         <Text style={styles.additinalText}>
-          {localisationState.local == ru
-            ? addirinalAuthTextRU
-            : addirinalAuthTextENG}
+          {t('common:authScreen:additionalText')}
         </Text>
       </View>
     </View>

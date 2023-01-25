@@ -1,9 +1,5 @@
 import {Alert, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {ru} from '../../../localisationLanguageName';
-import {
-  buttonRegistENG,
-  buttonRegistRU,
-} from '../../../localisationScreen/RegistScreenLocal';
 import {changeButtonIndicatorState} from '../../../redux/reduxStateSlice/indicatorButtonSlice';
 import {addToken} from '../../../redux/reduxStateSlice/tokenSlice';
 import {
@@ -25,6 +21,7 @@ import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {light} from '../../../themeNameApp';
 import {buttonRegistObjectColor} from './buttonRegistObjectColor';
+import {useTranslation} from 'react-i18next';
 
 export const ActiveButtonRegist = () => {
   const [addLogin] = useAddLoginMutation();
@@ -56,6 +53,7 @@ export const ActiveButtonRegist = () => {
       );
     }
   };
+  const {t} = useTranslation();
   const handleTransitionMainScreen = () => {
     handleRegistScreen();
   };
@@ -76,7 +74,7 @@ export const ActiveButtonRegist = () => {
       ]}
       onPress={() => handleTransitionMainScreen()}>
       <Text style={styles.buttonTextLogin}>
-        {localisationState.local == ru ? buttonRegistRU : buttonRegistENG}
+        {t('common:registScreen:button')}
       </Text>
     </TouchableOpacity>
   );

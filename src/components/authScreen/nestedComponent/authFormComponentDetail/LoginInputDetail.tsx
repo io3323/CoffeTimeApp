@@ -24,6 +24,7 @@ import {
   withTiming,
 } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 export const LoginInputDetail = () => {
   const localisationState = useSelector(
@@ -48,15 +49,13 @@ export const LoginInputDetail = () => {
       backgroundColor: background,
     };
   });
+  const {t} = useTranslation();
+  let playcholderText = t('common:authScreen:loginInput');
   const dispatch = useDispatch();
   return (
     <View style={styles.inputConteiner}>
       <TextInput
-        placeholder={
-          localisationState.local == ru
-            ? placeholderAuthLoginRu
-            : placeholderAuthLoginENG
-        }
+        placeholder={playcholderText}
         cursorColor={
           themeState.theme == light
             ? formObjectColor.colorLight

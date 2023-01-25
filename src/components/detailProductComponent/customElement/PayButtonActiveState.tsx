@@ -9,16 +9,10 @@ import {
   addBasket,
   deleteBasket,
 } from '../../../redux/reduxStateSlice/basketUserSlice';
-import {ru} from '../../../localisationLanguageName';
-import {
-  buttonNormalProductDetailENG,
-  buttonNormalProductDetailRU,
-} from '../../../localisationScreen/DetailProductScreenLocal';
 import {light} from '../../../themeNameApp';
+import {useTranslation} from 'react-i18next';
 export const PayButtonActiveState = () => {
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  const {t} = useTranslation();
   const basketObjectState = useSelector(
     (state: RootState) => state.basketObjectState,
   );
@@ -78,9 +72,7 @@ export const PayButtonActiveState = () => {
         themeState.theme == light ? styles.conteinerLight : styles.conteinerDark
       }>
       <Text style={styles.textBlock}>
-        {localisationState.local == ru
-          ? buttonNormalProductDetailRU
-          : buttonNormalProductDetailENG}
+        {t('common:detailProductScreen:button')}
       </Text>
       <DecrementButton />
       <View

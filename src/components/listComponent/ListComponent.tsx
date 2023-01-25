@@ -15,7 +15,6 @@ import {
   LogBox,
   RefreshControl,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -30,21 +29,15 @@ import cafeIconDark from '../../assets/image/listScreen/cafeIconDark.png';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DetailedInfoName} from '../../navigation/navigator/nameScreen';
 import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
-import {ru} from '../../localisationLanguageName';
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
   useDerivedValue,
   withSpring,
 } from 'react-native-reanimated';
-import {
-  descriptionInfoListENG,
-  descriptionInfoListRu,
-  descriptionLocateListENG,
-  descriptionLocateListRU,
-} from '../../localisationScreen/ListScreenLocal';
 import {light} from '../../themeNameApp';
 import {colorFlatListObject} from './colorFlatListObject';
+import {useTranslation} from 'react-i18next';
 type ItemModel = {
   id: string;
   name: string;
@@ -55,15 +48,12 @@ type ItemModel = {
 };
 LogBox.ignoreLogs(['source.uri']);
 export const ListComponent = () => {
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const tokenUser = useSelector((state: RootState) => state.tokenState);
   const coffeDataState = useSelector(
     (state: RootState) => state.coffeDataState,
   );
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
-
   const themeState = useSelector((state: RootState) => state.themeState);
   const [getCoffe] = useGetCoffeMutation();
   const [getCafe] = useGetCafeMutation();
@@ -168,19 +158,14 @@ export const ListComponent = () => {
             {item.name}
           </Animated.Text>
           <Animated.Text style={[styles.adressDesription, rStyleTextColorDesc]}>
-            {localisationState.local == ru
-              ? descriptionLocateListRU
-              : descriptionLocateListENG}
-            :
+            {t('common:listScreen:descriptionLocate')}
           </Animated.Text>
           <Animated.Text style={[styles.adressColor, rStyleTextColorDesc]}>
             {item.address}
           </Animated.Text>
           <View style={styles.conteinerGoIcon}>
             <Animated.Text style={rStyleTextColorInfo}>
-              {localisationState.local == ru
-                ? descriptionInfoListRu
-                : descriptionInfoListENG}
+              {t('common:listScreen:descriptionInfo')}
             </Animated.Text>
             <Image
               style={

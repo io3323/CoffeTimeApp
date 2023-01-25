@@ -1,30 +1,21 @@
 import {StyleSheet, TextInput, View} from 'react-native';
-import {ru} from '../../../../localisationLanguageName';
-import {
-  placehjlderRegistEmailENG,
-  placehjlderRegistEmailRU,
-} from '../../../../localisationScreen/RegistScreenLocal';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {addUserEmailProfile} from '../../../../redux/reduxStateSlice/userInfoSlice';
 import {inputRegistColorObject} from './colorRegistObject/inputRegistColorObject';
 import {light} from '../../../../themeNameApp';
+import {useTranslation} from 'react-i18next';
 
 export const EmailInputRegist = () => {
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  const {t} = useTranslation();
   const themeState = useSelector((state: RootState) => state.themeState);
   const userInfoState = useSelector((state: RootState) => state.userInfoState);
   const dispatch = useDispatch();
+  let textPlaceholder = t('common:registScreen:emailInput');
   return (
     <View style={styles.inputConteiner}>
       <TextInput
-        placeholder={
-          localisationState.local == ru
-            ? placehjlderRegistEmailRU
-            : placehjlderRegistEmailENG
-        }
+        placeholder={textPlaceholder}
         placeholderTextColor={
           themeState.theme == light
             ? inputRegistColorObject.placeholderColorLight

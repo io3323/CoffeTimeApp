@@ -1,30 +1,21 @@
 import {StyleSheet, TextInput, View} from 'react-native';
-import {ru} from '../../../../localisationLanguageName';
-import {
-  placehjlderRegistNameENG,
-  placehjlderRegistNameRU,
-} from '../../../../localisationScreen/RegistScreenLocal';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {addUserNameProfile} from '../../../../redux/reduxStateSlice/userInfoSlice';
 import {light} from '../../../../themeNameApp';
 import {inputRegistColorObject} from './colorRegistObject/inputRegistColorObject';
+import {useTranslation} from 'react-i18next';
 
 export const NameInputRegist = () => {
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  const {t} = useTranslation();
   const themeState = useSelector((state: RootState) => state.themeState);
   const userInfoState = useSelector((state: RootState) => state.userInfoState);
   const dispatch = useDispatch();
+  let textPlaceholder = t('common:registScreen:nameInput');
   return (
     <View style={styles.inputConteiner}>
       <TextInput
-        placeholder={
-          localisationState.local == ru
-            ? placehjlderRegistNameRU
-            : placehjlderRegistNameENG
-        }
+        placeholder={textPlaceholder}
         placeholderTextColor={
           themeState.theme == light
             ? inputRegistColorObject.placeholderColorLight

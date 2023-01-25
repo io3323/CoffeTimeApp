@@ -1,11 +1,4 @@
-import {
-  Image,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Switch} from 'react-native-switch';
 import {DrawerContentScrollView} from '@react-navigation/drawer';
 import {HEIGHT_APP} from '../../../../definitionSize';
@@ -22,23 +15,12 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import shoppingBagWhite from '../../../../assets/image/rigtNavigateIcon/shoppingbagWhite.png';
 import React, {useEffect, useState} from 'react';
 import rubleGray from '../../../../assets/image/rigtNavigateIcon/ruble.png';
-import {
-  changeLanguage,
-  changeLanguageController,
-} from '../../../../redux/reduxStateSlice/localisationSlice';
+import {changeLanguageController} from '../../../../redux/reduxStateSlice/localisationSlice';
 import favoriteCoffeIcon from '../../../../assets/image/mainScreen/favoriteCoffe.png';
-import {eng, ru} from '../../../../localisationLanguageName';
+import {en, ru} from '../../../../localisationLanguageName';
 import {
-  bagShopDrawerENG,
-  bagShopDrawerRU,
   exitENG,
   exitRU,
-  langDrawerENG,
-  langDrawerRU,
-  themeDrawwerENG,
-  themeDrawwerRU,
-  userNameDrawerENG,
-  userNameDrawerRU,
 } from '../../../../localisationScreen/DrawerNestedCompineLocal';
 import {
   changeControllerTheme,
@@ -49,13 +31,13 @@ import {
   interpolateColor,
   useAnimatedStyle,
   useDerivedValue,
-  useSharedValue,
   withSpring,
-  withTiming,
 } from 'react-native-reanimated';
 import {colorObjectDrawer} from './colorObjectNestedComponent/colorObjectDrawer';
 import Animated from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 export const DrawerNestedCompinent = () => {
+  const {t, i18n} = useTranslation();
   const userInfoState = useSelector((state: RootState) => state.userInfoState);
   const localisationState = useSelector(
     (state: RootState) => state.localisationState,
@@ -63,11 +45,12 @@ export const DrawerNestedCompinent = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const dispatch = useDispatch();
+  const changeLanguge = (language: string) => {
+    i18n.changeLanguage(language);
+  };
   const toggleSwitch = () => {
     dispatch(changeLanguageController());
-    localisationState.localController
-      ? dispatch(changeLanguage({local: ru}))
-      : dispatch(changeLanguage({local: eng}));
+    localisationState.localController ? changeLanguge(ru) : changeLanguge(en);
   };
   const toggleSwitchTheme = () => {
     dispatch(changeControllerTheme());
@@ -120,10 +103,7 @@ export const DrawerNestedCompinent = () => {
         <View style={styles.userDataConteiner}>
           <View style={styles.descriptionTextConteiner}>
             <Text style={styles.descriptionText}>
-              {localisationState.local == ru
-                ? userNameDrawerRU
-                : userNameDrawerENG}
-              :
+              {t('common:drawerScreen:userName')}
             </Text>
           </View>
           <View style={styles.userNameTextConteiner}>
@@ -137,10 +117,7 @@ export const DrawerNestedCompinent = () => {
           onPress={() => navigation.navigate(OrderScreenName)}>
           <View style={styles.bagTextConteiner}>
             <Text style={styles.bagText}>
-              {localisationState.local == ru
-                ? bagShopDrawerRU
-                : bagShopDrawerENG}
-              :
+              {t('common:drawerScreen:bagShop')}
             </Text>
           </View>
           <View style={styles.bagIconConteiner}>
@@ -159,8 +136,12 @@ export const DrawerNestedCompinent = () => {
         </TouchableOpacity>
         <View style={styles.favoriteCoffeConteiner}>
           <View style={styles.favoriteTextConteiner}>
-            <Text style={styles.favoriteText}>Избранные</Text>
-            <Text style={styles.favoriteText}>напитки:</Text>
+            <Text style={styles.favoriteText}>
+              {t('common:drawerScreen:favorite')}
+            </Text>
+            <Text style={styles.favoriteText}>
+              {t('common:drawerScreen:drinks')}
+            </Text>
           </View>
           <TouchableOpacity
             style={styles.favoriteIconConteiner}
@@ -174,7 +155,7 @@ export const DrawerNestedCompinent = () => {
         <View style={styles.switchMainConteiner}>
           <View style={styles.textSwitchConteiner}>
             <Text style={styles.textSwitch}>
-              {localisationState.local == ru ? langDrawerRU : langDrawerENG}:
+              {t('common:drawerScreen:language')}
             </Text>
           </View>
           <View style={styles.switchConteiner}>
@@ -197,8 +178,7 @@ export const DrawerNestedCompinent = () => {
         <View style={styles.switchMainConteiner}>
           <View style={styles.textSwitchConteiner}>
             <Text style={styles.textSwitch}>
-              {localisationState.local == ru ? themeDrawwerRU : themeDrawwerENG}
-              :
+              {t('common:drawerScreen:theme')}
             </Text>
           </View>
           <View style={styles.switchConteiner}>

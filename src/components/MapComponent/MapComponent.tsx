@@ -21,11 +21,6 @@ import locatedDark from '../../assets/image/mapScreen/locatedDark.png';
 import searchDark from '../../assets/image/mapScreen/searchDark.png';
 import {addMarkers} from '../../redux/reduxStateSlice/coordinateMasSplice';
 import mapDarkStyle from '../MapComponent/mapDarkStyle.json';
-import {ru} from '../../localisationLanguageName';
-import {
-  distansMapENG,
-  distansMapRU,
-} from '../../localisationScreen/MapScreenLocal';
 import {light} from '../../themeNameApp';
 import {
   interpolateColor,
@@ -34,6 +29,7 @@ import {
   withSpring,
 } from 'react-native-reanimated';
 import {MapColorObject} from './MapColorObject';
+import {useTranslation} from 'react-i18next';
 const requestLocationPermission = async () => {
   try {
     if (Platform.OS === 'ios') {
@@ -70,6 +66,7 @@ const requestLocationPermission = async () => {
   }
 };
 export const MapComponent = () => {
+  const {t} = useTranslation();
   const coffeDataState = useSelector(
     (state: RootState) => state.coffeDataState,
   );
@@ -77,9 +74,6 @@ export const MapComponent = () => {
     (state: RootState) => state.coordinateMasState,
   );
   const dispatch = useDispatch();
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
   const themeState = useSelector((state: RootState) => state.themeState);
   useEffect(() => {
     dispatch(addMarkers(coffeDataState));
@@ -185,9 +179,7 @@ export const MapComponent = () => {
               CoffeTime
             </Animated.Text>
             <Separator />
-            <Text style={styles.subText}>
-              {localisationState.local == ru ? distansMapRU : distansMapENG}
-            </Text>
+            <Text style={styles.subText}>{t('common:mapScreen:distance')}</Text>
           </Animated.View>
         </View>
       </View>

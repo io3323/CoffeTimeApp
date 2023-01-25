@@ -1,20 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
-import {ru} from '../../../localisationLanguageName';
-import {
-  buttonRegistENG,
-  buttonRegistRU,
-} from '../../../localisationScreen/RegistScreenLocal';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../../redux/reduxStore/store';
+import {useTranslation} from 'react-i18next';
 
 export const NotActiveButtonRegist = () => {
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  const {t} = useTranslation();
   return (
     <View style={styles.buttonLoginNoActive}>
       <Text style={styles.buttonTextLogin}>
-        {localisationState.local == ru ? buttonRegistRU : buttonRegistENG}
+        {t('common:registScreen:button')}
       </Text>
     </View>
   );

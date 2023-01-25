@@ -27,6 +27,7 @@ import {
   withTiming,
 } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 export const PasswordInputDetail = () => {
   const [securePassword, setSecurePassword] = useState(true);
@@ -53,14 +54,12 @@ export const PasswordInputDetail = () => {
     };
   });
   const dispatch = useDispatch();
+  const {t} = useTranslation();
+  let passwordPlaceholder = t('common:authScreen:passwordInput');
   return (
     <View style={styles.inputConteiner}>
       <TextInput
-        placeholder={
-          localisationState.local == ru
-            ? placeholderAuthPasswordRu
-            : placeholderAuthPasswordENG
-        }
+        placeholder={passwordPlaceholder}
         cursorColor={
           themeState.theme == light
             ? formObjectColor.colorLight

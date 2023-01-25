@@ -3,12 +3,8 @@ import {addBasket} from '../../../redux/reduxStateSlice/basketUserSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import {FunctionComponent} from 'react';
 import {RootState} from '../../../redux/reduxStore/store';
-import {ru} from '../../../localisationLanguageName';
-import {
-  buttonNormalProductDetailENG,
-  buttonNormalProductDetailRU,
-} from '../../../localisationScreen/DetailProductScreenLocal';
 import {light} from '../../../themeNameApp';
+import {useTranslation} from 'react-i18next';
 interface IButtonState {
   id: string;
   productName: string;
@@ -30,9 +26,7 @@ export const PayButtonNormalState: FunctionComponent<IButtonState> = ({
   prevPrice,
 }) => {
   const themeState = useSelector((state: RootState) => state.themeState);
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  const {t} = useTranslation();
   const dispatch = useDispatch();
   const userBasketAdd = (
     idFunc: string,
@@ -73,9 +67,7 @@ export const PayButtonNormalState: FunctionComponent<IButtonState> = ({
         );
       }}>
       <Text style={styles.textButton}>
-        {localisationState.local == ru
-          ? buttonNormalProductDetailRU
-          : buttonNormalProductDetailENG}
+        {t('common:detailProductScreen:button')}
       </Text>
     </TouchableOpacity>
   );

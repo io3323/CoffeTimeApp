@@ -1,13 +1,4 @@
 import {Alert, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {ru} from '../../../../localisationLanguageName';
-import {
-  buttonAuthTitleENG,
-  buttonAuthTitleRU,
-  networkStatusENG,
-  networkStatusRU,
-  userDataAuthENG,
-  userDataAuthRU,
-} from '../../../../localisationScreen/AuthScreenLocal';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {changeButtonIndicatorState} from '../../../../redux/reduxStateSlice/indicatorButtonSlice';
@@ -34,16 +25,15 @@ import {
   withTiming,
 } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 export const AuthButtonActive = () => {
+  const {t} = useTranslation();
   const themeState = useSelector((state: RootState) => state.themeState);
   const authDataUserState = useSelector(
     (state: RootState) => state.authDataUserState,
   );
   const indicatorButtonState = useSelector(
     (state: RootState) => state.indicatorButtonState,
-  );
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
   );
   const [addLogin] = useAddLoginMutation();
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
@@ -60,14 +50,10 @@ export const AuthButtonActive = () => {
       navigation.navigate(LoaderScreenName);
     } else if (checkResult === MistakeUser) {
       dispatch(changeButtonIndicatorState({active: false}));
-      Alert.alert(
-        localisationState.local == ru ? userDataAuthRU : userDataAuthENG,
-      );
+      Alert.alert(t('common:authScreen:dataError'));
     } else if (checkResult === ERORNet) {
       dispatch(changeButtonIndicatorState({active: false}));
-      Alert.alert(
-        localisationState.local == ru ? networkStatusRU : networkStatusENG,
-      );
+      Alert.alert(t('common:authScreen:networkError'));
     }
   };
   const dispatch = useDispatch();
@@ -102,9 +88,7 @@ export const AuthButtonActive = () => {
                 handleLoginScreen();
               }}>
               <Text style={styles.buttonTextLogin}>
-                {localisationState.local == ru
-                  ? buttonAuthTitleRU
-                  : buttonAuthTitleENG}
+                {t('common:authScreen:button')}
               </Text>
             </TouchableOpacity>
           </Animated.View>

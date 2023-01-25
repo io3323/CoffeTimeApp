@@ -7,6 +7,7 @@ import {
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {light} from '../../../../themeNameApp';
+import {useTranslation} from 'react-i18next';
 
 export const AuthButtonNotActive = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
@@ -16,9 +17,7 @@ export const AuthButtonNotActive = () => {
   const indicatorButtonState = useSelector(
     (state: RootState) => state.indicatorButtonState,
   );
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  const {t} = useTranslation();
   return (
     <View style={styles.mainContainer}>
       {((authDataUserState.login === '' &&
@@ -36,9 +35,7 @@ export const AuthButtonNotActive = () => {
             themeState.theme == light ? styles.colorLight : styles.colorDark,
           ]}>
           <Text style={styles.buttonTextLogin}>
-            {localisationState.local == ru
-              ? buttonAuthTitleRU
-              : buttonAuthTitleENG}
+            {t('common:authScreen:button')}
           </Text>
         </View>
       )}

@@ -18,24 +18,13 @@ import {SwipeListView} from 'react-native-swipe-list-view';
 import {IBasketUser} from '../../redux/reduxStateSlice/basketUserSlice';
 import {CardShopTransitionComponent} from './customElement/CardShopTransitionComponent';
 import {HiddenEllement, ItemModel} from './customElement/HiddenEllement';
-import {ru} from '../../localisationLanguageName';
-import {
-  buttonByyOrderENG,
-  buttonByyOrderRU,
-  drinkCountOrderENG,
-  drinkCountOrderRU,
-  drinksCountOrderENG,
-  drinksCountOrderRU,
-  drinkV2CountOrderRU,
-} from '../../localisationScreen/OrderScreenLocal';
 import {light} from '../../themeNameApp';
+import {useTranslation} from 'react-i18next';
 export const OrderComponent = () => {
   const basketUserState = useSelector(
     (state: RootState) => state.basketUserState,
   );
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  useSelector((state: RootState) => state.localisationState);
   const themeState = useSelector((state: RootState) => state.themeState);
   const [controller, setController] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
@@ -59,6 +48,7 @@ export const OrderComponent = () => {
     setTotalPrice(totalPriceVariable);
     setTotalCount(totalCountVariable);
   }, [basketUserState]);
+  const {t} = useTranslation();
   const InitialPage = () => {
     return (
       <View style={styles.mainInitialConteiner}>
@@ -70,7 +60,7 @@ export const OrderComponent = () => {
                 ? styles.textInitialPageLight
                 : styles.textInitialPageDark
             }>
-            Здесь нет ни одной чашки кофе
+            {t('common:orderScreen:initialLabelUp')}
           </Text>
           <Text
             style={
@@ -78,7 +68,7 @@ export const OrderComponent = () => {
                 ? styles.textInitialPageLight
                 : styles.textInitialPageDark
             }>
-            Попробуйте вернуться к нам позже
+            {t('common:orderScreen:initialLabelDawn')}
           </Text>
         </View>
       </View>
@@ -154,10 +144,7 @@ export const OrderComponent = () => {
                               ? styles.totalCountsProductLight
                               : styles.totalCountsProductDark
                           }>
-                          {totalCount}{' '}
-                          {localisationState.local == ru
-                            ? drinkCountOrderRU
-                            : drinkCountOrderENG}
+                          {totalCount} {t('common:orderScreen:drinkCount')}
                         </Text>
                       )}
                       {(totalCount == 2 ||
@@ -169,10 +156,7 @@ export const OrderComponent = () => {
                               ? styles.totalCountsProductLight
                               : styles.totalCountsProductDark
                           }>
-                          {totalCount}{' '}
-                          {localisationState.local == ru
-                            ? drinkV2CountOrderRU
-                            : drinkCountOrderENG}
+                          {totalCount} {t('common:orderScreen:drinkCountV2')}
                         </Text>
                       )}
                       {totalCount != 1 &&
@@ -185,10 +169,7 @@ export const OrderComponent = () => {
                                 ? styles.totalCountsProductLight
                                 : styles.totalCountsProductDark
                             }>
-                            {totalCount}{' '}
-                            {localisationState.local == ru
-                              ? drinksCountOrderRU
-                              : drinksCountOrderENG}
+                            {totalCount} {t('common:orderScreen:drinksCount')}
                           </Text>
                         )}
                     </View>
@@ -221,9 +202,7 @@ export const OrderComponent = () => {
                           : styles.buttonDark
                       }>
                       <Text style={styles.textButton}>
-                        {localisationState.local == ru
-                          ? buttonByyOrderRU
-                          : buttonByyOrderENG}
+                        {t('common:orderScreen:button')}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -307,12 +286,14 @@ const styles = StyleSheet.create({
     height: 160,
   },
   textInitialPageLight: {
+    alignSelf: 'center',
     marginTop: 20,
     fontFamily: 'SFUIText-Light',
     fontSize: 18,
     color: '#474747',
   },
   textInitialPageDark: {
+    alignSelf: 'center',
     marginTop: 20,
     fontFamily: 'SFUIText-Light',
     fontSize: 18,

@@ -26,14 +26,10 @@ import {PayButtonNormalState} from './customElement/PayButtonNormalState';
 import {PayButtonActiveState} from './customElement/PayButtonActiveState';
 import {addBacketObject} from '../../redux/reduxStateSlice/basketObjectSlice';
 import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
-import {ru} from '../../localisationLanguageName';
-import {
-  descriptionProductDetailENG,
-  descriptionProductDetailRU,
-} from '../../localisationScreen/DetailProductScreenLocal';
 import {light} from '../../themeNameApp';
 import {updateIncludeFunction} from '../../externalFunctions/updateIncludeFunction';
 import {addFavoriteProduct} from '../../redux/reduxStateSlice/favoriteProductSlice';
+import {useTranslation} from 'react-i18next';
 export const DetailProductComponent = () => {
   const infoProductCoffeState = useSelector(
     (state: RootState) => state.infoProductCoffeState,
@@ -45,9 +41,7 @@ export const DetailProductComponent = () => {
     (state: RootState) => state.basketUserState,
   );
   const dispatch = useDispatch();
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  const {t} = useTranslation();
   const themeState = useSelector((state: RootState) => state.themeState);
   const basketObjectState = useSelector(
     (state: RootState) => state.basketObjectState,
@@ -227,9 +221,7 @@ export const DetailProductComponent = () => {
                       : styles.textDescriptionDark
                   }>
                   {infoProductCoffeState.productName} –{' '}
-                  {localisationState.local == ru
-                    ? descriptionProductDetailRU
-                    : descriptionProductDetailENG}
+                  {t('common:detailProductScreen:descriptionProduct')}
                 </Text>
               </View>
             </View>
