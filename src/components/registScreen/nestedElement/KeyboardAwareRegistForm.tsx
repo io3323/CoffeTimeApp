@@ -1,38 +1,30 @@
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import RegisterForm from '../RegisterForm';
-import {Keyboard, StyleSheet, View} from 'react-native';
-import {useEffect, useState} from 'react';
+import {StyleSheet} from 'react-native';
+import {KeyboardCheck} from '../../generalComponent/KeyboardCheck';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../../redux/reduxStore/store';
 
 export const KeyboardAwareRegistForm = () => {
-  const [keyboardStatus, setKeyboardStatus] = useState(false);
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-      setKeyboardStatus(true);
-    });
-    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardStatus(false);
-    });
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  });
+  const keyboardStatusState = useSelector(
+    (state: RootState) => state.keyboardStatusState,
+  );
   return (
-    <View>
+    <KeyboardCheck>
       <KeyboardAwareScrollView
         extraHeight={150}
         extraScrollHeight={125}
         enableOnAndroid={true}
-        scrollEnabled={keyboardStatus}
-        style={styles.keyboardConteiner}>
+        scrollEnabled={keyboardStatusState.keyboardStatus}
+        style={styles.keyboardContainer}>
         <RegisterForm />
       </KeyboardAwareScrollView>
-    </View>
+    </KeyboardCheck>
   );
 };
 
 const styles = StyleSheet.create({
-  keyboardConteiner: {
+  keyboardContainer: {
     height: '80%',
   },
 });

@@ -1,19 +1,12 @@
 import image from '../../assets/image/authScreen/fon.png';
 import LinearGradient from 'react-native-linear-gradient';
-import {
-  ImageBackground,
-  Keyboard,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {ImageBackground, SafeAreaView, StyleSheet, View} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Animated, {
   runOnJS,
   useAnimatedGestureHandler,
 } from 'react-native-reanimated';
 import LoginForm from './nestedComponent/LoginForm';
-import {useEffect, useState} from 'react';
 import {TextAuthComponent} from './nestedComponent/TextAuthComponent';
 import {SettingsIcon} from './nestedComponent/SettingsIcon';
 import {useDispatch, useSelector} from 'react-redux';
@@ -26,22 +19,13 @@ import {
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import {changeStatusController} from '../../redux/reduxStateSlice/settingsControllerSlice';
 import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
+import {KeyboardCheck} from '../generalComponent/KeyboardCheck';
 export const AuthComponent = () => {
   const dispatch = useDispatch();
   const themeState = useSelector((state: RootState) => state.themeState);
-  const [keyboardStatus, setKeyboardStatus] = useState(false);
-  useEffect(() => {
-    const showSubscription = Keyboard.addListener('keyboardDidShow', () => {
-      setKeyboardStatus(true);
-    });
-    const hideSubscription = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardStatus(false);
-    });
-    return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
-    };
-  });
+  const keyboardStatusState = useSelector(
+    (state: RootState) => state.keyboardStatusState,
+  );
   const functrionDispatch = (stateController: boolean) => {
     dispatch(changeStatusController(stateController));
   };
@@ -62,13 +46,15 @@ export const AuthComponent = () => {
           <View>
             <TextAuthComponent />
           </View>
-          <KeyboardAwareScrollView
-            extraHeight={150}
-            extraScrollHeight={30}
-            enableOnAndroid={true}
-            scrollEnabled={keyboardStatus}>
-            <LoginForm />
-          </KeyboardAwareScrollView>
+          <KeyboardCheck>
+            <KeyboardAwareScrollView
+              extraHeight={150}
+              extraScrollHeight={30}
+              enableOnAndroid={true}
+              scrollEnabled={keyboardStatusState.keyboardStatus}>
+              <LoginForm />
+            </KeyboardAwareScrollView>
+          </KeyboardCheck>
           <PanGestureHandler onGestureEvent={gesture}>
             <Animated.View
               style={[

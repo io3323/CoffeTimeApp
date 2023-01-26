@@ -5,11 +5,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {ru} from '../../../../localisationLanguageName';
-import {
-  placeholderAuthPasswordENG,
-  placeholderAuthPasswordRu,
-} from '../../../../localisationScreen/AuthScreenLocal';
 import openEye from '../../../../assets/image/authScreen/openEye.png';
 import closeEye from '../../../../assets/image/authScreen/closeEye.png';
 import pencilIcon from '../../../../assets/image/regImageScreen/pencilIcon.png';
@@ -34,9 +29,7 @@ export const PasswordInputDetail = () => {
   const authDataUserState = useSelector(
     (state: RootState) => state.authDataUserState,
   );
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  useSelector((state: RootState) => state.localisationState);
   const themeState = useSelector((state: RootState) => state.themeState);
   const progress = useDerivedValue(() =>
     themeState.theme == light

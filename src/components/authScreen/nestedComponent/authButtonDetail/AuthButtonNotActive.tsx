@@ -1,9 +1,4 @@
 import {StyleSheet, Text, View} from 'react-native';
-import {ru} from '../../../../localisationLanguageName';
-import {
-  buttonAuthTitleENG,
-  buttonAuthTitleRU,
-} from '../../../../localisationScreen/AuthScreenLocal';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {light} from '../../../../themeNameApp';

@@ -5,11 +5,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {ru} from '../../../../localisationLanguageName';
-import {
-  placeholderAuthLoginENG,
-  placeholderAuthLoginRu,
-} from '../../../../localisationScreen/AuthScreenLocal';
 import pencilIcon from '../../../../assets/image/regImageScreen/pencilIcon.png';
 import removeIcon from '../../../../assets/image/authScreen/removeIcon.png';
 import {useDispatch, useSelector} from 'react-redux';
@@ -27,13 +22,11 @@ import Animated from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 
 export const LoginInputDetail = () => {
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
+  useSelector((state: RootState) => state.localisationState);
+  const themeState = useSelector((state: RootState) => state.themeState);
   const authDataUserState = useSelector(
     (state: RootState) => state.authDataUserState,
   );
-  const themeState = useSelector((state: RootState) => state.themeState);
   const progress = useDerivedValue(() =>
     themeState.theme == light
       ? withTiming(0, {duration: 2000})
@@ -50,12 +43,12 @@ export const LoginInputDetail = () => {
     };
   });
   const {t} = useTranslation();
-  let playcholderText = t('common:authScreen:loginInput');
+  let placeholderText = t('common:authScreen:loginInput');
   const dispatch = useDispatch();
   return (
     <View style={styles.inputConteiner}>
       <TextInput
-        placeholder={playcholderText}
+        placeholder={placeholderText}
         cursorColor={
           themeState.theme == light
             ? formObjectColor.colorLight
