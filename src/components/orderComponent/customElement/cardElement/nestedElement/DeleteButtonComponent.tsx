@@ -1,6 +1,6 @@
-import {deleteProduct} from '../../../../redux/reduxStateSlice/basketUserSlice';
+import {deleteProduct} from '../../../../../redux/reduxStateSlice/basketUserSlice';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
-import deleteIcon from '../../../../assets/image/detailProductScreen/delete.png';
+import deleteIcon from '../../../../../assets/image/detailProductScreen/delete.png';
 import {useDispatch} from 'react-redux';
 import {FC} from 'react';
 

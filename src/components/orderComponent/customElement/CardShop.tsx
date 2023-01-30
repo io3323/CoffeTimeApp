@@ -1,72 +1,92 @@
-import {Dimensions, StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {FunctionComponent} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {light} from '../../../themeNameApp';
 import {ICardShop} from '../../../externalFunctions/orderScreen/createCardShop';
-import {ImageCardShop} from './orderCardShopElement/ImageCardShop';
-import {TextProductOrderComponent} from './orderCardShopElement/TextProductOrderComponent';
-import {DeleteButtonComponent} from './orderCardShopElement/DeleteButtonComponent';
-import {ShopDescriptionComponent} from './orderCardShopElement/ShopDescriptionComponent';
-import {CoffeNameShopComponent} from './orderCardShopElement/CoffeNameShopComponent';
-import {PriceDescriptionComponent} from './orderCardShopElement/PriceDescriptionComponent';
-import {PriceShopComponent} from './orderCardShopElement/PriceShopComponent';
-import {RubleIconComponent} from './orderCardShopElement/RubleIconComponent';
-import {PayShopButtonComponent} from './orderCardShopElement/PayShopButtonComponent';
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
+  PanGestureHandlerProps,
 } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
   useAnimatedGestureHandler,
   useAnimatedStyle,
+  useDerivedValue,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import {Icon} from 'react-native-eva-icons';
 import {deleteProduct} from '../../../redux/reduxStateSlice/basketUserSlice';
+import {HiddenCardShopComponent} from './cardElement/hiddenElement/HiddenCardShopComponent';
+import {CardShopElement} from './cardElement/nestedElement/CardShopElement';
+import {WIDTH_APP} from '../../../definitionSize';
 const LIST_ITEM_HEIGHT = 150;
-type CardShopModel = {
+interface CardShopModel
+  extends Pick<PanGestureHandlerProps, 'simultaneousHandlers'> {
   renderCard: ICardShop;
   onDismiss?: (id: string) => void;
+}
+type ContextType = {
+  translateX: number;
+  x: number;
+  state: number;
 };
 export const CardShop: FunctionComponent<CardShopModel> = props => {
+  const TRANSLATE_X_THRESHOLD = -WIDTH_APP * 0.35;
   const dispatch = useDispatch();
   const dispatchFunction = (id: string) => {
     dispatch(deleteProduct(id));
   };
-  const {id, imagesPath, productName, cofeName, price, count} =
-    props.renderCard;
-  const {onDismiss} = props;
+  const {id} = props.renderCard;
   const itemHeight = useSharedValue(LIST_ITEM_HEIGHT);
   const translationX = useSharedValue(0);
   const opacityShared = useSharedValue(1);
-  const {width: SCREEN_WIDTH} = Dimensions.get('window');
-  const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.3;
-  const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
-    onActive: event => {
-      translationX.value = event.translationX;
+  const animationState = useSharedValue(false);
+  const typeState = useSharedValue(false);
+  useDerivedValue(() => (typeState ? withTiming(0) : withTiming(1)));
+  const x = useSharedValue(WIDTH_APP * 0.3);
+  const panGesture = useAnimatedGestureHandler<
+    PanGestureHandlerGestureEvent,
+    ContextType
+  >({
+    onStart: (event, context) => {
+      context.translateX = translationX.value;
+      context.x = x.value;
+    },
+    onActive: (event, context) => {
+      if (event.translationX < 0 || animationState.value == true) {
+        translationX.value = event.translationX + context.translateX;
+      }
+      if (event.translationX < -WIDTH_APP) {
+        x.value = -WIDTH_APP * 0.3;
+      } else {
+        x.value = -translationX.value;
+      }
     },
     onEnd: () => {
       const shouldBeDismissed = translationX.value < TRANSLATE_X_THRESHOLD;
       if (shouldBeDismissed) {
-        translationX.value = withTiming(-SCREEN_WIDTH);
+        x.value = WIDTH_APP;
+        translationX.value = withTiming(-WIDTH_APP);
         itemHeight.value = withTiming(0);
         opacityShared.value = withTiming(0, undefined, isFinished => {
           if (isFinished) {
-            console.log('delete');
+            runOnJS(dispatchFunction)(id);
           }
         });
-        if (onDismiss) {
-          runOnJS(onDismiss)(id);
-        }
+      } else if (
+        translationX.value > TRANSLATE_X_THRESHOLD &&
+        translationX.value < -WIDTH_APP * 0.25
+      ) {
+        translationX.value = withTiming(-WIDTH_APP * 0.25);
+        animationState.value = true;
       } else {
         translationX.value = withTiming(0);
+        animationState.value = false;
       }
     },
   });
-
   const rStyle = useAnimatedStyle(() => ({
     transform: [
       {
@@ -74,14 +94,6 @@ export const CardShop: FunctionComponent<CardShopModel> = props => {
       },
     ],
   }));
-  const rIconContainerStyle = useAnimatedStyle(() => {
-    const opacity = withTiming(
-      translationX.value < TRANSLATE_X_THRESHOLD ? 1 : 0,
-    );
-    return {
-      opacity,
-    };
-  });
   const rContainerStyle = useAnimatedStyle(() => {
     return {
       height: itemHeight.value,
@@ -93,29 +105,12 @@ export const CardShop: FunctionComponent<CardShopModel> = props => {
     <View>
       {id != '' && (
         <Animated.View style={rContainerStyle}>
-          <View style={[styles.backIcon]}>
-            <Animated.View
-              style={[
-                {
-                  //backgroundColor: 'green',
-                  width: '50%',
-                  height: '100%',
-                  marginLeft: '50%',
-                  justifyContent: 'center',
-                  alignItems: 'flex-end',
-                },
-                rIconContainerStyle,
-              ]}>
-              <Icon
-                name={'trash-2-outline'}
-                fill={'red'}
-                width={56}
-                height={56}
-                style={{marginRight: 50}}
-              />
-            </Animated.View>
-          </View>
-          <PanGestureHandler onGestureEvent={panGesture}>
+          <HiddenCardShopComponent id={id} translationX={translationX} x={x} />
+          <PanGestureHandler
+            failOffsetY={[-5, 5]}
+            activeOffsetX={[-5, 5]}
+            simultaneousHandlers={props.simultaneousHandlers}
+            onGestureEvent={panGesture}>
             <Animated.View
               style={[
                 themeState.theme == light
@@ -123,25 +118,7 @@ export const CardShop: FunctionComponent<CardShopModel> = props => {
                   : styles.conteinerMainDark,
                 rStyle,
               ]}>
-              <View style={[styles.conteiner]}>
-                <ImageCardShop image={imagesPath} />
-                <View style={styles.blockConteiner}>
-                  <View style={styles.conteinerVertical}>
-                    <View style={styles.textPodunctConteinerDelete}>
-                      <TextProductOrderComponent productName={productName} />
-                      <DeleteButtonComponent id={id} />
-                    </View>
-                    <ShopDescriptionComponent />
-                    <CoffeNameShopComponent coffeName={cofeName} />
-                    <View style={styles.conteinerPrice}>
-                      <PriceDescriptionComponent />
-                      <PriceShopComponent price={price} />
-                      <RubleIconComponent />
-                      <PayShopButtonComponent count={count} item={props} />
-                    </View>
-                  </View>
-                </View>
-              </View>
+              <CardShopElement item={props.renderCard} />
             </Animated.View>
           </PanGestureHandler>
         </Animated.View>
@@ -191,11 +168,5 @@ const styles = StyleSheet.create({
   image: {
     width: 30,
     height: 30,
-  },
-  backIcon: {
-    width: '100%',
-    height: '85%',
-    position: 'absolute',
-    marginTop: '6%',
   },
 });

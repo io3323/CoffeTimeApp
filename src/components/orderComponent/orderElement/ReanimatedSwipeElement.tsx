@@ -3,10 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {CardShop} from '../customElement/CardShop';
 import {useCallback, useEffect} from 'react';
-import {
-  deleteProduct,
-
-} from '../../../redux/reduxStateSlice/basketUserSlice';
+import {deleteProduct} from '../../../redux/reduxStateSlice/basketUserSlice';
 export const ReanimatedSwipeElement = () => {
   const basketUserState = useSelector(
     (state: RootState) => state.basketUserState,

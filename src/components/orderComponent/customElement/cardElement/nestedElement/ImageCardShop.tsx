@@ -1,5 +1,5 @@
 import {Image, StyleSheet, View} from 'react-native';
-import imageNoCoffe from '../../../../assets/image/detailScreen/imageNoCoffe.png';
+import imageNoCoffe from '../../../../../assets/image/detailScreen/imageNoCoffe.png';
 import {FC, useState} from 'react';
 
 type ImageCardShopModel = {

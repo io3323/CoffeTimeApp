@@ -1,36 +1,28 @@
-import {SwipeListView} from 'react-native-swipe-list-view';
-import {ListRenderItem, StyleSheet, View} from 'react-native';
+import {FlatList, ListRenderItem, StyleSheet, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {IBasketUser} from '../../../redux/reduxStateSlice/basketUserSlice';
-import {HiddenEllement, ItemModel} from './renderElement/HiddenEllement';
 import {RenderItemSwipeList} from './renderElement/RenderItemSwipeList';
+import {useRef} from 'react';
 
 export const SwipeListElement = () => {
+  const scrollRef = useRef(null);
   const basketUserState = useSelector(
     (state: RootState) => state.basketUserState,
   );
   const renderItem: ListRenderItem<IBasketUser> = data => {
-    return <RenderItemSwipeList data={data} />;
-  };
-  const renderHiddenItem = (data: ItemModel, rowMap: any) => {
-    return <HiddenEllement data={data} rowMap={rowMap} />;
+    return <RenderItemSwipeList data={data} simultaneousHandlers={scrollRef} />;
   };
   return (
     <View style={styles.collectingContainer}>
-      <SwipeListView
+      <FlatList
+        ref={scrollRef}
         data={basketUserState}
         keyExtractor={item => item.id}
         renderItem={renderItem}
-        renderHiddenItem={renderHiddenItem}
-        disableRightSwipe={true}
-        rightOpenValue={-180}
-        stopRightSwipe={-201}
-        swipeToOpenPercent={10}
-        swipeToClosePercent={10}
-        useNativeDriver={false}
         contentContainerStyle={{alignItems: 'center'}}
         showsVerticalScrollIndicator={false}
+        scrollEnabled={true}
       />
     </View>
   );

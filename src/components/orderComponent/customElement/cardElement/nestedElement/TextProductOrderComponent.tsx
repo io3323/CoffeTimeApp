@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
-import {light} from '../../../../themeNameApp';
+import {light} from '../../../../../themeNameApp';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../../../redux/reduxStore/store';
+import {RootState} from '../../../../../redux/reduxStore/store';
 import {FC} from 'react';
 
 type TextProductOrderModel = {

@@ -52,8 +52,7 @@ export const OrderComponent = () => {
       }>
       {controller && (
         <View style={styles.mainConteiner}>
-          {/*<SwipeListElement />*/}
-          <ReanimatedSwipeElement />
+          <SwipeListElement />
           <BottomOrderComponent
             totalCount={totalCount}
             totalPrice={totalPrice}

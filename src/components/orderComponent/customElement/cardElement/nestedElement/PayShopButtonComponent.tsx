@@ -1,12 +1,12 @@
-import {light} from '../../../../themeNameApp';
+import {light} from '../../../../../themeNameApp';
 import {StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../../../redux/reduxStore/store';
+import {RootState} from '../../../../../redux/reduxStore/store';
 import {FC} from 'react';
-import {IncrementShopButtonElement} from './buttonShopListElement/IncrementShopButtonElement';
-import {ICardOrder} from '../../../../externalFunctions/orderScreen/createCardShop';
-import {DecrementShopButtonComponent} from './buttonShopListElement/DecrementShopButtonElement';
-import {CounterShopComponent} from './buttonShopListElement/CounterShopComponent';
+import {IncrementShopButtonElement} from '../../orderCardShopElement/buttonShopListElement/IncrementShopButtonElement';
+import {ICardOrder} from '../../../../../externalFunctions/orderScreen/createCardShop';
+import {DecrementShopButtonComponent} from '../../orderCardShopElement/buttonShopListElement/DecrementShopButtonElement';
+import {CounterShopComponent} from '../../orderCardShopElement/buttonShopListElement/CounterShopComponent';
 
 type PayShopButtonComponent = {
   count: number;

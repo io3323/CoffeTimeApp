@@ -1,7 +1,7 @@
-import {light} from '../../../../themeNameApp';
+import {light} from '../../../../../themeNameApp';
 import {StyleSheet, Text} from 'react-native';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../../../redux/reduxStore/store';
+import {RootState} from '../../../../../redux/reduxStore/store';
 import {useTranslation} from 'react-i18next';
 
 export const PriceDescriptionComponent = () => {

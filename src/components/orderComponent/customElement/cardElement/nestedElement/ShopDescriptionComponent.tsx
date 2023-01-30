@@ -1,8 +1,8 @@
-import {light} from '../../../../themeNameApp';
+import {light} from '../../../../../themeNameApp';
 import {StyleSheet, Text} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../../../redux/reduxStore/store';
+import {RootState} from '../../../../../redux/reduxStore/store';
 
 export const ShopDescriptionComponent = () => {
   const {t} = useTranslation();

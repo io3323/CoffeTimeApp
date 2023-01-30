@@ -1,9 +1,9 @@
-import {light} from '../../../../themeNameApp';
-import rubleIcon from '../../../../assets/image/detailScreen/rubleIcon.png';
-import rubleDark from '../../../../assets/image/detailScreen/rubleIconDark.png';
+import {light} from '../../../../../themeNameApp';
+import rubleIcon from '../../../../../assets/image/detailScreen/rubleIcon.png';
+import rubleDark from '../../../../../assets/image/detailScreen/rubleIconDark.png';
 import {Image, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
-import {RootState} from '../../../../redux/reduxStore/store';
+import {RootState} from '../../../../../redux/reduxStore/store';
 
 export const RubleIconComponent = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
