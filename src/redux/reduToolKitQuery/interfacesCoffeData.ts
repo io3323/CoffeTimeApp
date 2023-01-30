@@ -63,8 +63,8 @@ export interface IProductFullInfo {
   price: number;
   cofeId: string;
   cofeName: string;
-  favarite: boolean;
-  attribute: Array<IAttributeInfo>;
+  favarite?: boolean;
+  attribute?: Array<IAttributeInfo>;
   imagesPath: string;
 }
 export interface IAttributeInfo {

@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {light} from '../../../themeNameApp';

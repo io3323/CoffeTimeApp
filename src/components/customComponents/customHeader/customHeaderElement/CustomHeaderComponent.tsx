@@ -2,7 +2,7 @@ import {SafeAreaView, View} from 'react-native';
 import {HEIGHT_APP} from '../../../../definitionSize';
 import {CustomBackButton} from '../CustomBackButton';
 import {CustomHeaderTitle} from '../CustomHeaderTitle';
-import {CustomBagShopButton} from '../nestedElement/CustomBagShopButton';
+import {CustomBagShopButton} from '../nestedElement/shopButton/CustomBagShopButton';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {

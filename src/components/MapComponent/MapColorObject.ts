@@ -3,4 +3,4 @@ export const MapColorObject = {
   textColorDark: 'white',
   blockContBackgroundLight: 'white',
   blockContBackgroundDark: '#3a3450',
-}
+};

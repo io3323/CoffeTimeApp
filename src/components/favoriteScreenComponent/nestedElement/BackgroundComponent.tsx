@@ -4,8 +4,10 @@ import imageNoCoffeDark from '../../../assets/image/detailScreen/imageNoCoffeDar
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {light} from '../../../themeNameApp';
+import {useTranslation} from 'react-i18next';
 export const BackgroundComponent = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
+  const {t} = useTranslation();
   return (
     <View
       style={[
@@ -30,13 +32,13 @@ export const BackgroundComponent = () => {
             style={
               themeState.theme == light ? styles.textLight : styles.textDark
             }>
-            Здесь нет ни одной чашки кофе
+            {t('common:favoriteScreen:initialLabelUp')}
           </Text>
           <Text
             style={
               themeState.theme == light ? styles.textLight : styles.textDark
             }>
-            Попробуйте вернуться к нам позже
+            {t('common:favoriteScreen:initialLabelDawn')}
           </Text>
         </View>
       </View>

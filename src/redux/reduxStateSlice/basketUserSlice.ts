@@ -7,7 +7,7 @@ export interface IBasketUser {
   cofeName: string;
   imagesPath: string;
   count: number;
-  prevState: number;
+  prevPrice: number;
 }
 export const initialStateBasketUser: Array<IBasketUser> = [
   {
@@ -18,7 +18,7 @@ export const initialStateBasketUser: Array<IBasketUser> = [
     cofeName: '',
     imagesPath: '',
     count: 0,
-    prevState: 0,
+    prevPrice: 0,
   },
 ];
 export const basketUserSlice = createSlice({
@@ -32,12 +32,12 @@ export const basketUserSlice = createSlice({
           const object: IBasketUser = {
             id: action.payload.id,
             productName: action.payload.productName,
-            price: data.price + data.prevState,
+            price: data.price + data.prevPrice,
             cofeId: action.payload.cofeId,
             cofeName: action.payload.cofeName,
             imagesPath: action.payload.imagesPath,
             count: data.count + 1,
-            prevState: action.payload.prevState,
+            prevPrice: action.payload.prevPrice,
           };
           state.splice(index, 1, object);
           state.pop();
@@ -56,12 +56,12 @@ export const basketUserSlice = createSlice({
           const object: IBasketUser = {
             id: action.payload.id,
             productName: action.payload.productName,
-            price: data.price - data.prevState,
+            price: data.price - data.prevPrice,
             cofeId: action.payload.cofeId,
             cofeName: action.payload.cofeName,
             imagesPath: action.payload.imagesPath,
             count: data.count - 1,
-            prevState: action.payload.prevState,
+            prevPrice: action.payload.prevPrice,
           };
           state.splice(index, 1, object);
           state.pop();

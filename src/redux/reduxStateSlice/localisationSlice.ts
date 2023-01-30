@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {ru} from '../../localisationLanguageName';
 
 type ModelLocalisation = {
@@ -13,9 +13,6 @@ export const localisationSlice = createSlice({
   name: 'localisationState',
   initialState: localLangInitialState,
   reducers: {
-    changeLanguage(state, action: PayloadAction<ModelLocalisation>) {
-      state.local = action.payload.local;
-    },
     changeLanguageController(state) {
       let currentState = state.localController;
       if (currentState) {
@@ -30,5 +27,4 @@ export const localisationSlice = createSlice({
 });
 
 export default localisationSlice.reducer;
-export const {changeLanguage, changeLanguageController} =
-  localisationSlice.actions;
+export const {changeLanguageController} = localisationSlice.actions;

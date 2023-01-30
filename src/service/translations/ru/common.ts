@@ -49,5 +49,10 @@ export default {
     drinks: 'напитки:',
     language: 'Язык:',
     theme: 'Тема:',
+    exit: 'Выход',
+  },
+  favoriteScreen: {
+    initialLabelUp: 'Здесь нет ни одной чашки кофе',
+    initialLabelDawn: 'Попробуйте вернуться к нам позже',
   },
 };

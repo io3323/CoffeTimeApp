@@ -1,5 +1,4 @@
-import {Alert, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {ru} from '../../../localisationLanguageName';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {changeButtonIndicatorState} from '../../../redux/reduxStateSlice/indicatorButtonSlice';
 import {addToken} from '../../../redux/reduxStateSlice/tokenSlice';
 import {
@@ -7,14 +6,8 @@ import {
   ERORNet,
   GOODRes,
   MistakeUser,
-} from '../../../externalFunctions/checkFunction';
+} from '../../../externalFunctions/authScreen/checkFunction';
 import {LoaderScreenName} from '../../../navigation/navigator/nameScreen';
-import {
-  networkStatusENG,
-  networkStatusRU,
-  userDataAuthENG,
-  userDataAuthRU,
-} from '../../../localisationScreen/AuthScreenLocal';
 import {RootState, useAddLoginMutation} from '../../../redux/reduToolKitQuery';
 import {useDispatch, useSelector} from 'react-redux';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
@@ -25,9 +18,6 @@ import {useTranslation} from 'react-i18next';
 
 export const ActiveButtonRegist = () => {
   const [addLogin] = useAddLoginMutation();
-  const localisationState = useSelector(
-    (state: RootState) => state.localisationState,
-  );
   const themeState = useSelector((state: RootState) => state.themeState);
   const dispatch = useDispatch();
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
@@ -43,14 +33,8 @@ export const ActiveButtonRegist = () => {
       navigation.navigate(LoaderScreenName);
     } else if (checkResult === MistakeUser) {
       dispatch(changeButtonIndicatorState({active: false}));
-      Alert.alert(
-        localisationState.local == ru ? userDataAuthRU : userDataAuthENG,
-      );
     } else if (checkResult === ERORNet) {
       dispatch(changeButtonIndicatorState({active: false}));
-      Alert.alert(
-        localisationState.local == ru ? networkStatusRU : networkStatusENG,
-      );
     }
   };
   const {t} = useTranslation();

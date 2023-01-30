@@ -8,7 +8,7 @@ import {
   ERORNet,
   GOODRes,
   MistakeUser,
-} from '../../../../externalFunctions/checkFunction';
+} from '../../../../externalFunctions/authScreen/checkFunction';
 import {LoaderScreenName} from '../../../../navigation/navigator/nameScreen';
 import {
   addUserNameProfile,

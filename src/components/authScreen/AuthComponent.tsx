@@ -60,6 +60,9 @@ export const AuthComponent = () => {
               style={[
                 {
                   height: HEIGHT_APP * 0.25,
+                  width: '100%',
+                  position: 'absolute',
+                  bottom: 20,
                 },
               ]}
             />

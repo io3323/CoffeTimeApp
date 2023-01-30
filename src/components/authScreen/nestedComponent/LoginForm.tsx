@@ -5,7 +5,7 @@ import {AuthButtonActive} from './authButtonDetail/AuthButtonActive';
 import {AuthButtonNotActive} from './authButtonDetail/AuthButtonNotActive';
 import {AuthRegistButton} from './authButtonDetail/AuthRegistButton';
 import {AuthButtonActivityIndicator} from './authButtonDetail/AuthButtonActivityIndicator';
-import { HEIGHT_APP } from "../../../definitionSize";
+import {HEIGHT_APP} from '../../../definitionSize';
 const LoginForm = () => {
   return (
     <View style={styles.mainContainer}>

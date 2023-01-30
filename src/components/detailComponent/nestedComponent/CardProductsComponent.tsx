@@ -18,24 +18,16 @@ import {RootState} from '../../../redux/reduxStore/store';
 import {light} from '../../../themeNameApp';
 import rubleIconDark from '../../../assets/image/detailScreen/rubleIconDark.png';
 import {addFavoriteProduct} from '../../../redux/reduxStateSlice/favoriteProductSlice';
-import {updateIncludeFunction} from '../../../externalFunctions/updateIncludeFunction';
+import {updateIncludeFunction} from '../../../externalFunctions/favoriteScreen/updateIncludeFunction';
 import {useTranslation} from 'react-i18next';
-type CartProductsType = {
-  id: string;
-  name: string;
-  images: string;
-  price: number;
-  cofeId: string;
-  favorite: boolean;
+import {IProductCafeModel} from '../../../redux/reduToolKitQuery/interfacesCoffeData';
+type CardProductType = {
+  cardProductInfo: IProductCafeModel;
 };
-export const CardProductsComponent: FunctionComponent<CartProductsType> = ({
-  id,
-  name,
-  images,
-  price,
-  favorite,
-  cofeId,
-}) => {
+export const CardProductsComponent: FunctionComponent<
+  CardProductType
+> = props => {
+  const {id, name, imagesPath, price, cofeId, favorite} = props.cardProductInfo;
   const themeState = useSelector((state: RootState) => state.themeState);
   const disatch = useDispatch();
   const favoriteProductState = useSelector(
@@ -65,7 +57,7 @@ export const CardProductsComponent: FunctionComponent<CartProductsType> = ({
         style={themeState.theme == light ? styles.imageLight : styles.imageDark}
         source={themeState.theme == light ? imageNoCoffe : imageNoCoffeDark}>
         <View style={styles.imageConteiner}>
-          <Image source={{uri: images}} style={styles.imageLight} />
+          <Image source={{uri: imagesPath}} style={styles.imageLight} />
         </View>
       </ImageBackground>
       <View style={styles.secondConteiner}>
@@ -87,12 +79,11 @@ export const CardProductsComponent: FunctionComponent<CartProductsType> = ({
         </View>
         <TouchableOpacity
           onPress={() => {
-            console.log('press two');
             disatch(
               addFavoriteProduct({
                 id: id,
                 name: name,
-                imagesPath: images,
+                imagesPath: imagesPath,
                 price: price,
                 favorite: favorite,
                 cofeId: cofeId,
