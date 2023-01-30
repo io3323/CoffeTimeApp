@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {useTranslation} from 'react-i18next';
 import {FC} from 'react';
-import { DrinkCountModel } from "./DrinkCountModel";
+import {DrinkCountModel} from './DrinkCountModel';
 export const DrinkCountElement: FC<DrinkCountModel> = ({totalCount}) => {
   const {t} = useTranslation();
   const themeState = useSelector((state: RootState) => state.themeState);

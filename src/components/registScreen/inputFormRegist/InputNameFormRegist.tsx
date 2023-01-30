@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {useEffect} from 'react';
 import {changeStateWriteIcon} from '../../../redux/reduxStateSlice/writeIconControllerSlice';
-import {checkWriteIcon} from '../checkFunction/checkWriteIcon';
+import {checkWriteIcon} from '../../../externalFunctions/registScreen/checkWriteIcon';
 
 export const InputNameFormRegist = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export const InputNameFormRegist = () => {
     <View style={styles.mainInputConteiner}>
       <NameInputRegist />
       {writeIconControllerState.name && <PencilIcon />}
-      {writeIconControllerState.name == false && (
+      {!writeIconControllerState.name && (
         <RemoveIcon typeReq={modelTypesObject.Name_User!} />
       )}
     </View>

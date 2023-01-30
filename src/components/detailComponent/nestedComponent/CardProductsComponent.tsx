@@ -90,7 +90,7 @@ export const CardProductsComponent: FunctionComponent<
               }),
             );
           }}>
-          {updateIncludeFunction(id, favoriteProductState) === false && (
+          {!updateIncludeFunction(id, favoriteProductState) && (
             <Image source={heartGrayIcon} style={styles.heartIconNotActive} />
           )}
           {updateIncludeFunction(id, favoriteProductState) && (

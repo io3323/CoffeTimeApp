@@ -1,8 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {
-  ModelTypes,
-  modelTypesObject,
-} from '../../components/registScreen/inputFormRegist/modelTypesObject';
+import {modelTypesObject} from '../../components/registScreen/inputFormRegist/modelTypesObject';
 
 type writeIconModel = {
   name?: boolean;

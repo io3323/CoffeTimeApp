@@ -6,7 +6,6 @@ import {light} from '../../themeNameApp';
 import {SwipeListElement} from './orderElement/SwipeListElement';
 import {InitialOrderComponent} from './customElement/InitialOrderComponent';
 import {BottomOrderComponent} from './orderBottomElement/BottomOrderComponent';
-import {ReanimatedSwipeElement} from './orderElement/ReanimatedSwipeElement';
 export const OrderComponent = () => {
   const basketUserState = useSelector(
     (state: RootState) => state.basketUserState,
@@ -59,7 +58,7 @@ export const OrderComponent = () => {
           />
         </View>
       )}
-      {controller == false && <InitialOrderComponent />}
+      {!controller && <InitialOrderComponent />}
     </SafeAreaView>
   );
 };

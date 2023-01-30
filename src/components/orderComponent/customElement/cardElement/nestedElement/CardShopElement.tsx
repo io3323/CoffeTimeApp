@@ -1,4 +1,3 @@
-import {light} from '../../../../../themeNameApp';
 import {StyleSheet, View} from 'react-native';
 import {ImageCardShop} from './ImageCardShop';
 import {TextProductOrderComponent} from './TextProductOrderComponent';
@@ -9,9 +8,6 @@ import {PriceDescriptionComponent} from './PriceDescriptionComponent';
 import {PriceShopComponent} from './PriceShopComponent';
 import {RubleIconComponent} from './RubleIconComponent';
 import {PayShopButtonComponent} from './PayShopButtonComponent';
-import Animated, {useAnimatedStyle} from 'react-native-reanimated';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../../../../redux/reduxStore/store';
 import {ICardShop} from '../../../../../externalFunctions/orderScreen/createCardShop';
 import {FC} from 'react';
 type AnimatedCardShopType = {

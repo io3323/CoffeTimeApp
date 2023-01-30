@@ -16,7 +16,7 @@ export const ImageCardShop: FC<ImageCardShopModel> = ({image}) => {
           onError={() => setController(false)}
         />
       )}
-      {controller == false && (
+      {!controller && (
         <Image source={imageNoCoffe} style={styles.productImage} />
       )}
     </View>

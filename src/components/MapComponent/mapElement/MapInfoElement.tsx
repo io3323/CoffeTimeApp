@@ -6,7 +6,6 @@ import Animated, {
 } from 'react-native-reanimated';
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {Separator} from '../../listComponent/Separator/Separator';
 import {useTranslation} from 'react-i18next';
 import {MapColorObject} from '../MapColorObject';
 import {light} from '../../../themeNameApp';

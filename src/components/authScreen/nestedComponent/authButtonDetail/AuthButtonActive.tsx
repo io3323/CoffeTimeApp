@@ -81,7 +81,7 @@ export const AuthButtonActive = () => {
     <Animated.View style={[styles.mainContainer]}>
       {authDataUserState.login !== '' &&
         authDataUserState.password !== '' &&
-        indicatorButtonState.active === false && (
+        !indicatorButtonState.active && (
           <Animated.View style={[styles.buttonLogin, rStyle]}>
             <TouchableOpacity
               onPress={() => {

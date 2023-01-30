@@ -78,7 +78,7 @@ export const PasswordInputDetail = () => {
         scrollEnabled={false}
         secureTextEntry={securePassword}
       />
-      {securePassword == false && (
+      {!securePassword && (
         <TouchableOpacity
           style={styles.eyeConeiner}
           onPress={() => setSecurePassword(prevState => !prevState)}>

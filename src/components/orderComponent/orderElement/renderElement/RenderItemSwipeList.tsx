@@ -1,6 +1,6 @@
 import {CardShop} from '../../customElement/CardShop';
 import {createCardShop} from '../../../../externalFunctions/orderScreen/createCardShop';
-import {ListRenderItemInfo, ScrollView} from 'react-native';
+import {ListRenderItemInfo} from 'react-native';
 import {IBasketUser} from '../../../../redux/reduxStateSlice/basketUserSlice';
 import {FC, Ref} from 'react';
 type RenderItemSwipeListModel = {

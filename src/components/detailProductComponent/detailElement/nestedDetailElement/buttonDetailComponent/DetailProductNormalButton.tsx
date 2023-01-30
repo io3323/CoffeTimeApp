@@ -6,7 +6,7 @@ import {RootState} from '../../../../../redux/reduxStore/store';
 import {light} from '../../../../../themeNameApp';
 import {useTranslation} from 'react-i18next';
 import {IButtonState} from '../../../../../externalFunctions/detailProductScreen/createNormalButtonData';
-export const PayButtonNormalState: FunctionComponent<IButtonState> = ({
+export const DetailProductNormalButton: FunctionComponent<IButtonState> = ({
   infoProduct,
 }) => {
   const themeState = useSelector((state: RootState) => state.themeState);

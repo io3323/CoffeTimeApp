@@ -29,10 +29,10 @@ const RegisterForm = () => {
       <LineRegistElement />
       <InputPasswordFormRegist />
       <LineRegistElement />
-      {indicatorButtonState.active == false && (
+      {!indicatorButtonState.active && (
         <View>
           {userInfoState.buttonController && <ActiveButtonRegist />}
-          {userInfoState.buttonController == false && <NotActiveButtonRegist />}
+          {!userInfoState.buttonController && <NotActiveButtonRegist />}
         </View>
       )}
       {indicatorButtonState.active && <IndicatorButtonRegist />}

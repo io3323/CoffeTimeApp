@@ -1,5 +1,5 @@
 import {light} from '../../../../../themeNameApp';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../../redux/reduxStore/store';
 import {FC} from 'react';

@@ -17,13 +17,13 @@ export const AuthButtonNotActive = () => {
     <View style={styles.mainContainer}>
       {((authDataUserState.login === '' &&
         authDataUserState.password === '' &&
-        indicatorButtonState.active === false) ||
+        !indicatorButtonState.active) ||
         (authDataUserState.login !== '' &&
           authDataUserState.password === '' &&
-          indicatorButtonState.active === false) ||
+          !indicatorButtonState.active) ||
         (authDataUserState.login === '' &&
           authDataUserState.password !== '' &&
-          indicatorButtonState.active === false)) && (
+          !indicatorButtonState.active)) && (
         <View
           style={[
             styles.buttonLoginNotEctive,

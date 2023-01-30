@@ -46,7 +46,7 @@ export const NestedButtonElement = () => {
   }, [backButtonControllerState.nameScreen]);
   return (
     <View>
-      {controller == false && (
+      {!controller && (
         <TouchableOpacity
           onPress={() =>
             backButtonControllerState.nameScreen == MapScreenName

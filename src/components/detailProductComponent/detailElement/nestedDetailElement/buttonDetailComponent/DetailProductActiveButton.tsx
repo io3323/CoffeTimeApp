@@ -6,7 +6,7 @@ import {IncrementButton} from './nestedButtonElement/IncrementButton';
 import {DecrementButton} from './nestedButtonElement/DecrementButton';
 import {TextBlockButtonDetailElement} from './nestedButtonElement/TextBlockButtonDetailElement';
 import {TextCounterDetailElement} from './nestedButtonElement/TextCounterDetailElement';
-export const PayButtonActiveState = () => {
+export const DetailProductActiveButton = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   return (
     <View

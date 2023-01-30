@@ -1,7 +1,7 @@
-import {PayButtonNormalState} from '../buttonDetailComponent/PayButtonNormalState';
+import {DetailProductNormalButton} from '../buttonDetailComponent/DetailProductNormalButton';
 import {createNormalButtonData} from '../../../../../externalFunctions/detailProductScreen/createNormalButtonData';
 import {View} from 'react-native';
-import {PayButtonActiveState} from '../buttonDetailComponent/PayButtonActiveState';
+import {DetailProductActiveButton} from '../buttonDetailComponent/DetailProductActiveButton';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../../redux/reduxStore/store';
 
@@ -15,7 +15,7 @@ export const PayButtonDetailElement = () => {
   return (
     <View>
       {basketObjectState.count == 0 && (
-        <PayButtonNormalState
+        <DetailProductNormalButton
           infoProduct={
             createNormalButtonData(
               infoProductCoffeState,
@@ -25,11 +25,7 @@ export const PayButtonDetailElement = () => {
           }
         />
       )}
-      {basketObjectState.count != 0 && (
-        <View>
-          <PayButtonActiveState />
-        </View>
-      )}
+      {basketObjectState.count != 0 && <DetailProductActiveButton />}
     </View>
   );
 };

@@ -33,7 +33,7 @@ export const favoriteProductSlice = createSlice({
         if (
           product.id !== action.payload.id &&
           lenghtState === counter &&
-          (product.favorite === false || product.favorite === undefined)
+          (!product.favorite || product.favorite === undefined)
         ) {
           const favoriteProduct: IProductCafeModel = {
             id: action.payload.id,

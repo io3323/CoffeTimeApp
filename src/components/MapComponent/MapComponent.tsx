@@ -20,6 +20,9 @@ export const MapComponent = () => {
   const coordinateMasState = useSelector(
     (state: RootState) => state.coordinateMasState,
   );
+  const coordinateState = useSelector(
+    (state: RootState) => state.coordinateState,
+  );
   const dispatch = useDispatch();
   const themeState = useSelector((state: RootState) => state.themeState);
   useEffect(() => {
@@ -50,18 +53,18 @@ export const MapComponent = () => {
         <MapView
           onPress={e => console.log(e.target)}
           customMapStyle={themeState.theme == light ? [] : mapDarkStyle}
-          region={{
-            latitude: 46.834159,
-            longitude: 29.624785,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
-          }}
           // region={{
-          //   latitude: coordinateState.latitude,
-          //   longitude: coordinateState.longitude,
+          //   latitude: 46.834159,
+          //   longitude: 29.624785,
           //   latitudeDelta: 0.015,
           //   longitudeDelta: 0.0121,
           // }}
+          region={{
+            latitude: coordinateState.latitude,
+            longitude: coordinateState.longitude,
+            latitudeDelta: 0.015,
+            longitudeDelta: 0.0121,
+          }}
           style={styles.mapView}>
           {coordinateMasState.map(marker => (
             <Marker

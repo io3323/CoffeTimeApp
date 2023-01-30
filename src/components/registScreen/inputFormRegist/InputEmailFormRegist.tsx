@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {useEffect} from 'react';
 import {changeStateWriteIcon} from '../../../redux/reduxStateSlice/writeIconControllerSlice';
-import {checkWriteIcon} from '../checkFunction/checkWriteIcon';
+import {checkWriteIcon} from '../../../externalFunctions/registScreen/checkWriteIcon';
 
 export const InputEmailFormRegist = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export const InputEmailFormRegist = () => {
     <View style={styles.mainInputConteiner}>
       <EmailInputRegist />
       {writeIconControllerState.email && <PencilIcon />}
-      {writeIconControllerState.email == false && (
+      {!writeIconControllerState.email && (
         <RemoveIcon typeReq={modelTypesObject.Email_User!} />
       )}
     </View>

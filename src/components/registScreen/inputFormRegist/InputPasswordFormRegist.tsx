@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {useEffect} from 'react';
 import {changeStateWriteIcon} from '../../../redux/reduxStateSlice/writeIconControllerSlice';
-import {checkWriteIcon} from '../checkFunction/checkWriteIcon';
+import {checkWriteIcon} from '../../../externalFunctions/registScreen/checkWriteIcon';
 
 export const InputPasswordFormRegist = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ export const InputPasswordFormRegist = () => {
       <PasswordInputRegist />
       <EyeIcon />
       {writeIconControllerState.password && <PencilIcon />}
-      {writeIconControllerState.password == false && (
+      {!writeIconControllerState.password && (
         <RemoveIcon typeReq={modelTypesObject.Password_User!} />
       )}
     </View>

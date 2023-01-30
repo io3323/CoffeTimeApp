@@ -97,7 +97,7 @@ export const ImageDetailComponent: FunctionComponent<ImageComponentType> = ({
           </LinearGradient>
         </ImageBackground>
       )}
-      {controller == false && (
+      {!controller && (
         <ImageBackground
           style={styles.image}
           source={themeState.theme == light ? cafeIcon : cafeIconDark}>
