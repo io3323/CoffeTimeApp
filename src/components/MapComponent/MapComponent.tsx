@@ -14,7 +14,7 @@ import {LocatedIconElement} from './mapElement/LocatedIconElement';
 import {SearchIconElemen} from './mapElement/SearchIconElemen';
 import {MapInfoElement} from './mapElement/MapInfoElement';
 export const MapComponent = () => {
-  const coffeDataState = useSelector(
+  const coffeeDataState = useSelector(
     (state: RootState) => state.coffeDataState,
   );
   const coordinateMasState = useSelector(
@@ -26,7 +26,7 @@ export const MapComponent = () => {
   const dispatch = useDispatch();
   const themeState = useSelector((state: RootState) => state.themeState);
   useEffect(() => {
-    dispatch(addMarkers(coffeDataState));
+    dispatch(addMarkers(coffeeDataState));
   }, []);
   const getLocation = () => {
     const result = requestLocationPermission();
@@ -76,7 +76,7 @@ export const MapComponent = () => {
         </MapView>
       </View>
       <View style={styles.mapInfo}>
-        <View style={styles.rowConteiner}>
+        <View style={styles.rowContainer}>
           <LocatedIconElement />
           <SearchIconElemen />
         </View>
@@ -87,10 +87,6 @@ export const MapComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  conteiner: {
-    width: '100%',
-    height: '100%',
-  },
   mapView: {
     width: '100%',
     height: '100%',
@@ -111,7 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  rowConteiner: {
+  rowContainer: {
     flexDirection: 'row',
     width: 287,
   },

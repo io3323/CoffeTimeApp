@@ -3,9 +3,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {addUserPasswordProfile} from '../../../../redux/reduxStateSlice/userInfoSlice';
 import {light} from '../../../../themeNameApp';
-import {inputRegistColorObject} from './colorRegistObject/inputRegistColorObject';
 import {useTranslation} from 'react-i18next';
+import {Color} from '../../../../Color';
 
+const {cursorColor, placeholderTextColor, inputColor} =
+  Color.regComponent.inputRegComponent;
 export const PasswordInputRegist = () => {
   const {t} = useTranslation();
   let textPlaceholder = t('common:registScreen:passwordInput');
@@ -16,18 +18,16 @@ export const PasswordInputRegist = () => {
   );
   const themeState = useSelector((state: RootState) => state.themeState);
   return (
-    <View style={styles.inputConteiner}>
+    <View style={styles.inputContainer}>
       <TextInput
         placeholder={textPlaceholder}
         placeholderTextColor={
           themeState.theme == light
-            ? inputRegistColorObject.placeholderColorLight
-            : inputRegistColorObject.placeholderColorDark
+            ? placeholderTextColor.light
+            : placeholderTextColor.dark
         }
         cursorColor={
-          themeState.theme == light
-            ? inputRegistColorObject.cursorColorLight
-            : inputRegistColorObject.cursorColorDark
+          themeState.theme == light ? cursorColor.light : cursorColor.dark
         }
         style={styles.input}
         onChangeText={text =>
@@ -41,7 +41,7 @@ export const PasswordInputRegist = () => {
 };
 
 const styles = StyleSheet.create({
-  inputConteiner: {
+  inputContainer: {
     width: '50%',
     height: '100%',
     alignItems: 'flex-start',
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: 20,
-    color: '#FFFFFFB5',
+    color: inputColor,
     marginLeft: '-10%',
   },
 });

@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {changeLanguageController} from '../../../../../../redux/reduxStateSlice/localisationSlice';
 import {en, ru} from '../../../../../../localisationLanguageName';
 import {RootState} from '../../../../../../redux/reduxStore/store';
+import {Color} from '../../../../../../Color';
 
 export const LocalSwitchComponent = () => {
   const {t, i18n} = useTranslation();
@@ -20,14 +21,16 @@ export const LocalSwitchComponent = () => {
     dispatch(changeLanguageController());
     localisationState.localController ? changeLanguge(ru) : changeLanguge(en);
   };
+  const {backgroundActive, backgroundInactive} =
+    Color.drawerColorObject.languageSwitch;
   return (
-    <View style={styles.switchMainConteiner}>
-      <View style={styles.textSwitchConteiner}>
+    <View style={styles.switchMainContainer}>
+      <View style={styles.textSwitchContainer}>
         <Text style={styles.textSwitch}>
           {t('common:drawerScreen:language')}
         </Text>
       </View>
-      <View style={styles.switchConteiner}>
+      <View style={styles.switchContainer}>
         <Switch
           value={localisationState.localController}
           onValueChange={toggleSwitch}
@@ -39,8 +42,8 @@ export const LocalSwitchComponent = () => {
           inactiveTextStyle={{fontSize: 20}}
           switchLeftPx={5}
           switchRightPx={5}
-          backgroundActive={'#6c6c6c'}
-          backgroundInactive={'#6C6C6CFF'}
+          backgroundActive={backgroundActive}
+          backgroundInactive={backgroundInactive}
         />
       </View>
     </View>
@@ -48,16 +51,16 @@ export const LocalSwitchComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  switchMainConteiner: {
+  switchMainContainer: {
     width: '100%',
     marginTop: '5%',
     flexDirection: 'row',
   },
-  switchConteiner: {
+  switchContainer: {
     flex: 2,
     alignItems: 'center',
   },
-  textSwitchConteiner: {
+  textSwitchContainer: {
     flex: 3,
     justifyContent: 'center',
     alignItems: 'center',

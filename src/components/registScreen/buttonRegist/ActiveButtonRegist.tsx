@@ -13,9 +13,10 @@ import {useDispatch, useSelector} from 'react-redux';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {light} from '../../../themeNameApp';
-import {buttonRegistObjectColor} from './buttonRegistObjectColor';
 import {useTranslation} from 'react-i18next';
+import {Color} from '../../../Color';
 
+const {color, textColor} = Color.regComponent.activeButton;
 export const ActiveButtonRegist = () => {
   const [addLogin] = useAddLoginMutation();
   const themeState = useSelector((state: RootState) => state.themeState);
@@ -46,14 +47,8 @@ export const ActiveButtonRegist = () => {
       style={[
         styles.buttonLogin,
         {
-          backgroundColor:
-            themeState.theme == light
-              ? buttonRegistObjectColor.backgroundColorLight
-              : buttonRegistObjectColor.backgroundColorDark,
-          borderColor:
-            themeState.theme == light
-              ? buttonRegistObjectColor.borderColorLight
-              : buttonRegistObjectColor.borderColorDark,
+          backgroundColor: themeState.theme == light ? color.light : color.dark,
+          borderColor: themeState.theme == light ? color.light : color.dark,
         },
       ]}
       onPress={() => handleTransitionMainScreen()}>
@@ -76,7 +71,7 @@ const styles = StyleSheet.create({
   buttonTextLogin: {
     fontSize: 18,
     fontFamily: 'Helvetica',
-    color: 'white',
+    color: textColor,
     textAlign: 'center',
     marginTop: 15,
   },

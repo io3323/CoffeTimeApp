@@ -9,25 +9,24 @@ import {RootState} from '../../../../../redux/reduxStore/store';
 
 export const FavoriteIconDetailElement = () => {
   const dispatch = useDispatch();
-  const infoProductCoffeState = useSelector(
+  const infoProductCoffeeState = useSelector(
     (state: RootState) => state.infoProductCoffeState,
   );
   const favoriteProductState = useSelector(
     (state: RootState) => state.favoriteProductState,
   );
+  const {id} = infoProductCoffeeState;
   return (
     <TouchableOpacity
       onPress={() =>
         dispatch(
-          addFavoriteProduct(createFavoriteProduct(infoProductCoffeState)),
+          addFavoriteProduct(createFavoriteProduct(infoProductCoffeeState)),
         )
       }>
-      {updateIncludeFunction(
-        infoProductCoffeState.id,
-        favoriteProductState,
-      ) && <Image source={heartIcon} style={styles.heartIconActive} />}
-      {updateIncludeFunction(infoProductCoffeState.id, favoriteProductState) ===
-        false && (
+      {updateIncludeFunction(id, favoriteProductState) && (
+        <Image source={heartIcon} style={styles.heartIconActive} />
+      )}
+      {updateIncludeFunction(id, favoriteProductState) === false && (
         <Image source={heartGrayIcon} style={styles.heartIconNotActive} />
       )}
     </TouchableOpacity>

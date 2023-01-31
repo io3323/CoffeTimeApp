@@ -3,14 +3,17 @@ import {light} from '../../../../../themeNameApp';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../../redux/reduxStore/store';
 import {FC} from 'react';
+import {Color} from '../../../../../Color';
 
 type PriceShopComponent = {
   price: number;
 };
+
+const {color} = Color.orderColorObject.priceShopComponent;
 export const PriceShopComponent: FC<PriceShopComponent> = ({price}) => {
   const themeState = useSelector((state: RootState) => state.themeState);
   return (
-    <View style={styles.priceConteiner}>
+    <View style={styles.priceContainer}>
       <Text
         style={themeState.theme == light ? styles.priceLight : styles.priceDark}
         adjustsFontSizeToFit={true}>
@@ -21,21 +24,21 @@ export const PriceShopComponent: FC<PriceShopComponent> = ({price}) => {
 };
 
 const styles = StyleSheet.create({
-  priceConteiner: {
+  priceContainer: {
     width: 43,
     height: 30,
   },
   priceLight: {
     fontSize: 25,
     fontFamily: 'Lobster-Regular',
-    color: '#C8D9AF',
+    color: color.light,
     marginTop: 3,
     textAlign: 'center',
   },
   priceDark: {
     fontSize: 25,
     fontFamily: 'Lobster-Regular',
-    color: '#bbb8ee',
+    color: color.dark,
     marginTop: 3,
     textAlign: 'center',
   },

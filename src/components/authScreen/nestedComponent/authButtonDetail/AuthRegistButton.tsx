@@ -3,6 +3,7 @@ import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RegistScreenName} from '../../../../navigation/navigator/nameScreen';
 import {useTranslation} from 'react-i18next';
+import {Color} from '../../../../Color';
 
 export const AuthRegistButton = () => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
@@ -22,7 +23,7 @@ export const AuthRegistButton = () => {
 const styles = StyleSheet.create({
   buttonRegistText: {
     fontSize: 14,
-    color: '#ffffff',
+    color: Color.authColorObject.buttonReg.textColor,
     fontFamily: 'SFUIText-Regular',
     marginTop: 5,
   },

@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {FC} from 'react';
+import {Color} from '../../../../Color';
 type ModelRenderAndroid = {
   renderModel: IProductCafeModel;
 };
@@ -28,10 +29,11 @@ export const RenderItemAndroid: FC<ModelRenderAndroid> = item => {
     });
     dispatch(addInfoCeffeProduct(result));
   };
+  const {rippleColor} = Color.detailColorObject.renderItemAndroid;
   return (
     <Pressable
-      android_ripple={{color: '#f4f3f4', foreground: true}}
-      style={styles.conteiner}
+      android_ripple={{color: rippleColor, foreground: true}}
+      style={styles.container}
       onPress={() => {
         getInfoProductsTab(item.renderModel.id);
         navigation.navigate(DetailProductInfoName);
@@ -44,13 +46,12 @@ export const RenderItemAndroid: FC<ModelRenderAndroid> = item => {
 };
 
 const styles = StyleSheet.create({
-  conteiner: {
+  container: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: WIDTH_APP * 0.45,
     height: 270,
     marginLeft: 12.5,
-    backgroundColor: 'red',
   },
 });

@@ -1,22 +1,22 @@
 import {light} from '../../../../../themeNameApp';
-import imageNoCoffe from '../../../../../assets/image/detailScreen/imageNoCoffe.png';
-import imageNoCoffeDark from '../../../../../assets/image/detailScreen/imageNoCoffeDark.png';
+import imageNoCoffee from '../../../../../assets/image/detailScreen/imageNoCoffe.png';
+import imageNoCoffeeDark from '../../../../../assets/image/detailScreen/imageNoCoffeDark.png';
 import {Image, ImageBackground, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../../redux/reduxStore/store';
 
 export const ImageBackgroundProductDetail = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
-  const infoProductCoffeState = useSelector(
+  const infoProductCoffeeState = useSelector(
     (state: RootState) => state.infoProductCoffeState,
   );
   return (
     <ImageBackground
-      source={themeState.theme == light ? imageNoCoffe : imageNoCoffeDark}
+      source={themeState.theme == light ? imageNoCoffee : imageNoCoffeeDark}
       style={themeState.theme == light ? styles.imageLight : styles.imageDark}
       imageStyle={styles.imageBackStyle}>
       <Image
-        source={{uri: infoProductCoffeState.imagesPath}}
+        source={{uri: infoProductCoffeeState.imagesPath}}
         style={styles.image}
       />
     </ImageBackground>

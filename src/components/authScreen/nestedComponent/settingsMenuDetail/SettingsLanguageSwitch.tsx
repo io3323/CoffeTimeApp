@@ -6,6 +6,7 @@ import {RootState} from '../../../../redux/reduxStore/store';
 import {changeLanguageController} from '../../../../redux/reduxStateSlice/localisationSlice';
 import {en, ru} from '../../../../localisationLanguageName';
 import {useTranslation} from 'react-i18next';
+import {Color} from '../../../../Color';
 export const SettingsLanguageSwitch = () => {
   const dispatch = useDispatch();
   const localisationState = useSelector(
@@ -19,6 +20,8 @@ export const SettingsLanguageSwitch = () => {
     dispatch(changeLanguageController());
     localisationState.localController ? changeLanguage(ru) : changeLanguage(en);
   };
+  const {backgroundInactive, backgroundActive} =
+    Color.authColorObject.settings.settingsMain.languageSwitch;
   return (
     <View>
       <Switch
@@ -32,8 +35,8 @@ export const SettingsLanguageSwitch = () => {
         inactiveTextStyle={{fontSize: 20}}
         switchLeftPx={5}
         switchRightPx={5}
-        backgroundActive={'#6c6c6c'}
-        backgroundInactive={'#6C6C6CFF'}
+        backgroundActive={backgroundActive}
+        backgroundInactive={backgroundInactive}
       />
     </View>
   );

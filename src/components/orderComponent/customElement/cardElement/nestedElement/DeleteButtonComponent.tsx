@@ -11,7 +11,7 @@ export const DeleteButtonComponent: FC<DeleteButtonModel> = ({id}) => {
   const dispatch = useDispatch();
   return (
     <TouchableOpacity
-      style={styles.deleteIconConteiner}
+      style={styles.deleteIconContainer}
       onPress={() => dispatch(deleteProduct(id))}>
       <Image source={deleteIcon} style={styles.deleteIcon} />
     </TouchableOpacity>
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     width: 26,
     height: 26,
   },
-  deleteIconConteiner: {
+  deleteIconContainer: {
     marginTop: 6,
     marginLeft: 30,
   },

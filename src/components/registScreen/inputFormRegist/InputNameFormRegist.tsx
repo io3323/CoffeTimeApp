@@ -24,7 +24,7 @@ export const InputNameFormRegist = () => {
     );
   }, [userInfoState.userInfo]);
   return (
-    <View style={styles.mainInputConteiner}>
+    <View style={styles.mainInputContainer}>
       <NameInputRegist />
       {writeIconControllerState.name && <PencilIcon />}
       {!writeIconControllerState.name && (
@@ -35,7 +35,7 @@ export const InputNameFormRegist = () => {
 };
 
 const styles = StyleSheet.create({
-  mainInputConteiner: {
+  mainInputContainer: {
     height: '10%',
     flexDirection: 'row',
     justifyContent: 'center',

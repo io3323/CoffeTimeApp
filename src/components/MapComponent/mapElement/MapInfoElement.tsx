@@ -7,12 +7,13 @@ import Animated, {
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {MapColorObject} from '../MapColorObject';
 import {light} from '../../../themeNameApp';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {MapSeparatorElement} from './MapSeparatorElement';
+import {Color} from '../../../Color';
 
+const {blockMasColor, textMasColor} = Color.mapColorObject.mapInfoComponent;
 export const MapInfoElement = () => {
   const {t} = useTranslation();
   const themeState = useSelector((state: RootState) => state.themeState);
@@ -20,31 +21,20 @@ export const MapInfoElement = () => {
     themeState.theme == light ? withSpring(0) : withSpring(1),
   );
   const rStyleText = useAnimatedStyle(() => {
-    const textColor = interpolateColor(
-      progress.value,
-      [0, 1],
-      [MapColorObject.textColorLight, MapColorObject.textColorDark],
-    );
+    const textColor = interpolateColor(progress.value, [0, 1], textMasColor);
     return {
       color: textColor,
     };
   });
   const rStyleBlockBack = useAnimatedStyle(() => {
-    const background = interpolateColor(
-      progress.value,
-      [0, 1],
-      [
-        MapColorObject.blockContBackgroundLight,
-        MapColorObject.blockContBackgroundDark,
-      ],
-    );
+    const background = interpolateColor(progress.value, [0, 1], blockMasColor);
     return {
       backgroundColor: background,
     };
   });
   return (
     <View style={styles.cardStyle}>
-      <Animated.View style={[styles.blockConteiner, rStyleBlockBack]}>
+      <Animated.View style={[styles.blockContainer, rStyleBlockBack]}>
         <Animated.Text style={[styles.textCafe, rStyleText]}>
           CoffeTime
         </Animated.Text>
@@ -60,7 +50,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
   },
-  blockConteiner: {
+  blockContainer: {
     width: 287,
     height: 130,
     alignItems: 'flex-start',

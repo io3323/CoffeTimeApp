@@ -12,7 +12,7 @@ export const EyeIcon = () => {
   const dispatch = useDispatch();
   return (
     <TouchableOpacity
-      style={styles.eyeConeiner}
+      style={styles.eyeContainer}
       onPress={() => dispatch(changeSecureState())}>
       <Image
         source={securePasswordState.secureState ? closeEye : openEye}
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
   },
-  eyeConeiner: {
+  eyeContainer: {
     position: 'absolute',
     marginTop: 0,
     right: '1%',

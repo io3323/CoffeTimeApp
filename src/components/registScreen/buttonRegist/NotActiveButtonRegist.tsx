@@ -1,6 +1,8 @@
 import {StyleSheet, Text, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
+import {Color} from '../../../Color';
 
+const {color, borderColor, textColor} = Color.regComponent.notActiveButton;
 export const NotActiveButtonRegist = () => {
   const {t} = useTranslation();
   return (
@@ -17,8 +19,8 @@ const styles = StyleSheet.create({
     marginTop: 23.5,
     borderStyle: 'solid',
     borderRadius: 40,
-    backgroundColor: '#bdbbbb',
-    borderColor: '#bdbbbb',
+    backgroundColor: color,
+    borderColor: borderColor,
     borderWidth: 1,
     width: 300,
     height: 52,
@@ -26,7 +28,7 @@ const styles = StyleSheet.create({
   buttonTextLogin: {
     fontSize: 18,
     fontFamily: 'Helvetica',
-    color: 'white',
+    color: textColor,
     textAlign: 'center',
     marginTop: 15,
   },

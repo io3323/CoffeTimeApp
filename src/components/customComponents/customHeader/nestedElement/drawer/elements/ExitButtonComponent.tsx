@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next';
 import {AuthScreenName} from '../../../../../../navigation/navigator/nameScreen';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {Color} from '../../../../../../Color';
 
 export const ExitButtonComponent = () => {
   const {t} = useTranslation();
@@ -22,7 +23,7 @@ export const ExitButtonComponent = () => {
 
 const styles = StyleSheet.create({
   exitButton: {
-    backgroundColor: 'red',
+    backgroundColor: Color.drawerColorObject.exitButton.backgroundColor,
     width: 200,
     height: 50,
     borderRadius: 20,
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     marginTop: '10%',
   },
   exitButtonText: {
-    color: 'white',
+    color: Color.drawerColorObject.exitButton.colorText,
     fontSize: 20,
     fontFamily: 'SFUIText-Regular',
   },

@@ -14,7 +14,7 @@ export const ImageBackgroundListElement: FC<ImageListModel> = ({image}) => {
   return (
     <ImageBackground
       source={themeState.theme == light ? cafeIcon : cafeIconDark}
-      imageStyle={styles.plagImage}>
+      imageStyle={styles.plugImage}>
       <Image source={{uri: image}} style={styles.image} />
     </ImageBackground>
   );
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     height: HEIGHT_APP * 0.15,
     alignSelf: 'center',
   },
-  plagImage: {
+  plugImage: {
     width: WIDTH_APP * 0.35,
     height: HEIGHT_APP * 0.15,
     alignSelf: 'center',

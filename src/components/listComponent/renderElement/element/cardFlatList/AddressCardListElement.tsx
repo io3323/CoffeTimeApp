@@ -4,24 +4,19 @@ import Animated, {
 } from 'react-native-reanimated';
 import {StyleSheet} from 'react-native';
 import {FC} from 'react';
-import {colorFlatListObject} from '../../../colorFlatListObject';
+import {Color} from '../../../../../Color';
 type AddressCardListModel = {
   progress: Animated.SharedValue<number>;
   address: string;
 };
+
+const {colorMas} = Color.listColorObject.addressCardList;
 export const AddressCardListElement: FC<AddressCardListModel> = ({
   address,
   progress,
 }) => {
   const rStyleTextColorDesc = useAnimatedStyle(() => {
-    const color = interpolateColor(
-      progress.value,
-      [0, 1],
-      [
-        colorFlatListObject.adressDesriptionLightColor,
-        colorFlatListObject.adressDesriptionDarkColor,
-      ],
-    );
+    const color = interpolateColor(progress.value, [0, 1], colorMas);
     return {
       color: color,
     };

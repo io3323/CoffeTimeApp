@@ -31,7 +31,7 @@ export const FavoriteRenderIOS: FC<FavoriteRenderModel> = props => {
   };
   return (
     <TouchableOpacity
-      style={styles.conteiner}
+      style={styles.container}
       onPress={() => {
         getInfoProductsTab(id);
         navigation.navigate(DetailProductInfoName);
@@ -42,7 +42,7 @@ export const FavoriteRenderIOS: FC<FavoriteRenderModel> = props => {
 };
 
 const styles = StyleSheet.create({
-  conteiner: {
+  container: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',

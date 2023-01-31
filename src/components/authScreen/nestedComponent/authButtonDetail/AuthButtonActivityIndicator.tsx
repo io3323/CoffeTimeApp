@@ -2,6 +2,7 @@ import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {light} from '../../../../themeNameApp';
+import {Color} from '../../../../Color';
 
 export const AuthButtonActivityIndicator = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
@@ -34,11 +35,11 @@ const styles = StyleSheet.create({
     height: 52,
   },
   colorLight: {
-    backgroundColor: '#bdbbbb',
-    borderColor: '#BDBBBBFF',
+    backgroundColor: Color.authColorObject.buttonIA.backgroundColor,
+    borderColor: Color.authColorObject.buttonIA.borderColor,
   },
   colorDark: {
-    backgroundColor: '#bdbbbb',
-    borderColor: '#BDBBBBFF',
+    backgroundColor: Color.authColorObject.buttonIA.backgroundColor,
+    borderColor: Color.authColorObject.buttonIA.borderColor,
   },
 });

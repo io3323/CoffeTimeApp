@@ -6,7 +6,7 @@ export const BackButtonRegist = () => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
-      style={styles.backIconConteiner}
+      style={styles.backIconContainer}
       onPress={() => navigation.goBack()}>
       <Image source={backIcon} style={styles.backIcon} />
     </TouchableOpacity>
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
   },
-  backIconConteiner: {
+  backIconContainer: {
     marginTop: 5,
     marginLeft: 10,
   },

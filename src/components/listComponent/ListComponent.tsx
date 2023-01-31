@@ -31,7 +31,7 @@ export const ListComponent = () => {
   const progress = useDerivedValue(() =>
     themeState.theme == light ? withSpring(0) : withSpring(1),
   );
-  const coffeDataState = useSelector(
+  const coffeeDataState = useSelector(
     (state: RootState) => state.coffeDataState,
   );
   const [getCoffe] = useGetCoffeMutation();
@@ -73,7 +73,7 @@ export const ListComponent = () => {
   return (
     <Animated.View style={rStyleMainCont}>
       <FlatList
-        data={coffeDataState}
+        data={coffeeDataState}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={Separator}
         renderItem={renderItem}

@@ -16,17 +16,17 @@ type AnimatedCardShopType = {
 export const CardShopElement: FC<AnimatedCardShopType> = ({item}) => {
   const {id, imagesPath, productName, cofeName, price, count} = item;
   return (
-    <View style={[styles.conteiner]}>
+    <View style={[styles.container]}>
       <ImageCardShop image={imagesPath} />
-      <View style={styles.blockConteiner}>
-        <View style={styles.conteinerVertical}>
-          <View style={styles.textPodunctConteinerDelete}>
+      <View style={styles.blockContainer}>
+        <View style={styles.containerVertical}>
+          <View style={styles.textProductContainerDelete}>
             <TextProductOrderComponent productName={productName} />
             <DeleteButtonComponent id={id} />
           </View>
           <ShopDescriptionComponent />
           <CoffeNameShopComponent coffeName={cofeName} />
-          <View style={styles.conteinerPrice}>
+          <View style={styles.containerPrice}>
             <PriceDescriptionComponent />
             <PriceShopComponent price={price} />
             <RubleIconComponent />
@@ -39,31 +39,17 @@ export const CardShopElement: FC<AnimatedCardShopType> = ({item}) => {
 };
 
 const styles = StyleSheet.create({
-  conteinerMainLight: {
-    width: 370,
-    height: 131,
-    backgroundColor: 'white',
-    marginTop: 20,
-    borderRadius: 10,
-  },
-  conteinerMainDark: {
-    width: 370,
-    height: 131,
-    backgroundColor: '#6f6483',
-    marginTop: 20,
-    borderRadius: 10,
-  },
-  conteinerVertical: {
+  containerVertical: {
     display: 'flex',
     flexDirection: 'column',
   },
-  conteinerPrice: {
+  containerPrice: {
     display: 'flex',
     flexDirection: 'row',
     marginTop: 20,
     alignItems: 'flex-end',
   },
-  textPodunctConteinerDelete: {
+  textProductContainerDelete: {
     display: 'flex',
     flexDirection: 'row',
     width: 235,
@@ -73,11 +59,11 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
   },
-  conteiner: {
+  container: {
     display: 'flex',
     flexDirection: 'row',
   },
-  blockConteiner: {
+  blockContainer: {
     marginLeft: 10,
   },
 });

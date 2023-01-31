@@ -10,6 +10,7 @@ import rubleDark from '../../../../../assets/image/rigtNavigateIcon/ruble.png';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {OrderScreenName} from '../../../../../navigation/navigator/nameScreen';
 import {light} from '../../../../../themeNameApp';
+import {Color} from '../../../../../Color';
 export const CustomBagShopButton = () => {
   const navigate = useNavigation<StackNavigationProp<ParamListBase>>();
   const backButtonActive = () => {
@@ -30,15 +31,15 @@ export const CustomBagShopButton = () => {
   return (
     <View>
       <TouchableOpacity onPress={() => backButtonActive()}>
-        <View style={styles.mainConteiner}>
-          <View style={styles.shopIconConteiner}>
+        <View style={styles.mainContainer}>
+          <View style={styles.shopIconContainer}>
             <Image
               source={themeState.theme == light ? shoppingBag : shoppingBagDark}
               style={styles.backButton}
             />
           </View>
           {totalPrice != 0 && (
-            <View style={styles.textPriceConteiner}>
+            <View style={styles.textPriceContainer}>
               <Text
                 style={
                   themeState.theme == light
@@ -64,13 +65,13 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
   },
-  mainConteiner: {width: 60, height: 50, flexDirection: 'row'},
-  shopIconConteiner: {
+  mainContainer: {width: 60, height: 50, flexDirection: 'row'},
+  shopIconContainer: {
     flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  textPriceConteiner: {
+  textPriceContainer: {
     flex: 1.5,
     justifyContent: 'center',
     alignItems: 'flex-start',
@@ -81,11 +82,11 @@ const styles = StyleSheet.create({
     height: 15,
   },
   textPriceLight: {
-    color: '#474747',
+    color: Color.shopButtonComponent.colorText.light,
     fontFamily: 'Helvetica',
   },
   textPriceDark: {
-    color: 'white',
+    color: Color.shopButtonComponent.colorText.dark,
     fontFamily: 'Helvetica',
   },
 });

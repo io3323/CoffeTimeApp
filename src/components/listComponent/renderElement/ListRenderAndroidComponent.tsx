@@ -14,6 +14,7 @@ import {FC} from 'react';
 import {ImageBackgroundListElement} from './element/ImageBackgroundListElement';
 import {CardFlatListElement} from './element/CardFlatListElement';
 import {HEIGHT_APP} from '../../../definitionSize';
+import {Color} from '../../../Color';
 export type ItemModelList = {
   id: string;
   name: string;
@@ -48,10 +49,11 @@ export const ListRenderAndroidComponent: FC<RenderModel> = props => {
     }
     navigation.navigate(DetailedInfoName);
   };
+  const {rippleColor} = Color.listColorObject.listRenderAndroid;
   return (
     <Pressable
-      android_ripple={{color: '#f4f3f4', foreground: true}}
-      style={styles.conteiner}
+      android_ripple={{color: rippleColor, foreground: true}}
+      style={styles.container}
       onPress={() => {
         handleNavigation(props.renderItem.id);
       }}>
@@ -69,7 +71,7 @@ export const ListRenderAndroidComponent: FC<RenderModel> = props => {
 };
 
 const styles = StyleSheet.create({
-  conteiner: {
+  container: {
     display: 'flex',
     flexDirection: 'row',
     width: '100%',

@@ -6,6 +6,7 @@ import {RootState} from '../../../../redux/reduxStore/store';
 import {IProductCafeModel} from '../../../../redux/reduToolKitQuery/interfacesCoffeData';
 import {RenderItemAndroid} from './RenderItemAndroid';
 import {RenderItemIOS} from './RenderItemIos';
+import {Color} from '../../../../Color';
 
 export const RenderFlatList = () => {
   const productsCafeState = useSelector(
@@ -36,9 +37,11 @@ export const RenderFlatList = () => {
 
 const styles = StyleSheet.create({
   flatListLight: {
-    backgroundColor: '#f4f3f4',
+    backgroundColor:
+      Color.detailColorObject.renderFlatList.backgroundColor.light,
   },
   flatListDark: {
-    backgroundColor: '#534965',
+    backgroundColor:
+      Color.detailColorObject.renderFlatList.backgroundColor.dark,
   },
 });

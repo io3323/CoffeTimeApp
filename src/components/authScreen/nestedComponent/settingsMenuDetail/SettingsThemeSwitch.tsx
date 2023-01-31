@@ -9,6 +9,7 @@ import {dark, light} from '../../../../themeNameApp';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {toggleSwitch} from '../../../../redux/reduxStateSlice/switchThemeControllerSlice';
+import {Color} from '../../../../Color';
 export const SettingsThemeSwitch = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   const dispatch = useDispatch();
@@ -19,6 +20,12 @@ export const SettingsThemeSwitch = () => {
       ? dispatch(changeTheme({theme: light}))
       : dispatch(changeTheme({theme: dark}));
   };
+  const {
+    backgroundInactive,
+    backgroundActive,
+    circleActiveColor,
+    circleInActiveColor,
+  } = Color.authColorObject.settings.settingsMain.themeSwitch;
   return (
     <View>
       <Switch
@@ -32,10 +39,10 @@ export const SettingsThemeSwitch = () => {
         inactiveTextStyle={{fontSize: 20}}
         switchLeftPx={5}
         switchRightPx={5}
-        backgroundActive={'#6c6c6c'}
-        backgroundInactive={'#6C6C6CFF'}
-        circleActiveColor={'#232638'}
-        circleInActiveColor={'#eec060'}
+        backgroundActive={backgroundActive}
+        backgroundInactive={backgroundInactive}
+        circleActiveColor={circleActiveColor}
+        circleInActiveColor={circleInActiveColor}
       />
     </View>
   );

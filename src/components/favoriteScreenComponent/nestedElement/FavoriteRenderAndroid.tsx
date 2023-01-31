@@ -11,6 +11,7 @@ import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {IProductCafeModel} from '../../../redux/reduToolKitQuery/interfacesCoffeData';
 import {WIDTH_APP} from '../../../definitionSize';
+import {Color} from '../../../Color';
 type FavoriteRenderModel = {
   item: IProductCafeModel;
 };
@@ -27,10 +28,11 @@ export const FavoriteRenderAndroid: FC<FavoriteRenderModel> = props => {
     });
     dispatch(addInfoCeffeProduct(result));
   };
+  const {rippleColor} = Color.favoriteColorObject.favoriteRenderAndroid;
   return (
     <Pressable
-      android_ripple={{color: '#f4f3f4', foreground: true}}
-      style={styles.conteiner}
+      android_ripple={{color: rippleColor, foreground: true}}
+      style={styles.container}
       onPress={() => {
         getInfoProductsTab(id);
         navigation.navigate(DetailProductInfoName);
@@ -44,7 +46,7 @@ export const FavoriteRenderAndroid: FC<FavoriteRenderModel> = props => {
   );
 };
 const styles = StyleSheet.create({
-  conteiner: {
+  container: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',

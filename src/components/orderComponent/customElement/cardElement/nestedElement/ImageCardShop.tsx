@@ -8,7 +8,7 @@ type ImageCardShopModel = {
 export const ImageCardShop: FC<ImageCardShopModel> = ({image}) => {
   const [controller, setController] = useState(true);
   return (
-    <View style={styles.imageConteiner}>
+    <View style={styles.imageContainer}>
       {controller && (
         <Image
           source={{uri: image}}
@@ -24,7 +24,7 @@ export const ImageCardShop: FC<ImageCardShopModel> = ({image}) => {
 };
 
 const styles = StyleSheet.create({
-  imageConteiner: {justifyContent: 'center', alignItems: 'center'},
+  imageContainer: {justifyContent: 'center', alignItems: 'center'},
   productImage: {
     width: 125,
     height: 125,

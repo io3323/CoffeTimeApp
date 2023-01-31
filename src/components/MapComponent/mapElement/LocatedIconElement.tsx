@@ -29,7 +29,7 @@ export const LocatedIconElement = () => {
     });
   };
   return (
-    <View style={styles.locatedConteiner}>
+    <View style={styles.locatedContainer}>
       <TouchableOpacity onPress={() => getLocation()}>
         <Image
           source={themeState.theme == light ? located : locatedDark}
@@ -41,7 +41,7 @@ export const LocatedIconElement = () => {
 };
 
 const styles = StyleSheet.create({
-  locatedConteiner: {
+  locatedContainer: {
     width: '50%',
   },
   locatedIcon: {

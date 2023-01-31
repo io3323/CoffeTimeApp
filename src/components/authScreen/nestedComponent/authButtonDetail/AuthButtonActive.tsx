@@ -26,7 +26,9 @@ import {
 } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
+import {Color} from '../../../../Color';
 export const AuthButtonActive = () => {
+  const {buttonActive} = Color.authColorObject;
   const {t} = useTranslation();
   const themeState = useSelector((state: RootState) => state.themeState);
   const authDataUserState = useSelector(
@@ -70,7 +72,7 @@ export const AuthButtonActive = () => {
     const backgroundColor = interpolateColor(
       progress.value,
       [0, 1],
-      ['#C8D9AF', '#bbb8ee'],
+      buttonActive,
     );
     return {
       backgroundColor: backgroundColor,
@@ -105,14 +107,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: '80%',
     height: 52,
-  },
-  colorLight: {
-    backgroundColor: '#C8D9AF',
-    borderColor: '#C8D9AF',
-  },
-  colorDark: {
-    backgroundColor: '#bbb8ee',
-    borderColor: '#bbb8ee',
   },
   buttonTextLogin: {
     fontSize: 18,

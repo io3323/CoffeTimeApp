@@ -7,7 +7,9 @@ import {
 import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {addUserImageProfile} from '../../../redux/reduxStateSlice/userInfoSlice';
+import {Color} from '../../../Color';
 
+const {color} = Color.regComponent.photoPickerColor;
 export const FotoPickerElement = () => {
   const dispatch = useDispatch();
   const [photo, setPhoto] = useState<string | undefined>('');
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     borderStyle: 'dashed',
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: color,
     width: 134,
     height: 134,
     marginTop: 48,
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
   secondContainer: {
     borderStyle: 'dashed',
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: color,
     width: 128,
     height: 128,
     alignItems: 'center',
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
   roundFirst: {
     borderStyle: 'solid',
     borderWidth: 3,
-    borderColor: 'white',
+    borderColor: color,
     borderRadius: 200,
     width: 134,
     height: 134,
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
   roundSecond: {
     borderStyle: 'solid',
     borderWidth: 2,
-    borderColor: 'white',
+    borderColor: color,
     borderRadius: 200,
     width: 120,
     height: 120,

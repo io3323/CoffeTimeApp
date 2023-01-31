@@ -6,7 +6,9 @@ import {cloneMassive} from '../../redux/reduxStateSlice/favoriteScreenSlice';
 import {BackgroundComponent} from './nestedElement/BackgroundComponent';
 import {light} from '../../themeNameApp';
 import {FavoriteFlatList} from './nestedElement/FavoriteFlatList';
+import {Color} from '../../Color';
 
+const {color} = Color.favoriteColorObject.favoriteComponent;
 export const FavoriteComponent = () => {
   const favoriteScreenState = useSelector(
     (state: RootState) => state.favoriteScreenState,
@@ -22,7 +24,7 @@ export const FavoriteComponent = () => {
   return (
     <View
       style={[
-        styles.mainConteiner,
+        styles.mainContainer,
         themeState.theme == light ? styles.colorLight : styles.colorDark,
       ]}>
       {favoriteScreenState.length == 0 && <BackgroundComponent />}
@@ -31,14 +33,14 @@ export const FavoriteComponent = () => {
   );
 };
 const styles = StyleSheet.create({
-  mainConteiner: {
+  mainContainer: {
     width: '100%',
     height: '100%',
   },
   colorLight: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: color.light,
   },
   colorDark: {
-    backgroundColor: '#534965',
+    backgroundColor: color.dark,
   },
 });

@@ -5,6 +5,8 @@ import {deleteProduct} from '../../../../../redux/reduxStateSlice/basketUserSlic
 import {useDispatch} from 'react-redux';
 import {FC} from 'react';
 import {WIDTH_APP} from '../../../../../definitionSize';
+import {Color} from '../../../../../Color';
+const {color, iconColor} = Color.orderColorObject.hiddenCardShopElement;
 type HiddenCardShopType = {
   id: string;
   translationX: Animated.SharedValue<number>;
@@ -36,20 +38,11 @@ export const HiddenCardShopComponent: FC<HiddenCardShopType> = ({
   return (
     <View style={[styles.backIcon]}>
       <TouchableOpacity onPress={() => dispatchFunction()}>
-        <Animated.View style={[{alignItems: 'flex-end'}]}>
-          <Animated.View
-            style={[
-              {
-                height: '100%',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: 'red',
-              },
-              rIconContainerStyle,
-            ]}>
+        <Animated.View style={styles.mainAnimateContainer}>
+          <Animated.View style={[styles.animateContainer, rIconContainerStyle]}>
             <Icon
               name={'trash-2-outline'}
-              fill={'white'}
+              fill={color}
               width={56}
               height={56}
             />
@@ -66,5 +59,12 @@ const styles = StyleSheet.create({
     height: '85%',
     position: 'absolute',
     marginTop: '6%',
+  },
+  mainAnimateContainer: {alignItems: 'flex-end'},
+  animateContainer: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: iconColor,
   },
 });

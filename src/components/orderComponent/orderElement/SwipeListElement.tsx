@@ -22,7 +22,6 @@ export const SwipeListElement = () => {
         renderItem={renderItem}
         contentContainerStyle={{
           alignItems: 'center',
-          justifyContent: 'flex-start',
         }}
         showsVerticalScrollIndicator={false}
         scrollEnabled={true}

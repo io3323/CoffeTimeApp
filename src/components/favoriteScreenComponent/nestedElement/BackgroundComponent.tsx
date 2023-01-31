@@ -1,33 +1,36 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
-import imageNoCoffeLight from '../../../assets/image/detailScreen/imageNoCoffe.png';
-import imageNoCoffeDark from '../../../assets/image/detailScreen/imageNoCoffeDark.png';
+import imageNoCoffeeLight from '../../../assets/image/detailScreen/imageNoCoffe.png';
+import imageNoCoffeeDark from '../../../assets/image/detailScreen/imageNoCoffeDark.png';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {light} from '../../../themeNameApp';
 import {useTranslation} from 'react-i18next';
+import {Color} from '../../../Color';
+
+const {color, colorText} = Color.favoriteColorObject.backgroundComponent;
 export const BackgroundComponent = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   const {t} = useTranslation();
   return (
     <View
       style={[
-        styles.mainConteiner,
+        styles.mainContainer,
         themeState.theme == light ? styles.colorLight : styles.colorDark,
       ]}>
-      <View style={styles.nestedConteiner}>
-        <View style={styles.imageConteiner}>
+      <View style={styles.nestedContainer}>
+        <View style={styles.imageContainer}>
           <Image
             style={
               themeState.theme == light
-                ? styles.imageNoCoffeLight
-                : styles.imageNoCoffeDark
+                ? styles.imageNoCoffeeLight
+                : styles.imageNoCoffeeDark
             }
             source={
-              themeState.theme == light ? imageNoCoffeLight : imageNoCoffeDark
+              themeState.theme == light ? imageNoCoffeeLight : imageNoCoffeeDark
             }
           />
         </View>
-        <View style={styles.textConteiner}>
+        <View style={styles.textContainer}>
           <Text
             style={
               themeState.theme == light ? styles.textLight : styles.textDark
@@ -46,48 +49,48 @@ export const BackgroundComponent = () => {
   );
 };
 const styles = StyleSheet.create({
-  mainConteiner: {
+  mainContainer: {
     width: '100%',
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  nestedConteiner: {
+  nestedContainer: {
     marginTop: '-40%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  imageConteiner: {
+  imageContainer: {
     marginBottom: '16.5%',
   },
-  textConteiner: {
+  textContainer: {
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
   },
   colorLight: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: color.light,
   },
   colorDark: {
-    backgroundColor: '#534965',
+    backgroundColor: color.dark,
   },
-  imageNoCoffeDark: {
+  imageNoCoffeeDark: {
     width: 150,
     height: 150,
   },
-  imageNoCoffeLight: {
+  imageNoCoffeeLight: {
     width: 150,
     height: 150,
   },
   textLight: {
     fontSize: 16,
     fontFamily: 'SFUIText-Light',
-    color: '#717171',
+    color: colorText.light,
   },
   textDark: {
     fontSize: 16,
     fontFamily: 'SFUIText-Light',
-    color: 'white',
+    color: colorText.dark,
     marginTop: 10,
   },
 });

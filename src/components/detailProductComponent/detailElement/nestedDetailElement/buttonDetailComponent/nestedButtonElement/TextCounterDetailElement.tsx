@@ -2,7 +2,10 @@ import {light} from '../../../../../../themeNameApp';
 import {StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../../../redux/reduxStore/store';
+import {Color} from '../../../../../../Color';
 
+const {textContainer, textCount} =
+  Color.detailProductColorObject.textCountDetail;
 export const TextCounterDetailElement = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   const basketObjectState = useSelector(
@@ -12,8 +15,8 @@ export const TextCounterDetailElement = () => {
     <View
       style={
         themeState.theme == light
-          ? styles.textConteinerLight
-          : styles.textConteinerDark
+          ? styles.textContainerLight
+          : styles.textContainerDark
       }>
       <Text
         style={
@@ -31,14 +34,14 @@ export const TextCounterDetailElement = () => {
 const styles = StyleSheet.create({
   textCountLight: {
     fontSize: 35,
-    color: '#474747',
+    color: textCount.light,
   },
   textCountDark: {
     fontSize: 35,
-    color: 'white',
+    color: textCount.dark,
   },
-  textConteinerLight: {
-    backgroundColor: 'white',
+  textContainerLight: {
+    backgroundColor: textContainer.light,
     width: 50,
     height: '85%',
     alignItems: 'center',
@@ -46,8 +49,8 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     flex: 1,
   },
-  textConteinerDark: {
-    backgroundColor: '#716388',
+  textContainerDark: {
+    backgroundColor: textContainer.dark,
     width: 50,
     height: '85%',
     alignItems: 'center',

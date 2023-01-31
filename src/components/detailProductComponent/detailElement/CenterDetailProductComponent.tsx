@@ -4,7 +4,7 @@ import {FavoriteIconDetailElement} from './nestedDetailElement/centerDetailEleme
 
 export const CenterDetailProductComponent = () => {
   return (
-    <View style={styles.centerConteiner}>
+    <View style={styles.centerContainer}>
       <CenterTextContainer />
       <FavoriteIconDetailElement />
     </View>
@@ -12,7 +12,7 @@ export const CenterDetailProductComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  centerConteiner: {
+  centerContainer: {
     display: 'flex',
     flexDirection: 'row',
     height: '6%',

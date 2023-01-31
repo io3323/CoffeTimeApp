@@ -6,6 +6,9 @@ import {RootState} from '../../../../../redux/reduxStore/store';
 import {light} from '../../../../../themeNameApp';
 import {useTranslation} from 'react-i18next';
 import {IButtonState} from '../../../../../externalFunctions/detailProductScreen/createNormalButtonData';
+import {Color} from '../../../../../Color';
+
+const {color, textColor} = Color.detailProductColorObject.normalButton;
 export const DetailProductNormalButton: FunctionComponent<IButtonState> = ({
   infoProduct,
 }) => {
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
   buttonLight: {
     width: 207,
     height: 41,
-    backgroundColor: '#C8D9AF',
+    backgroundColor: color.light,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 60,
@@ -37,7 +40,7 @@ const styles = StyleSheet.create({
   buttonDark: {
     width: 207,
     height: 41,
-    backgroundColor: '#bbb8ee',
+    backgroundColor: color.dark,
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: 60,
@@ -45,6 +48,6 @@ const styles = StyleSheet.create({
   textButton: {
     fontSize: 20,
     fontFamily: 'SFUIText-Regular',
-    color: '#FFFFFF',
+    color: textColor,
   },
 });

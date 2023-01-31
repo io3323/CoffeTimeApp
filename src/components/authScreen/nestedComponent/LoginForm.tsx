@@ -15,12 +15,12 @@ const LoginForm = () => {
       <View>
         <PasswordInputDetail />
       </View>
-      <View style={[styles.buttonConteiner]}>
+      <View style={[styles.buttonContainer]}>
         <AuthButtonActive />
         <AuthButtonNotActive />
         <AuthButtonActivityIndicator />
       </View>
-      <View style={styles.registConteiner}>
+      <View style={styles.regContainer}>
         <AuthRegistButton />
       </View>
     </View>
@@ -32,14 +32,14 @@ const styles = StyleSheet.create({
     marginTop: '25%',
     height: HEIGHT_APP,
   },
-  buttonConteiner: {
+  buttonContainer: {
     width: '100%',
     height: '10%',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '1%',
   },
-  registConteiner: {
+  regContainer: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',

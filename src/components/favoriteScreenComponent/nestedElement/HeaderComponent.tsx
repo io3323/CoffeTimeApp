@@ -2,7 +2,9 @@ import {StyleSheet, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {light} from '../../../themeNameApp';
+import {Color} from '../../../Color';
 
+const {color, headerStyle} = Color.favoriteColorObject.headerComponent;
 export const HeaderComponent = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   return (
@@ -18,12 +20,12 @@ const styles = StyleSheet.create({
   headerStyle: {
     width: '100%',
     height: '1%',
-    backgroundColor: '#f2f2f2',
+    backgroundColor: headerStyle,
   },
   colorLight: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: color.light,
   },
   colorDark: {
-    backgroundColor: '#534965',
+    backgroundColor: color.dark,
   },
 });

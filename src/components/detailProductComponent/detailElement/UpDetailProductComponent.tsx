@@ -5,7 +5,7 @@ import {ImageBackgroundProductDetail} from './nestedDetailElement/upDetailElemen
 
 export const UpDetailProductComponent = () => {
   return (
-    <View style={styles.upConteiner}>
+    <View style={styles.upContainer}>
       <HitDetailElement />
       <ImageBackgroundProductDetail />
     </View>
@@ -13,7 +13,7 @@ export const UpDetailProductComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  upConteiner: {
+  upContainer: {
     alignItems: 'center',
     height: HEIGHT_APP * 0.35,
     justifyContent: 'flex-start',

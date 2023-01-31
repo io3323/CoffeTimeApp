@@ -25,7 +25,7 @@ export const InputPasswordFormRegist = () => {
     );
   }, [userInfoState.userInfo]);
   return (
-    <View style={styles.mainInputConteiner}>
+    <View style={styles.mainInputContainer}>
       <PasswordInputRegist />
       <EyeIcon />
       {writeIconControllerState.password && <PencilIcon />}
@@ -37,7 +37,7 @@ export const InputPasswordFormRegist = () => {
 };
 
 const styles = StyleSheet.create({
-  mainInputConteiner: {
+  mainInputContainer: {
     height: '10%',
     flexDirection: 'row',
     justifyContent: 'center',

@@ -9,7 +9,7 @@ export const PayButtonDetailElement = () => {
   const basketObjectState = useSelector(
     (state: RootState) => state.basketObjectState,
   );
-  const infoProductCoffeState = useSelector(
+  const infoProductCoffeeState = useSelector(
     (state: RootState) => state.infoProductCoffeState,
   );
   return (
@@ -18,9 +18,9 @@ export const PayButtonDetailElement = () => {
         <DetailProductNormalButton
           infoProduct={
             createNormalButtonData(
-              infoProductCoffeState,
+              infoProductCoffeeState,
               1,
-              infoProductCoffeState.price,
+              infoProductCoffeeState.price,
             ).infoProduct
           }
         />

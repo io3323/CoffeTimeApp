@@ -9,6 +9,7 @@ import {
   changeTheme,
 } from '../../../../../../redux/reduxStateSlice/themeSlice';
 import {dark, light} from '../../../../../../themeNameApp';
+import {Color} from '../../../../../../Color';
 
 export const ThemeSwitchComponent = () => {
   const {t} = useTranslation();
@@ -20,12 +21,18 @@ export const ThemeSwitchComponent = () => {
       ? dispatch(changeTheme({theme: light}))
       : dispatch(changeTheme({theme: dark}));
   };
+  const {
+    backgroundInactive,
+    backgroundActive,
+    circleActiveColor,
+    circleInActiveColor,
+  } = Color.drawerColorObject.themeSwitch;
   return (
-    <View style={styles.switchMainConteiner}>
-      <View style={styles.textSwitchConteiner}>
+    <View style={styles.switchMainContainer}>
+      <View style={styles.textSwitchContainer}>
         <Text style={styles.textSwitch}>{t('common:drawerScreen:theme')}</Text>
       </View>
-      <View style={styles.switchConteiner}>
+      <View style={styles.switchContainer}>
         <Switch
           value={themeState.themeController}
           onValueChange={toggleSwitchTheme}
@@ -37,10 +44,10 @@ export const ThemeSwitchComponent = () => {
           inactiveTextStyle={{fontSize: 20}}
           switchLeftPx={5}
           switchRightPx={5}
-          backgroundActive={'#6c6c6c'}
-          backgroundInactive={'#6C6C6CFF'}
-          circleActiveColor={'#232638'}
-          circleInActiveColor={'#eec060'}
+          backgroundActive={backgroundActive}
+          backgroundInactive={backgroundInactive}
+          circleActiveColor={circleActiveColor}
+          circleInActiveColor={circleInActiveColor}
         />
       </View>
     </View>
@@ -48,16 +55,16 @@ export const ThemeSwitchComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  switchMainConteiner: {
+  switchMainContainer: {
     width: '100%',
     marginTop: '5%',
     flexDirection: 'row',
   },
-  switchConteiner: {
+  switchContainer: {
     flex: 2,
     alignItems: 'center',
   },
-  textSwitchConteiner: {
+  textSwitchContainer: {
     flex: 3,
     justifyContent: 'center',
     alignItems: 'center',

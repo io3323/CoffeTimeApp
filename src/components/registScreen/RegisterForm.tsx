@@ -21,7 +21,7 @@ const RegisterForm = () => {
     dispatch(changeButtonControllerState());
   }, [userInfoState.userInfo]);
   return (
-    <View style={styles.mainConteiner}>
+    <View style={styles.mainContainer}>
       <FotoPickerElement />
       <InputNameFormRegist />
       <LineRegistElement />
@@ -40,7 +40,7 @@ const RegisterForm = () => {
   );
 };
 const styles = StyleSheet.create({
-  mainConteiner: {
+  mainContainer: {
     alignItems: 'center',
     height: 500,
   },

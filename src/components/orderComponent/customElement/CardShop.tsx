@@ -21,6 +21,7 @@ import {deleteProduct} from '../../../redux/reduxStateSlice/basketUserSlice';
 import {HiddenCardShopComponent} from './cardElement/hiddenElement/HiddenCardShopComponent';
 import {CardShopElement} from './cardElement/nestedElement/CardShopElement';
 import {WIDTH_APP} from '../../../definitionSize';
+import {Color} from '../../../Color';
 const LIST_ITEM_HEIGHT = 150;
 interface CardShopModel
   extends Pick<PanGestureHandlerProps, 'simultaneousHandlers'> {
@@ -32,6 +33,8 @@ type ContextType = {
   x: number;
   state: number;
 };
+
+const {color} = Color.orderColorObject.cardShop;
 export const CardShop: FunctionComponent<CardShopModel> = props => {
   const TRANSLATE_X_THRESHOLD = -WIDTH_APP * 0.35;
   const dispatch = useDispatch();
@@ -134,7 +137,7 @@ const styles = StyleSheet.create({
   containerMainLight: {
     width: WIDTH_APP * 0.95,
     height: '90%',
-    backgroundColor: 'white',
+    backgroundColor: color.light,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -142,7 +145,7 @@ const styles = StyleSheet.create({
   containerMainDark: {
     width: 370,
     height: 131,
-    backgroundColor: '#6f6483',
+    backgroundColor: color.dark,
     marginTop: 20,
     borderRadius: 10,
   },

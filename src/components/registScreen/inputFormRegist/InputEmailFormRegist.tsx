@@ -24,7 +24,7 @@ export const InputEmailFormRegist = () => {
     );
   }, [userInfoState.userInfo]);
   return (
-    <View style={styles.mainInputConteiner}>
+    <View style={styles.mainInputContainer}>
       <EmailInputRegist />
       {writeIconControllerState.email && <PencilIcon />}
       {!writeIconControllerState.email && (
@@ -35,7 +35,7 @@ export const InputEmailFormRegist = () => {
 };
 
 const styles = StyleSheet.create({
-  mainInputConteiner: {
+  mainInputContainer: {
     height: '10%',
     flexDirection: 'row',
     justifyContent: 'center',

@@ -12,7 +12,6 @@ import {
   useDerivedValue,
   withSpring,
 } from 'react-native-reanimated';
-import {colorObjectDrawer} from '../colorObjectNestedComponent/colorObjectDrawer';
 import Animated from 'react-native-reanimated';
 import {UserNameDrawer} from './elements/UserNameDrawer';
 import {ShopIconComponent} from './elements/ShopIconComponent';
@@ -20,6 +19,7 @@ import {FavoriteDrawerComponent} from './elements/FavoriteDrawerComponent';
 import {LocalSwitchComponent} from './elements/LocalSwitchComponent';
 import {ThemeSwitchComponent} from './elements/ThemeSwitchComponent';
 import {ExitButtonComponent} from './elements/ExitButtonComponent';
+import {Color} from '../../../../../Color';
 export const DrawerNestedCompinent = () => {
   const userInfoState = useSelector((state: RootState) => state.userInfoState);
   const themeState = useSelector((state: RootState) => state.themeState);
@@ -37,14 +37,12 @@ export const DrawerNestedCompinent = () => {
   const progress = useDerivedValue(() =>
     themeState.theme == light ? withSpring(0) : withSpring(1),
   );
+  const {backgroundColorDrawer} = Color.drawerColorObject.mainComponent;
   const rStyleDrawerCont = useAnimatedStyle(() => {
     const background = interpolateColor(
       progress.value,
       [0, 1],
-      [
-        colorObjectDrawer.drawerConteinerLightBack,
-        colorObjectDrawer.drawerConteinerDarkBack,
-      ],
+      [backgroundColorDrawer.light, backgroundColorDrawer.dark],
     );
     return {
       backgroundColor: background,
@@ -55,11 +53,11 @@ export const DrawerNestedCompinent = () => {
       style={{
         backgroundColor:
           themeState.theme == light
-            ? colorObjectDrawer.drawerConteinerLightBack
-            : colorObjectDrawer.drawerConteinerDarkBack,
+            ? backgroundColorDrawer.light
+            : backgroundColorDrawer.dark,
       }}>
-      <Animated.View style={[styles.mainConteiner, rStyleDrawerCont]}>
-        <View style={styles.imageConteiner}>
+      <Animated.View style={[styles.mainContainer, rStyleDrawerCont]}>
+        <View style={styles.imageContainer}>
           <UserImageComponent image={userInfoState.userInfo!.userImage} />
         </View>
         <UserNameDrawer />
@@ -73,13 +71,13 @@ export const DrawerNestedCompinent = () => {
   );
 };
 const styles = StyleSheet.create({
-  mainConteiner: {
+  mainContainer: {
     width: '100%',
     height: HEIGHT_APP,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  imageConteiner: {
+  imageContainer: {
     alignItems: 'center',
     justifyContent: 'flex-start',
     marginTop: '20%',

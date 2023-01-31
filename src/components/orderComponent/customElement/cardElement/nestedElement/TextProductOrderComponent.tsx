@@ -3,16 +3,19 @@ import {light} from '../../../../../themeNameApp';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../../redux/reduxStore/store';
 import {FC} from 'react';
+import {Color} from '../../../../../Color';
 
 type TextProductOrderModel = {
   productName: string;
 };
+
+const {color} = Color.orderColorObject.textProductOrder;
 export const TextProductOrderComponent: FC<TextProductOrderModel> = ({
   productName,
 }) => {
   const themeState = useSelector((state: RootState) => state.themeState);
   return (
-    <View style={styles.textProductConteiner}>
+    <View style={styles.textProductContainer}>
       <Text
         style={
           themeState.theme == light
@@ -27,7 +30,7 @@ export const TextProductOrderComponent: FC<TextProductOrderModel> = ({
 };
 
 const styles = StyleSheet.create({
-  textProductConteiner: {
+  textProductContainer: {
     width: 170,
     height: 30,
   },
@@ -35,12 +38,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 5,
     fontFamily: 'Lobster-Regular',
-    color: '#474747',
+    color: color.light,
   },
   textNameProductDark: {
     fontSize: 20,
     marginTop: 5,
     fontFamily: 'Lobster-Regular',
-    color: 'white',
+    color: color.dark,
   },
 });

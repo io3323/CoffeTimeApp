@@ -6,12 +6,15 @@ import {IncrementButton} from './nestedButtonElement/IncrementButton';
 import {DecrementButton} from './nestedButtonElement/DecrementButton';
 import {TextBlockButtonDetailElement} from './nestedButtonElement/TextBlockButtonDetailElement';
 import {TextCounterDetailElement} from './nestedButtonElement/TextCounterDetailElement';
+import {Color} from '../../../../../Color';
+
+const {color} = Color.detailProductColorObject.activeButton;
 export const DetailProductActiveButton = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   return (
     <View
       style={
-        themeState.theme == light ? styles.conteinerLight : styles.conteinerDark
+        themeState.theme == light ? styles.containerLight : styles.containerDark
       }>
       <TextBlockButtonDetailElement />
       <DecrementButton />
@@ -21,20 +24,20 @@ export const DetailProductActiveButton = () => {
   );
 };
 const styles = StyleSheet.create({
-  conteinerLight: {
+  containerLight: {
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: '#C8D9AF',
+    backgroundColor: color.light,
     width: 215,
     height: 41,
     alignItems: 'center',
     justifyContent: 'flex-end',
     marginLeft: 60,
   },
-  conteinerDark: {
+  containerDark: {
     display: 'flex',
     flexDirection: 'row',
-    backgroundColor: '#bbb8ee',
+    backgroundColor: color.dark,
     width: 215,
     height: 41,
     alignItems: 'center',

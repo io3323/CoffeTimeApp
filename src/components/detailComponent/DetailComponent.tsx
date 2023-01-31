@@ -6,6 +6,7 @@ import {light} from '../../themeNameApp';
 import {RenderFlatList} from './nestedComponent/renderComponent/RenderFlatList';
 import {RenderHeaderItem} from './nestedComponent/renderComponent/RenderHeaderItem';
 import {createRenderHeaderItem} from '../../externalFunctions/detailScreen/createRenderHeaderItem';
+import {Color} from '../../Color';
 LogBox.ignoreLogs(['source.uri']);
 const HEADER_MIN_HEIGHT = 50;
 const HEADER_MAX_HEIGHT = 320;
@@ -23,8 +24,8 @@ export const DetailComponent = () => {
     <SafeAreaView
       style={
         themeState.theme == light
-          ? styles.mainConteinerLight
-          : styles.mainConteinerDark
+          ? styles.mainContainerLight
+          : styles.mainContainerDark
       }>
       <Animated.ScrollView
         contentContainerStyle={
@@ -55,11 +56,12 @@ export const DetailComponent = () => {
   );
 };
 const styles = StyleSheet.create({
-  mainConteinerLight: {
-    backgroundColor: '#f4f3f4',
+  mainContainerLight: {
+    backgroundColor:
+      Color.detailColorObject.mainContainer.backgroundColor.light,
   },
-  mainConteinerDark: {
-    backgroundColor: '#534965',
+  mainContainerDark: {
+    backgroundColor: Color.detailColorObject.mainContainer.backgroundColor.dark,
   },
   contentContainerStyleLight: {
     paddingTop: HEADER_MAX_HEIGHT - 32,

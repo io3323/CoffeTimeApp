@@ -3,25 +3,20 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import {StyleSheet} from 'react-native';
-import {colorFlatListObject} from '../../../colorFlatListObject';
 import {FC} from 'react';
+import {Color} from '../../../../../Color';
 type NameCardListModel = {
   progress: Animated.SharedValue<number>;
   name: string;
 };
+
+const {colorMas} = Color.listColorObject.nameCardList;
 export const NameCardListElement: FC<NameCardListModel> = ({
   progress,
   name,
 }) => {
   const rStyleTextColor = useAnimatedStyle(() => {
-    const color = interpolateColor(
-      progress.value,
-      [0, 1],
-      [
-        colorFlatListObject.nameTextLightColor,
-        colorFlatListObject.nameTextDarkColor,
-      ],
-    );
+    const color = interpolateColor(progress.value, [0, 1], colorMas);
     return {
       color: color,
     };

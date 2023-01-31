@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {light} from '../../../../themeNameApp';
 import {useTranslation} from 'react-i18next';
+import {Color} from '../../../../Color';
 
 export const AuthButtonNotActive = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
@@ -48,17 +49,17 @@ const styles = StyleSheet.create({
     height: 52,
   },
   colorLight: {
-    backgroundColor: '#bdbbbb',
-    borderColor: '#BDBBBBFF',
+    backgroundColor: Color.authColorObject.buttonNA.backgroundColor,
+    borderColor: Color.authColorObject.buttonNA.backgroundColor,
   },
   colorDark: {
-    backgroundColor: '#bdbbbb',
-    borderColor: '#BDBBBBFF',
+    backgroundColor: Color.authColorObject.buttonNA.backgroundColor,
+    borderColor: Color.authColorObject.buttonNA.backgroundColor,
   },
   buttonTextLogin: {
     fontSize: 18,
     fontFamily: 'SFUIText-Regular',
-    color: 'white',
+    color: Color.authColorObject.buttonNA.textColor,
     textAlign: 'center',
     marginTop: 14,
   },

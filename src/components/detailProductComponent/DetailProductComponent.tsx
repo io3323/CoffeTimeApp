@@ -12,6 +12,10 @@ import {UpDetailProductComponent} from './detailElement/UpDetailProductComponent
 import {CenterDetailProductComponent} from './detailElement/CenterDetailProductComponent';
 import {AtributeDetailComponent} from './detailElement/AtributeDetailComponent';
 import {BottomDetailProductComponent} from './detailElement/BottomDetailProductComponent';
+import {Color} from '../../Color';
+
+const {mainContainer, safeAreaContainer} =
+  Color.detailProductColorObject.detailProductComponent;
 export const DetailProductComponent = () => {
   const infoProductCoffeState = useSelector(
     (state: RootState) => state.infoProductCoffeState,
@@ -41,16 +45,16 @@ export const DetailProductComponent = () => {
     <SafeAreaView
       style={
         themeState.theme == light
-          ? styles.safeAreaConteinerLight
-          : styles.safeAreaConteinerDark
+          ? styles.safeAreaContainerLight
+          : styles.safeAreaContainerDark
       }>
       <View
         style={
           themeState.theme == light
-            ? styles.mainConteinerLight
-            : styles.mainConteinerDark
+            ? styles.mainContainerLight
+            : styles.mainContainerDark
         }>
-        <View style={styles.upGlobalConteiner}>
+        <View style={styles.upGlobalContainer}>
           <UpDetailProductComponent />
           <CenterDetailProductComponent />
           <AtributeDetailComponent />
@@ -62,22 +66,21 @@ export const DetailProductComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  safeAreaConteinerLight: {backgroundColor: 'white'},
-  safeAreaConteinerDark: {backgroundColor: '#534965'},
-  mainConteinerLight: {
+  safeAreaContainerLight: {backgroundColor: safeAreaContainer.light},
+  safeAreaContainerDark: {backgroundColor: safeAreaContainer.dark},
+  mainContainerLight: {
     height: '100%',
-    backgroundColor: 'white',
+    backgroundColor: mainContainer.light,
     alignItems: 'center',
   },
-  mainConteinerDark: {
+  mainContainerDark: {
     height: '100%',
-    backgroundColor: '#534965',
+    backgroundColor: mainContainer.dark,
     alignItems: 'center',
   },
-  upGlobalConteiner: {
+  upGlobalContainer: {
     flex: 6,
     marginLeft: '3%',
     marginRight: '3%',
-    //alignItems: 'center',
   },
 });

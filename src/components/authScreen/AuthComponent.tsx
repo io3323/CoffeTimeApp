@@ -12,14 +12,11 @@ import {SettingsIcon} from './nestedComponent/SettingsIcon';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/reduxStore/store';
 import {light} from '../../themeNameApp';
-import {
-  linerGradientColorsDark,
-  linerGradientColorsLight,
-} from '../detailComponent/nestedComponent/DetailComponentColor';
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import {changeStatusController} from '../../redux/reduxStateSlice/settingsControllerSlice';
 import {HEIGHT_APP, WIDTH_APP} from '../../definitionSize';
 import {KeyboardCheck} from '../generalComponent/KeyboardCheck';
+import {Color} from '../../Color';
 export const AuthComponent = () => {
   const dispatch = useDispatch();
   const themeState = useSelector((state: RootState) => state.themeState);
@@ -34,13 +31,12 @@ export const AuthComponent = () => {
       runOnJS(functrionDispatch)(false);
     },
   });
+  const {linerGradient} = Color.authColorObject.mainComponent;
   return (
     <ImageBackground style={styles.viewContainer} source={image}>
       <LinearGradient
         colors={
-          themeState.theme == light
-            ? linerGradientColorsLight
-            : linerGradientColorsDark
+          themeState.theme == light ? linerGradient.light : linerGradient.dark
         }>
         <SafeAreaView style={styles.viewStyle}>
           <View>
@@ -97,21 +93,5 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     borderRadius: 5,
-  },
-  keyboardConteiner: {
-    flex: 1,
-  },
-  buttonConteiner: {
-    width: '100%',
-    height: '10%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-    backgroundColor: 'red',
-  },
-  registConteiner: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

@@ -12,26 +12,25 @@ import {RootState} from '../../../../../redux/reduxStore/store';
 import {WIDTH_APP} from '../../../../../definitionSize';
 import {colorFlatListObject} from '../../../colorFlatListObject';
 import {FC} from 'react';
+import {Color} from '../../../../../Color';
 type DescriptionIconCardListModel = {
   progress: Animated.SharedValue<number>;
 };
+
+const {colorMas} = Color.listColorObject.descriptionIcon;
 export const DescriptionIconCardListElement: FC<
   DescriptionIconCardListModel
 > = ({progress}) => {
   const {t} = useTranslation();
   const themeState = useSelector((state: RootState) => state.themeState);
   const rStyleTextColorInfo = useAnimatedStyle(() => {
-    const color = interpolateColor(
-      progress.value,
-      [0, 1],
-      [colorFlatListObject.textLight, colorFlatListObject.textDark],
-    );
+    const color = interpolateColor(progress.value, [0, 1], colorMas);
     return {
       color: color,
     };
   });
   return (
-    <View style={styles.conteinerGoIcon}>
+    <View style={styles.containerGoIcon}>
       <Animated.Text style={rStyleTextColorInfo}>
         {t('common:listScreen:descriptionInfo')}
       </Animated.Text>
@@ -44,7 +43,7 @@ export const DescriptionIconCardListElement: FC<
 };
 
 const styles = StyleSheet.create({
-  conteinerGoIcon: {
+  containerGoIcon: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',

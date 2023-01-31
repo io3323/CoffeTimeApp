@@ -30,7 +30,7 @@ export const RenderItemIOS: FC<ModelRenderIOS> = item => {
   };
   return (
     <TouchableOpacity
-      style={styles.conteiner}
+      style={styles.container}
       onPress={() => {
         getInfoProductsTab(item.renderModel.id);
         navigation.navigate(DetailProductInfoName);
@@ -43,13 +43,12 @@ export const RenderItemIOS: FC<ModelRenderIOS> = item => {
 };
 
 const styles = StyleSheet.create({
-  conteiner: {
+  container: {
     display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: WIDTH_APP * 0.45,
     height: 270,
     marginLeft: 12.5,
-    backgroundColor: 'red',
   },
 });

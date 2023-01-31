@@ -8,30 +8,24 @@ import {
   useDerivedValue,
   withSpring,
 } from 'react-native-reanimated';
-import {separatorColorObject} from './separatorColorObject';
 import Animated from 'react-native-reanimated';
+import {Color} from '../../../Color';
 export const Separator = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   const progress = useDerivedValue(() =>
     themeState.theme == light ? withSpring(0) : withSpring(1),
   );
+  const {colorMas} = Color.listColorObject.separatorColor;
   const rStyle = useAnimatedStyle(() => {
-    const background = interpolateColor(
-      progress.value,
-      [0, 1],
-      [
-        separatorColorObject.separatopLightBack,
-        separatorColorObject.separatopDarkBack,
-      ],
-    );
+    const background = interpolateColor(progress.value, [0, 1], colorMas);
     return {
       backgroundColor: background,
     };
   });
-  return <Animated.View style={[rStyle, styles.separatopStyle]} />;
+  return <Animated.View style={[rStyle, styles.separatorStyle]} />;
 };
 const styles = StyleSheet.create({
-  separatopStyle: {
+  separatorStyle: {
     height: 10,
     width: '100%',
   },

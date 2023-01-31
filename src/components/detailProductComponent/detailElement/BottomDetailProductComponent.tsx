@@ -5,7 +5,10 @@ import {RootState} from '../../../redux/reduxStore/store';
 import {TextPriceContainer} from './nestedDetailElement/bottomDetailElement/TextPriceContainer';
 import {IconPriceContainer} from './nestedDetailElement/bottomDetailElement/IconPriceContainer';
 import {PayButtonDetailElement} from './nestedDetailElement/bottomDetailElement/PayButtonDetailElement';
+import {Color} from '../../../Color';
 
+const {bottomContainer, separator} =
+  Color.detailProductColorObject.bottomDetailComponent;
 export const BottomDetailProductComponent = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   return (
@@ -13,8 +16,8 @@ export const BottomDetailProductComponent = () => {
       <View
         style={
           themeState.theme == light
-            ? styles.bottomConteinerLight
-            : styles.bottomConteinerDark
+            ? styles.bottomContainerLight
+            : styles.bottomContainerDark
         }>
         <View
           style={
@@ -23,7 +26,7 @@ export const BottomDetailProductComponent = () => {
               : styles.separatorDark
           }
         />
-        <View style={styles.priceConteiner}>
+        <View style={styles.priceContainer}>
           <TextPriceContainer />
           <IconPriceContainer />
           <PayButtonDetailElement />
@@ -37,33 +40,33 @@ const styles = StyleSheet.create({
   bottomGlobalContainer: {
     flex: 1,
   },
-  bottomConteinerLight: {
+  bottomContainerLight: {
     alignItems: 'center',
     justifyContent: 'flex-end',
-    backgroundColor: 'white',
+    backgroundColor: bottomContainer.light,
     width: '100%',
     flex: 1.5,
   },
-  bottomConteinerDark: {
+  bottomContainerDark: {
     alignItems: 'center',
     justifyContent: 'flex-end',
-    backgroundColor: '#534965',
+    backgroundColor: bottomContainer.dark,
     width: '100%',
     flex: 1.5,
   },
-  priceConteiner: {
+  priceContainer: {
     display: 'flex',
     flexDirection: 'row',
     marginBottom: '3.1%',
     marginTop: '2.8%',
   },
   separatorLight: {
-    borderColor: '#D8D8D8',
+    borderColor: separator.light,
     borderWidth: 1,
     width: 340,
   },
   separatorDark: {
-    borderColor: 'white',
+    borderColor: separator.dark,
     borderWidth: 1,
     width: 340,
   },

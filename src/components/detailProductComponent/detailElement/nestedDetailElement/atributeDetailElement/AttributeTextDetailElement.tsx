@@ -2,58 +2,60 @@ import {StyleSheet, Text, View} from 'react-native';
 import {light} from '../../../../../themeNameApp';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../../redux/reduxStore/store';
+import {Color} from '../../../../../Color';
 
+const {color} = Color.detailProductColorObject.attributeTextColor;
 export const AttributeTextDetailElement = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   return (
-    <View style={[styles.textConteiner]}>
-      <View style={styles.textConteinerMilk}>
+    <View style={[styles.textContainer]}>
+      <View style={styles.textContainerMilk}>
         <Text
           style={[
             themeState.theme == light
-              ? styles.textAtributesMilkLight
-              : styles.textAtributesMilkDark,
+              ? styles.textAttributesMilkLight
+              : styles.textAttributesMilkDark,
           ]}>
           15мл
         </Text>
       </View>
-      <View style={styles.textConteinerCoffe}>
+      <View style={styles.textContainerCoffee}>
         <Text
           style={[
             themeState.theme == light
-              ? styles.textAtributesCoffeLight
-              : styles.textAtributesCoffeDark,
+              ? styles.textAttributesCoffeeLight
+              : styles.textAttributesCoffeeDark,
           ]}>
           {' '}
           25%
         </Text>
       </View>
-      <View style={styles.textConteinerWater}>
+      <View style={styles.textContainerWater}>
         <Text
           style={[
             themeState.theme == light
-              ? styles.textAtributesWaterLight
-              : styles.textAtributesWaterDark,
+              ? styles.textAttributesWaterLight
+              : styles.textAttributesWaterDark,
           ]}>
           25мл
         </Text>
       </View>
-      <View style={styles.textConteinerTemperature}>
+      <View style={styles.textContainerTemperature}>
         <Text
           style={[
             themeState.theme == light
-              ? styles.textAtributesTemperatureLight
-              : styles.textAtributesTemperatureDark,
+              ? styles.textAttributesTemperatureLight
+              : styles.textAttributesTemperatureDark,
           ]}>
           95`
         </Text>
       </View>
-      <View style={styles.textConteinerPression}>
+      <View style={styles.textContainerPressure}>
         <Text
           style={[
             themeState.theme == light
-              ? styles.textAtributesPressionLight
-              : styles.textAtributesPressionDark,
+              ? styles.textAttributesPressureLight
+              : styles.textAttributesPressureDark,
           ]}>
           15б
         </Text>
@@ -63,73 +65,73 @@ export const AttributeTextDetailElement = () => {
 };
 
 const styles = StyleSheet.create({
-  textConteinerCoffe: {
+  textContainerCoffee: {
     width: 40,
     marginLeft: 15,
     alignItems: 'center',
   },
-  textConteinerWater: {
+  textContainerWater: {
     width: 40,
     marginLeft: 15,
     alignItems: 'center',
   },
-  textConteinerTemperature: {
+  textContainerTemperature: {
     width: 40,
     marginLeft: 15,
     alignItems: 'center',
   },
-  textConteinerPression: {
+  textContainerPressure: {
     width: 40,
     marginLeft: 15,
     alignItems: 'center',
   },
-  textConteiner: {
+  textContainer: {
     display: 'flex',
     flexDirection: 'row',
     marginTop: 10,
   },
-  textConteinerMilk: {
+  textContainerMilk: {
     width: 40,
     alignItems: 'center',
   },
-  textAtributesMilkLight: {
+  textAttributesMilkLight: {
     fontSize: 10,
-    color: '#474747',
+    color: color.light,
   },
-  textAtributesMilkDark: {
+  textAttributesMilkDark: {
     fontSize: 10,
-    color: 'white',
+    color: color.dark,
   },
-  textAtributesCoffeLight: {
+  textAttributesCoffeeLight: {
     fontSize: 10,
-    color: '#474747',
+    color: color.light,
   },
-  textAtributesCoffeDark: {
+  textAttributesCoffeeDark: {
     fontSize: 10,
-    color: 'white',
+    color: color.dark,
   },
-  textAtributesWaterLight: {
+  textAttributesWaterLight: {
     fontSize: 10,
-    color: '#474747',
+    color: color.light,
   },
-  textAtributesWaterDark: {
+  textAttributesWaterDark: {
     fontSize: 10,
-    color: 'white',
+    color: color.dark,
   },
-  textAtributesTemperatureLight: {
+  textAttributesTemperatureLight: {
     fontSize: 10,
-    color: '#474747',
+    color: color.light,
   },
-  textAtributesTemperatureDark: {
+  textAttributesTemperatureDark: {
     fontSize: 10,
-    color: 'white',
+    color: color.dark,
   },
-  textAtributesPressionLight: {
+  textAttributesPressureLight: {
     fontSize: 10,
-    color: '#474747',
+    color: color.light,
   },
-  textAtributesPressionDark: {
+  textAttributesPressureDark: {
     fontSize: 10,
-    color: 'white',
+    color: color.dark,
   },
 });

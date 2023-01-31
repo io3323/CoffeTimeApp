@@ -14,7 +14,9 @@ import {
 import {useEffect} from 'react';
 import {toggleSwitch} from '../../../../redux/reduxStateSlice/switchThemeControllerSlice';
 import Animated from 'react-native-reanimated';
+import {Color} from '../../../../Color';
 export const SettingsMenuDetail = () => {
+  const {animatedContainer} = Color.authColorObject.settings.settingsMain;
   const themeState = useSelector((state: RootState) => state.themeState);
   const switchThemeControllerState = useSelector(
     (state: RootState) => state.switchThemeControllerState,
@@ -70,8 +72,8 @@ export const SettingsMenuDetail = () => {
           {
             backgroundColor:
               themeState.theme == light
-                ? '#f3e9d8'
-                : colorObjectDrawer.drawerConteinerDarkBack,
+                ? animatedContainer.light
+                : animatedContainer.dark,
           },
           rStyle,
         ]}
@@ -94,10 +96,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   colorLight: {
-    backgroundColor: '#f3e9d8',
+    backgroundColor:
+      Color.authColorObject.settings.settingsMain.mainContainer.light,
   },
   colorDark: {
-    backgroundColor: '#3a3450',
+    backgroundColor:
+      Color.authColorObject.settings.settingsMain.mainContainer.dark,
   },
   separatorStyle: {
     marginTop: 10,

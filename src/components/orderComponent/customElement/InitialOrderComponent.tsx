@@ -4,13 +4,15 @@ import {light} from '../../../themeNameApp';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
+import {Color} from '../../../Color';
 
+const {textColor} = Color.orderColorObject.initialOrderComponent;
 export const InitialOrderComponent = () => {
   const {t} = useTranslation();
   const themeState = useSelector((state: RootState) => state.themeState);
   return (
-    <View style={styles.mainInitialConteiner}>
-      <Image source={imageNoCoffe} style={styles.imageNoCoffe} />
+    <View style={styles.mainInitialContainer}>
+      <Image source={imageNoCoffe} style={styles.imageNoCoffee} />
       <View style={styles.initialView}>
         <Text
           style={
@@ -34,14 +36,14 @@ export const InitialOrderComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  mainInitialConteiner: {
+  mainInitialContainer: {
     width: '100%',
     height: '100%',
     alignItems: 'center',
     marginVertical: 160,
   },
   initialView: {marginTop: 80},
-  imageNoCoffe: {
+  imageNoCoffee: {
     width: 160,
     height: 160,
   },
@@ -50,13 +52,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontFamily: 'SFUIText-Light',
     fontSize: 18,
-    color: '#474747',
+    color: textColor.light,
   },
   textInitialPageDark: {
     alignSelf: 'center',
     marginTop: 20,
     fontFamily: 'SFUIText-Light',
     fontSize: 18,
-    color: 'white',
+    color: textColor.dark,
   },
 });

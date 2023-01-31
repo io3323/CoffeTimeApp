@@ -14,7 +14,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
 import {addPasswordUser} from '../../../../redux/reduxStateSlice/authDataUserSlice';
 import {light} from '../../../../themeNameApp';
-import {formObjectColor} from './formObjectColor';
 import {
   interpolateColor,
   useAnimatedStyle,
@@ -23,8 +22,11 @@ import {
 } from 'react-native-reanimated';
 import Animated from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
+import {Color} from '../../../../Color';
 
 export const PasswordInputDetail = () => {
+  const {colorMas, textInputColor, placeholderColor, cursorColor} =
+    Color.authColorObject.passwordInput;
   const [securePassword, setSecurePassword] = useState(true);
   const authDataUserState = useSelector(
     (state: RootState) => state.authDataUserState,
@@ -37,11 +39,7 @@ export const PasswordInputDetail = () => {
       : withTiming(1, {duration: 2000}),
   );
   const rStyle = useAnimatedStyle(() => {
-    const background = interpolateColor(
-      progress.value,
-      [0, 1],
-      [formObjectColor.lineColorLight, formObjectColor.lineColorDark],
-    );
+    const background = interpolateColor(progress.value, [0, 1], colorMas);
     return {
       backgroundColor: background,
     };
@@ -50,26 +48,24 @@ export const PasswordInputDetail = () => {
   const {t} = useTranslation();
   let passwordPlaceholder = t('common:authScreen:passwordInput');
   return (
-    <View style={styles.inputConteiner}>
+    <View style={styles.inputContainer}>
       <TextInput
         placeholder={passwordPlaceholder}
         cursorColor={
-          themeState.theme == light
-            ? formObjectColor.colorLight
-            : formObjectColor.colorDark
+          themeState.theme == light ? cursorColor.light : cursorColor.dark
         }
         placeholderTextColor={
           themeState.theme == light
-            ? formObjectColor.colorLight
-            : formObjectColor.colorDark
+            ? placeholderColor.light
+            : placeholderColor.dark
         }
         style={[
           styles.input,
           {
             color:
               themeState.theme == light
-                ? formObjectColor.colorLight
-                : formObjectColor.colorDark,
+                ? textInputColor.light
+                : textInputColor.dark,
           },
         ]}
         autoCapitalize={'none'}
@@ -111,7 +107,7 @@ export const PasswordInputDetail = () => {
 };
 
 const styles = StyleSheet.create({
-  inputConteiner: {
+  inputContainer: {
     alignItems: 'center',
   },
   input: {

@@ -3,7 +3,9 @@ import {StyleSheet, Text} from 'react-native';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../../redux/reduxStore/store';
 import {useTranslation} from 'react-i18next';
+import {Color} from '../../../../../Color';
 
+const {color} = Color.orderColorObject.priceDescription;
 export const PriceDescriptionComponent = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
   const {t} = useTranslation();
@@ -11,8 +13,8 @@ export const PriceDescriptionComponent = () => {
     <Text
       style={
         themeState.theme == light
-          ? styles.priceDesriptionLight
-          : styles.priceDesriptionDark
+          ? styles.priceDescriptionLight
+          : styles.priceDescriptionDark
       }>
       {t('common:orderScreen:cardShop:price')}
     </Text>
@@ -20,16 +22,16 @@ export const PriceDescriptionComponent = () => {
 };
 
 const styles = StyleSheet.create({
-  priceDesriptionLight: {
+  priceDescriptionLight: {
     fontSize: 23,
     marginTop: 3,
     fontFamily: 'SFUIText-Bold',
-    color: '#474747',
+    color: color.light,
   },
-  priceDesriptionDark: {
+  priceDescriptionDark: {
     fontSize: 23,
     marginTop: 3,
     fontFamily: 'SFUIText-Bold',
-    color: 'white',
+    color: color.dark,
   },
 });

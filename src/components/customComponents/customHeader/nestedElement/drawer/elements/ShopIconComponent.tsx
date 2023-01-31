@@ -7,6 +7,7 @@ import {useTranslation} from 'react-i18next';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {HEIGHT_APP} from '../../../../../../definitionSize';
+import {Color} from '../../../../../../Color';
 type ShopIconComponentModel = {
   totalPrice: number;
 };
@@ -14,19 +15,19 @@ export const ShopIconComponent: FC<ShopIconComponentModel> = ({totalPrice}) => {
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const {t} = useTranslation();
   return (
-    <View style={styles.bagConteiner}>
-      <View style={styles.bagTextConteiner}>
+    <View style={styles.bagContainer}>
+      <View style={styles.bagTextContainer}>
         <Text style={styles.bagText}>{t('common:drawerScreen:bagShop')}</Text>
       </View>
       <TouchableOpacity
-        style={styles.bagIconConteiner}
+        style={styles.bagIconContainer}
         onPress={() => navigation.navigate(OrderScreenName)}>
-        <View style={styles.nestedBagConteiner}>
+        <View style={styles.nestedBagContainer}>
           <Image style={styles.bagImageIcon} source={shoppingBagWhite} />
         </View>
         {totalPrice != 0 && (
-          <View style={styles.conteiner}>
-            <View style={styles.nestedConteiner}>
+          <View style={styles.container}>
+            <View style={styles.nestedContainer}>
               <Text style={styles.textPrice}>{totalPrice}</Text>
               <Image source={rubleGray} style={styles.rubleGray} />
             </View>
@@ -38,17 +39,17 @@ export const ShopIconComponent: FC<ShopIconComponentModel> = ({totalPrice}) => {
 };
 
 const styles = StyleSheet.create({
-  bagConteiner: {
+  bagContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
     marginTop: '5%',
   },
-  bagTextConteiner: {
+  bagTextContainer: {
     alignItems: 'center',
     flex: 3,
   },
-  bagIconConteiner: {
+  bagIconContainer: {
     flex: 2,
     alignItems: 'center',
     flexDirection: 'row',
@@ -58,17 +59,17 @@ const styles = StyleSheet.create({
     height: 50,
   },
   bagText: {
-    color: 'white',
+    color: Color.drawerColorObject.shopIconComponent.colorText,
     fontFamily: 'SFUIText-Regular',
     fontSize: 20,
   },
-  nestedBagConteiner: {
+  nestedBagContainer: {
     flex: 3,
   },
-  nestedConteiner: {
+  nestedContainer: {
     flexDirection: 'row',
   },
-  conteiner: {
+  container: {
     display: 'flex',
     justifyContent: 'flex-start',
     flex: 3,
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     height: 15,
   },
   textPrice: {
-    color: 'white',
+    color: Color.drawerColorObject.shopIconComponent.colorText,
     fontFamily: 'Helvetica',
   },
 });

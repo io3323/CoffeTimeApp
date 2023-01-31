@@ -3,9 +3,12 @@ import {light} from '../../../../../themeNameApp';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../../redux/reduxStore/store';
 import {FC} from 'react';
+import {Color} from '../../../../../Color';
 type CounterShopModel = {
   count: number;
 };
+
+const {color} = Color.orderColorObject.counterShopComponent;
 export const CounterShopComponent: FC<CounterShopModel> = ({count}) => {
   const themeState = useSelector((state: RootState) => state.themeState);
   return (
@@ -30,10 +33,10 @@ const styles = StyleSheet.create({
   },
   counterLight: {
     fontSize: 30,
-    color: '#474747',
+    color: color.light,
   },
   counterDark: {
     fontSize: 30,
-    color: 'white',
+    color: color.dark,
   },
 });

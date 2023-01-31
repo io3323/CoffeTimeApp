@@ -1,6 +1,7 @@
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {FunctionComponent} from 'react';
 import newUserIcon from '../../../../../../assets/image/stateImageReg/newUser.png';
+import {Color} from '../../../../../../Color';
 type ModelUserImage = {
   image: string | undefined;
 };
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   container: {
     borderStyle: 'dashed',
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: Color.drawerColorObject.userImageComponent.borderColor,
     width: 134,
     height: 134,
     alignItems: 'center',
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   secondContainer: {
     borderStyle: 'dashed',
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: Color.drawerColorObject.userImageComponent.borderColor,
     width: 128,
     height: 128,
     alignItems: 'center',
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
   roundFirst: {
     borderStyle: 'solid',
     borderWidth: 3,
-    borderColor: 'white',
+    borderColor: Color.drawerColorObject.userImageComponent.borderColor,
     borderRadius: 200,
     width: 134,
     height: 134,
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
   roundSecond: {
     borderStyle: 'solid',
     borderWidth: 2,
-    borderColor: 'white',
+    borderColor: Color.drawerColorObject.userImageComponent.borderColor,
     borderRadius: 200,
     width: 120,
     height: 120,

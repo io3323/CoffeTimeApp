@@ -49,7 +49,7 @@ export const ListRenderIOSComponent: FC<RenderModel> = props => {
   };
   return (
     <TouchableOpacity
-      style={styles.conteiner}
+      style={styles.container}
       onPress={() => {
         handleNavigation(props.renderItem.id);
       }}>
@@ -60,7 +60,7 @@ export const ListRenderIOSComponent: FC<RenderModel> = props => {
 };
 
 const styles = StyleSheet.create({
-  conteiner: {
+  container: {
     display: 'flex',
     flexDirection: 'row',
     width: '100%',
