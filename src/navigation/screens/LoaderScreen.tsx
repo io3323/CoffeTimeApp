@@ -8,6 +8,7 @@ import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {NameTabStack} from '../navigator/nameScreen';
 import {changeButtonIndicatorState} from '../../redux/reduxStateSlice/indicatorButtonSlice';
+import {light} from '../../themeNameApp';
 export const LoaderScreen = () => {
   const tokenUser = useSelector((state: RootState) => state.tokenState);
   const [getCoffe] = useGetCoffeMutation();
@@ -22,19 +23,30 @@ export const LoaderScreen = () => {
     dispatch(addDataCoffe(result));
     navigation.navigate(NameTabStack);
   };
+  const themeState = useSelector((state: RootState) => state.themeState);
   return (
-    <SafeAreaView>
-      <View style={styles.mainConteiner}>
-        <ActivityIndicator size={'large'} color={'#474747'} />
+    <SafeAreaView
+      style={themeState.theme == light ? styles.colorLight : styles.colorDark}>
+      <View style={[styles.mainContainer]}>
+        <ActivityIndicator
+          size={'large'}
+          color={themeState.theme == light ? '#474747' : 'white'}
+        />
       </View>
     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
-  mainConteiner: {
+  mainContainer: {
     height: '100%',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  colorLight: {
+    backgroundColor: 'white',
+  },
+  colorDark: {
+    backgroundColor: '#534965',
   },
 });
