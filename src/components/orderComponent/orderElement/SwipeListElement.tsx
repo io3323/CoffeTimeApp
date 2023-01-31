@@ -20,7 +20,10 @@ export const SwipeListElement = () => {
         data={basketUserState}
         keyExtractor={item => item.id}
         renderItem={renderItem}
-        contentContainerStyle={{alignItems: 'center'}}
+        contentContainerStyle={{
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+        }}
         showsVerticalScrollIndicator={false}
         scrollEnabled={true}
       />

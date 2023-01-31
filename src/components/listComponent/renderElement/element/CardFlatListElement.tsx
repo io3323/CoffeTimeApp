@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 import {light} from '../../../../themeNameApp';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../../redux/reduxStore/store';
-import {ItemModelList} from '../RenderItemListComponent';
+import {ItemModelList} from '../ListRenderIOSComponent';
 import {FC} from 'react';
 import {NameCardListElement} from './cardFlatList/NameCardListElement';
 import {AddressDescriptionCardListElement} from './cardFlatList/AddressDescriptionCardListElement';

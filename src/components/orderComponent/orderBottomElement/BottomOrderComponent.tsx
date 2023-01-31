@@ -16,7 +16,7 @@ export const BottomOrderComponent: FC<BottomOrderModel> = ({
 }) => {
   const themeState = useSelector((state: RootState) => state.themeState);
   return (
-    <View style={styles.mainConteinerBottom}>
+    <View style={styles.mainContainerBottom}>
       <View style={styles.collectingBottomConteiner}>
         <View
           style={
@@ -24,7 +24,7 @@ export const BottomOrderComponent: FC<BottomOrderModel> = ({
               ? styles.totalViewLight
               : styles.totalViewDark
           }>
-          <View style={styles.generalConteiner}>
+          <View style={styles.generalContainer}>
             <View style={styles.priceAndCountConteiner}>
               <DrinkCounterContainerComponent totalCount={totalCount} />
               <PriceContainerComponent totalPrice={totalPrice} />
@@ -38,7 +38,7 @@ export const BottomOrderComponent: FC<BottomOrderModel> = ({
 };
 
 const styles = StyleSheet.create({
-  mainConteinerBottom: {
+  mainContainerBottom: {
     flex: 1,
     justifyContent: 'flex-end',
   },
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  generalConteiner: {flexDirection: 'row'},
+  generalContainer: {flexDirection: 'row'},
   priceAndCountConteiner: {
     flex: 2,
     justifyContent: 'center',

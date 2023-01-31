@@ -1,4 +1,4 @@
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, Pressable, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../../redux/reduxStore/store';
 import {addCafeInfo} from '../../../redux/reduxStateSlice/cafeInfoSlice';
@@ -13,6 +13,7 @@ import {
 import {FC} from 'react';
 import {ImageBackgroundListElement} from './element/ImageBackgroundListElement';
 import {CardFlatListElement} from './element/CardFlatListElement';
+import {HEIGHT_APP} from '../../../definitionSize';
 export type ItemModelList = {
   id: string;
   name: string;
@@ -24,7 +25,7 @@ export type ItemModelList = {
 type RenderModel = {
   renderItem: ItemModelList;
 };
-export const RenderItemListComponent: FC<RenderModel> = props => {
+export const ListRenderAndroidComponent: FC<RenderModel> = props => {
   const dispatch = useDispatch();
   const [getCafe] = useGetCafeMutation();
   const [getProductsCafe] = useGetProductsCafeMutation();
@@ -48,14 +49,22 @@ export const RenderItemListComponent: FC<RenderModel> = props => {
     navigation.navigate(DetailedInfoName);
   };
   return (
-    <TouchableOpacity
+    <Pressable
+      android_ripple={{color: '#f4f3f4', foreground: true}}
       style={styles.conteiner}
       onPress={() => {
         handleNavigation(props.renderItem.id);
       }}>
-      <ImageBackgroundListElement image={props.renderItem.images} />
-      <CardFlatListElement listItem={props.renderItem} />
-    </TouchableOpacity>
+      <View
+        style={{
+          flexDirection: 'row',
+          width: '100%',
+          height: HEIGHT_APP * 0.19,
+        }}>
+        <ImageBackgroundListElement image={props.renderItem.images} />
+        <CardFlatListElement listItem={props.renderItem} />
+      </View>
+    </Pressable>
   );
 };
 

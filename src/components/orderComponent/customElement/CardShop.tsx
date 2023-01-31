@@ -103,70 +103,47 @@ export const CardShop: FunctionComponent<CardShopModel> = props => {
   const themeState = useSelector((state: RootState) => state.themeState);
   return (
     <View>
-      {id != '' && (
-        <Animated.View style={rContainerStyle}>
-          <HiddenCardShopComponent id={id} translationX={translationX} x={x} />
-          <PanGestureHandler
-            failOffsetY={[-5, 5]}
-            activeOffsetX={[-5, 5]}
-            simultaneousHandlers={props.simultaneousHandlers}
-            onGestureEvent={panGesture}>
-            <Animated.View
-              style={[
-                themeState.theme == light
-                  ? styles.conteinerMainLight
-                  : styles.conteinerMainDark,
-                rStyle,
-              ]}>
-              <CardShopElement item={props.renderCard} />
-            </Animated.View>
-          </PanGestureHandler>
-        </Animated.View>
-      )}
+      <Animated.View style={[rContainerStyle, styles.blockContainer]}>
+        <HiddenCardShopComponent id={id} translationX={translationX} x={x} />
+        <PanGestureHandler
+          failOffsetY={[-5, 5]}
+          activeOffsetX={[-5, 5]}
+          simultaneousHandlers={props.simultaneousHandlers}
+          onGestureEvent={panGesture}>
+          <Animated.View
+            style={[
+              themeState.theme == light
+                ? styles.containerMainLight
+                : styles.containerMainDark,
+              rStyle,
+            ]}>
+            <CardShopElement item={props.renderCard} />
+          </Animated.View>
+        </PanGestureHandler>
+      </Animated.View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  conteiner: {
-    display: 'flex',
-    flexDirection: 'row',
+  blockContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
   },
-  blockConteiner: {
-    marginLeft: 10,
-  },
-  conteinerMainLight: {
-    width: 370,
-    height: 131,
+  containerMainLight: {
+    width: WIDTH_APP * 0.95,
+    height: '90%',
     backgroundColor: 'white',
-    marginTop: 20,
     borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  conteinerMainDark: {
+  containerMainDark: {
     width: 370,
     height: 131,
     backgroundColor: '#6f6483',
     marginTop: 20,
     borderRadius: 10,
-  },
-  conteinerVertical: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  conteinerPrice: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginTop: 20,
-    alignItems: 'flex-end',
-  },
-  textPodunctConteinerDelete: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: 235,
-    height: 30,
-  },
-  image: {
-    width: 30,
-    height: 30,
   },
 });

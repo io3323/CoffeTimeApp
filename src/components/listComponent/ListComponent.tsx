@@ -7,6 +7,7 @@ import {
   FlatList,
   ListRenderItem,
   LogBox,
+  Platform,
   RefreshControl,
   StyleSheet,
 } from 'react-native';
@@ -21,8 +22,9 @@ import {light} from '../../themeNameApp';
 import {colorFlatListObject} from './colorFlatListObject';
 import {
   ItemModelList,
-  RenderItemListComponent,
-} from './renderElement/RenderItemListComponent';
+  ListRenderIOSComponent,
+} from './renderElement/ListRenderIOSComponent';
+import {ListRenderAndroidComponent} from './renderElement/ListRenderAndroidComponent';
 LogBox.ignoreLogs(['source.uri']);
 export const ListComponent = () => {
   const themeState = useSelector((state: RootState) => state.themeState);
@@ -62,7 +64,11 @@ export const ListComponent = () => {
     };
   });
   const renderItem: ListRenderItem<ItemModelList> = ({item}) => {
-    return <RenderItemListComponent renderItem={item} />;
+    return Platform.OS == 'ios' ? (
+      <ListRenderIOSComponent renderItem={item} />
+    ) : (
+      <ListRenderAndroidComponent renderItem={item} />
+    );
   };
   return (
     <Animated.View style={rStyleMainCont}>
