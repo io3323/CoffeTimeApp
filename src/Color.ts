@@ -426,4 +426,14 @@ export const Color = {
   splashColorObject: {
     color: '#c5b4a0',
   },
+  loaderColorObject: {
+    color: {
+      light: 'white',
+      dark: '#534965',
+    },
+    colorIndicator: {
+      light: '#474747',
+      dark: 'white',
+    },
+  },
 };

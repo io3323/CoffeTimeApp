@@ -9,6 +9,9 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {NameTabStack} from '../navigator/nameScreen';
 import {changeButtonIndicatorState} from '../../redux/reduxStateSlice/indicatorButtonSlice';
 import {light} from '../../themeNameApp';
+import {Color} from '../../Color';
+
+const {color, colorIndicator} = Color.loaderColorObject;
 export const LoaderScreen = () => {
   const tokenUser = useSelector((state: RootState) => state.tokenState);
   const [getCoffe] = useGetCoffeMutation();
@@ -30,7 +33,11 @@ export const LoaderScreen = () => {
       <View style={[styles.mainContainer]}>
         <ActivityIndicator
           size={'large'}
-          color={themeState.theme == light ? '#474747' : 'white'}
+          color={
+            themeState.theme == light
+              ? colorIndicator.light
+              : colorIndicator.dark
+          }
         />
       </View>
     </SafeAreaView>
@@ -44,9 +51,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   colorLight: {
-    backgroundColor: 'white',
+    backgroundColor: color.light,
   },
   colorDark: {
-    backgroundColor: '#534965',
+    backgroundColor: color.dark,
   },
 });
