@@ -36,7 +36,7 @@ export const MapInfoElement = () => {
     <View style={styles.cardStyle}>
       <Animated.View style={[styles.blockContainer, rStyleBlockBack]}>
         <Animated.Text style={[styles.textCafe, rStyleText]}>
-          CoffeTime
+          QFPN
         </Animated.Text>
         <MapSeparatorElement />
         <Text style={styles.subText}>{t('common:mapScreen:distance')}</Text>

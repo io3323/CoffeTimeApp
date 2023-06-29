@@ -34,6 +34,10 @@ export const ListComponent = () => {
   const coffeeDataState = useSelector(
     (state: RootState) => state.coffeDataState,
   );
+
+  const coffeeDataNotReg = useSelector(
+    (state: RootState) => state.coffeDataNoRegState,
+  );
   const [getCoffe] = useGetCoffeMutation();
   const [refreshing, setRefreshing] = useState(false);
   const wait = (timeout: number) => {
@@ -70,19 +74,37 @@ export const ListComponent = () => {
       <ListRenderAndroidComponent renderItem={item} />
     );
   };
+
+  const globalRegSlice = useSelector(
+    (state: RootState) => state.globalRegState,
+  );
   return (
     <Animated.View style={rStyleMainCont}>
-      <FlatList
-        data={coffeeDataState}
-        showsVerticalScrollIndicator={false}
-        ItemSeparatorComponent={Separator}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        style={styles.flatListStyle}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
+      {globalRegSlice ? (
+        <FlatList
+          data={coffeeDataNotReg}
+          showsVerticalScrollIndicator={false}
+          ItemSeparatorComponent={Separator}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          style={styles.flatListStyle}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
+      ) : (
+        <FlatList
+          data={coffeeDataState}
+          showsVerticalScrollIndicator={false}
+          ItemSeparatorComponent={Separator}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          style={styles.flatListStyle}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
+      )}
     </Animated.View>
   );
 };

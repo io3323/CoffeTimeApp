@@ -45,7 +45,7 @@ export const RegisterComponent = () => {
               scrollEnabled={scrollController}>
               <BackButtonRegist />
               <MainTextRegist />
-              <AdditionalTextRegist />
+              {/* <AdditionalTextRegist /> */}
               <KeyboardAwareRegistForm />
             </ScrollView>
           </SafeAreaView>

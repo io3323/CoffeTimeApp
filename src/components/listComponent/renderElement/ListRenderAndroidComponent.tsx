@@ -43,6 +43,7 @@ export const ListRenderAndroidComponent: FC<RenderModel> = props => {
         sessionId: tokenUser.token,
         cafeId: idCafe,
       });
+      console.log(cafeProducts, 'cafeProducts')
       dispatch(addProducts(cafeProducts));
     } else {
       console.log('no idCafe');

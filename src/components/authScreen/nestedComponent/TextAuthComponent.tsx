@@ -11,14 +11,14 @@ export const TextAuthComponent = () => {
     <View>
       <View style={styles.textContainerMain}>
         <Text style={styles.mainText} adjustsFontSizeToFit={true}>
-          CoffeTime
+          QFPN
         </Text>
       </View>
-      <View style={styles.additionalTextContainer}>
+      {/* <View style={styles.additionalTextContainer}>
         <Text style={styles.additionalText}>
           {t('common:authScreen:additionalText')}
         </Text>
-      </View>
+      </View> */}
     </View>
   );
 };

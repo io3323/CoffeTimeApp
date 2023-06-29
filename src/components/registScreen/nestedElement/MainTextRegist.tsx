@@ -5,7 +5,7 @@ const {color} = Color.regComponent.mainText;
 export const MainTextRegist = () => {
   return (
     <View style={styles.mainTextContainer}>
-      <Text style={styles.mainText}>CoffeTime</Text>
+      <Text style={styles.mainText}>QFPN</Text>
     </View>
   );
 };

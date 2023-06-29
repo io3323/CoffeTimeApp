@@ -26,6 +26,9 @@ import switchThemeControllerSlice from '../reduxStateSlice/switchThemeController
 import securePasswordSlice from '../reduxStateSlice/securePasswordSlice';
 import writeIconControllerSlice from '../reduxStateSlice/writeIconControllerSlice';
 import keyboardStatusSlice from '../reduxStateSlice/keyboardStatusSlice';
+import dataSliceNoRegist from '../reduxStateSlice/dataSliceNoRegist';
+import globalRegSlice from '../reduxStateSlice/globalRegSlice';
+
 const rootReducer = combineReducers({
   coordinateState: coordinateSlice,
   [coffeData.reducerPath]: coffeData.reducer,
@@ -53,6 +56,8 @@ const rootReducer = combineReducers({
   securePasswordState: securePasswordSlice,
   writeIconControllerState: writeIconControllerSlice,
   keyboardStatusState: keyboardStatusSlice,
+  coffeDataNoRegState: dataSliceNoRegist,
+  globalRegState: globalRegSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

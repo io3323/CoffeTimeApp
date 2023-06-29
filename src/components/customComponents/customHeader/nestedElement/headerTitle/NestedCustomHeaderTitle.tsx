@@ -14,7 +14,7 @@ export const NestedCustomHeaderTitle = () => {
             ? styles.textHeaderLight
             : styles.textHeaderDark
         }>
-        CoffeTime
+        QFPN
       </Text>
     </View>
   );

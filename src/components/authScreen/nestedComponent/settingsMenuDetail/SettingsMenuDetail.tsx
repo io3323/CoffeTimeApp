@@ -15,6 +15,7 @@ import {useEffect} from 'react';
 import {toggleSwitch} from '../../../../redux/reduxStateSlice/switchThemeControllerSlice';
 import Animated from 'react-native-reanimated';
 import {Color} from '../../../../Color';
+import {SettingsDevModeSwitch} from './SettingsDevModeSwitch';
 export const SettingsMenuDetail = () => {
   const {animatedContainer} = Color.authColorObject.settings.settingsMain;
   const themeState = useSelector((state: RootState) => state.themeState);
@@ -82,6 +83,9 @@ export const SettingsMenuDetail = () => {
       <View style={styles.separatorStyle} />
       <Animated.View style={rStyleLocalSwitch}>
         <SettingsLanguageSwitch />
+      </Animated.View>
+      <Animated.View style={rStyleLocalSwitch}>
+        <SettingsDevModeSwitch />
       </Animated.View>
     </View>
   );
