@@ -11,18 +11,38 @@ export const DescriptionTextDetailElement = () => {
   const infoProductCoffeeState = useSelector(
     (state: RootState) => state.infoProductCoffeState,
   );
+
+  const globalRegSlice = useSelector(
+    (state: RootState) => state.globalRegState,
+  );
+
+  const productInfoNoRegSlice = useSelector(
+    (state: RootState) => state.productInfoNoRegState,
+  );
+
   const {t} = useTranslation();
   return (
     <View style={styles.textDescriptionContainer}>
-      <Text
-        style={
-          themeState.theme == light
-            ? styles.textDescriptionLight
-            : styles.textDescriptionDark
-        }>
-        {infoProductCoffeeState.productName} –{' '}
-        {t('common:detailProductScreen:descriptionProduct')}
-      </Text>
+      {globalRegSlice ? (
+        <Text
+          style={
+            themeState.theme == light
+              ? styles.textDescriptionLight
+              : styles.textDescriptionDark
+          }>
+          {productInfoNoRegSlice.description}
+        </Text>
+      ) : (
+        <Text
+          style={
+            themeState.theme == light
+              ? styles.textDescriptionLight
+              : styles.textDescriptionDark
+          }>
+          {infoProductCoffeeState.productName} –{' '}
+          {t('common:detailProductScreen:descriptionProduct')}
+        </Text>
+      )}
     </View>
   );
 };

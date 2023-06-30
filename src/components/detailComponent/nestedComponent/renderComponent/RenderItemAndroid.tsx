@@ -14,6 +14,7 @@ import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {FC} from 'react';
 import {Color} from '../../../../Color';
+import {setProductInfoNoRegSlice} from '../../../../redux/reduxStateSlice/productInfoNoRegSlice';
 type ModelRenderAndroid = {
   renderModel: IProductCafeModel;
 };
@@ -21,13 +22,26 @@ export const RenderItemAndroid: FC<ModelRenderAndroid> = item => {
   const dispatch = useDispatch();
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const tokenUser = useSelector((state: RootState) => state.tokenState);
+  const globalRegSlice = useSelector(
+    (state: RootState) => state.globalRegState,
+  );
   const [getProductInfo] = useGetProductInfoMutation();
   const getInfoProductsTab = async (id: string) => {
-    const result = await getProductInfo({
-      sessionId: tokenUser.token,
-      productId: id,
-    });
-    dispatch(addInfoCeffeProduct(result));
+    if (!globalRegSlice) {
+      const result = await getProductInfo({
+        sessionId: tokenUser.token,
+        productId: id,
+      });
+      dispatch(addInfoCeffeProduct(result));
+    } else {
+      console.log(item.renderModel.productInfo, 'ffffff');
+      const result = item.renderModel.productInfo;
+      console.log(result, 'res');
+      if (!!result) {
+        dispatch(addInfoCeffeProduct({data: result}));
+        dispatch(setProductInfoNoRegSlice(result));
+      }
+    }
   };
   const {rippleColor} = Color.detailColorObject.renderItemAndroid;
   return (

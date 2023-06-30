@@ -27,6 +27,8 @@ import {
 import Animated from 'react-native-reanimated';
 import {useTranslation} from 'react-i18next';
 import {Color} from '../../../../Color';
+import {NameTabStack} from '../../../../navigation/navigator/nameScreen';
+
 export const AuthButtonActive = () => {
   const {buttonActive} = Color.authColorObject;
   const {t} = useTranslation();
@@ -37,25 +39,34 @@ export const AuthButtonActive = () => {
   const indicatorButtonState = useSelector(
     (state: RootState) => state.indicatorButtonState,
   );
+
+  const globalRegSlice = useSelector(
+    (state: RootState) => state.globalRegState,
+  );
   const [addLogin] = useAddLoginMutation();
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
   const handleLoginScreen = async () => {
-    dispatch(changeButtonIndicatorState({active: true}));
-    const result = await addLogin({
-      email: authDataUserState.login!,
-      password: authDataUserState.password!,
-    });
-    dispatch(addToken(result));
-    saveData();
-    const checkResult = checkFunction(result);
-    if (checkResult === GOODRes) {
-      navigation.navigate(LoaderScreenName);
-    } else if (checkResult === MistakeUser) {
-      dispatch(changeButtonIndicatorState({active: false}));
-      Alert.alert(t('common:authScreen:dataError'));
-    } else if (checkResult === ERORNet) {
-      dispatch(changeButtonIndicatorState({active: false}));
-      Alert.alert(t('common:authScreen:networkError'));
+    console.log(globalRegSlice, 'global');
+    if (!globalRegSlice) {
+      dispatch(changeButtonIndicatorState({active: true}));
+      const result = await addLogin({
+        email: authDataUserState.login!,
+        password: authDataUserState.password!,
+      });
+      dispatch(addToken(result));
+      saveData();
+      const checkResult = checkFunction(result);
+      if (checkResult === GOODRes) {
+        navigation.navigate(LoaderScreenName);
+      } else if (checkResult === MistakeUser) {
+        dispatch(changeButtonIndicatorState({active: false}));
+        Alert.alert(t('common:authScreen:dataError'));
+      } else if (checkResult === ERORNet) {
+        dispatch(changeButtonIndicatorState({active: false}));
+        Alert.alert(t('common:authScreen:networkError'));
+      }
+    } else {
+      navigation.navigate(NameTabStack);
     }
   };
   const dispatch = useDispatch();

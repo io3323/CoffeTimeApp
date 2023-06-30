@@ -23,10 +23,16 @@ export const MapComponent = () => {
   const coordinateState = useSelector(
     (state: RootState) => state.coordinateState,
   );
+
+  const globalRegSplice = useSelector(
+    (state: RootState) => state.globalRegState,
+  );
   const dispatch = useDispatch();
   const themeState = useSelector((state: RootState) => state.themeState);
   useEffect(() => {
-    dispatch(addMarkers(coffeeDataState));
+    if (!globalRegSplice) {
+      dispatch(addMarkers(coffeeDataState));
+    }
   }, []);
   const getLocation = () => {
     const result = requestLocationPermission();
@@ -60,8 +66,8 @@ export const MapComponent = () => {
           //   longitudeDelta: 0.0121,
           // }}
           region={{
-            latitude: coordinateState.latitude,
-            longitude: coordinateState.longitude,
+            latitude: globalRegSplice ? 46.834159 : coordinateState.latitude,
+            longitude: globalRegSplice ? 29.624785 : coordinateState.longitude,
             latitudeDelta: 0.015,
             longitudeDelta: 0.0121,
           }}
@@ -80,7 +86,7 @@ export const MapComponent = () => {
           <LocatedIconElement />
           <SearchIconElemen />
         </View>
-        <MapInfoElement />
+        {/* <MapInfoElement /> */}
       </View>
     </View>
   );

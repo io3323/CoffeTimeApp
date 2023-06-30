@@ -44,6 +44,7 @@ export interface IProductCafeModel {
   price: number;
   favorite: boolean;
   imagesPath: string;
+  productInfo?: IProductFullInfo;
 }
 export type NestedProductCafeModel = Array<IProductCafeModel>;
 export type IProductCafeModelV2 =

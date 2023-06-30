@@ -15,6 +15,7 @@ import {ImageBackgroundListElement} from './element/ImageBackgroundListElement';
 import {CardFlatListElement} from './element/CardFlatListElement';
 import {HEIGHT_APP} from '../../../definitionSize';
 import {Color} from '../../../Color';
+import {setCurrentElement} from '../../../redux/reduxStateSlice/currentElementSlice';
 export type ItemModelList = {
   id: string;
   name: string;
@@ -32,23 +33,36 @@ export const ListRenderAndroidComponent: FC<RenderModel> = props => {
   const [getProductsCafe] = useGetProductsCafeMutation();
   const tokenUser = useSelector((state: RootState) => state.tokenState);
   const navigation = useNavigation<StackNavigationProp<ParamListBase>>();
+  const globalRegSlice = useSelector(
+    (state: RootState) => state.globalRegState,
+  );
+  const coffeDataNoRegState = useSelector(
+    (state: RootState) => state.coffeDataNoRegState,
+  );
+
+  console.log(coffeDataNoRegState, 'cccc');
   const handleNavigation = async (idCafe: string) => {
-    if (idCafe != '') {
-      const cafeInfo = await getCafe({
-        sessionId: tokenUser.token,
-        cafeId: idCafe,
-      }).unwrap();
-      dispatch(addCafeInfo(cafeInfo));
-      const cafeProducts = await getProductsCafe({
-        sessionId: tokenUser.token,
-        cafeId: idCafe,
-      });
-      console.log(cafeProducts, 'cafeProducts')
-      dispatch(addProducts(cafeProducts));
+    if (!globalRegSlice) {
+      if (idCafe != '') {
+        const cafeInfo = await getCafe({
+          sessionId: tokenUser.token,
+          cafeId: idCafe,
+        }).unwrap();
+        dispatch(addCafeInfo(cafeInfo));
+        const cafeProducts = await getProductsCafe({
+          sessionId: tokenUser.token,
+          cafeId: idCafe,
+        });
+        console.log(cafeProducts, 'cafeProducts');
+        dispatch(addProducts(cafeProducts));
+      } else {
+        console.log('no idCafe');
+      }
+      navigation.navigate(DetailedInfoName);
     } else {
-      console.log('no idCafe');
+      dispatch(setCurrentElement(idCafe));
+      navigation.navigate(DetailedInfoName);
     }
-    navigation.navigate(DetailedInfoName);
   };
   const {rippleColor} = Color.listColorObject.listRenderAndroid;
   return (

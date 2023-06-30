@@ -11,8 +11,8 @@ export const AtributeDetailComponent = () => {
   return (
     <View style={styles.container}>
       <View>
-        <AttributeImageDetail />
-        <AttributeTextDetailElement />
+        {/* <AttributeImageDetail />
+        <AttributeTextDetailElement /> */}
         <DescriptionTextDetailElement />
       </View>
     </View>

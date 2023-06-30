@@ -28,6 +28,8 @@ import writeIconControllerSlice from '../reduxStateSlice/writeIconControllerSlic
 import keyboardStatusSlice from '../reduxStateSlice/keyboardStatusSlice';
 import dataSliceNoRegist from '../reduxStateSlice/dataSliceNoRegist';
 import globalRegSlice from '../reduxStateSlice/globalRegSlice';
+import currentElementSlice from '../reduxStateSlice/currentElementSlice';
+import productInfoNoRegSlice from '../reduxStateSlice/productInfoNoRegSlice';
 
 const rootReducer = combineReducers({
   coordinateState: coordinateSlice,
@@ -58,6 +60,8 @@ const rootReducer = combineReducers({
   keyboardStatusState: keyboardStatusSlice,
   coffeDataNoRegState: dataSliceNoRegist,
   globalRegState: globalRegSlice,
+  currentElementState: currentElementSlice,
+  productInfoNoRegState: productInfoNoRegSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

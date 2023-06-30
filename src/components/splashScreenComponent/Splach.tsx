@@ -64,7 +64,7 @@ export const Splash = () => {
       collapsable={false}
       style={[style.container, {opacity: containerOpacity}]}>
       <Animated.Image
-        source={require('../../assets/image/splashScreen/splachScreen.png')}
+        // source={require('../../assets/image/splashScreen/splachScreen.png')}
         fadeDuration={0}
         onLoad={() => {
           setState(FADE_IN_IMAGE);

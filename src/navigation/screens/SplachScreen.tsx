@@ -9,5 +9,9 @@ export const SplachScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  mainConteiner: {width: '100%', height: '100%', backgroundColor: '#d0c0b0'},
+  mainConteiner: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgb(0,110,233)',
+  },
 });

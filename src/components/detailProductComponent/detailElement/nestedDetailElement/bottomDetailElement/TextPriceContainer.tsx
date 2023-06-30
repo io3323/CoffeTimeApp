@@ -9,14 +9,36 @@ export const TextPriceContainer = () => {
   const basketObjectState = useSelector(
     (state: RootState) => state.basketObjectState,
   );
+
+  const globalRegSlice = useSelector(
+    (state: RootState) => state.globalRegState,
+  );
+
+  const productInfoNoRegSlice = useSelector(
+    (state: RootState) => state.productInfoNoRegState,
+  );
+
   return (
     <View style={styles.textPriceContainer}>
-      <Text
-        style={themeState.theme == light ? styles.priceLight : styles.priceDark}
-        adjustsFontSizeToFit={true}
-        numberOfLines={1}>
-        {basketObjectState.price}
-      </Text>
+      {globalRegSlice ? (
+        <Text
+          style={
+            themeState.theme == light ? styles.priceLight : styles.priceDark
+          }
+          adjustsFontSizeToFit={true}
+          numberOfLines={1}>
+          {basketObjectState.price}
+        </Text>
+      ) : (
+        <Text
+          style={
+            themeState.theme == light ? styles.priceLight : styles.priceDark
+          }
+          adjustsFontSizeToFit={true}
+          numberOfLines={1}>
+          {basketObjectState.price}
+        </Text>
+      )}
     </View>
   );
 };
